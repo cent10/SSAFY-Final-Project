@@ -21,5 +21,11 @@
 		SET name=#{name}, description=#{description}, price=#{price}, num=#{num}
 		WHERE id=#{id}
 	</update>
+	
+	<!-- 상품 삭제 -->
+	<delete id="delete">
+		DELETE FROM product
+		WHERE id=#{id}
+	</delete>
 
 </mapper>

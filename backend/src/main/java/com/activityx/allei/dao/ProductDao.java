@@ -17,4 +17,7 @@ public interface ProductDao {
 	
 	// 상품 수정
 	public int update(ProductDto productDto);
+	
+	// 상품 삭제
+	public int delete(int id);
 }
