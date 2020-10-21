@@ -11,4 +11,7 @@ public interface ProductDao {
 
 	// 상품 등록
 	public int create(ProductDto productDto);
+	
+	// 해당 업체의 상품 리스트 조회
+	public List<ProductDto> readAll(int shop);
 }
