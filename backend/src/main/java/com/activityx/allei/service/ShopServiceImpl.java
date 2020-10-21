@@ -21,4 +21,9 @@ public class ShopServiceImpl implements ShopService {
 			throw new IncorrectFormatException(String.valueOf(shopDto.getId()));
 		}
 	}
+
+	@Override
+	public ShopDto read(int id) {
+		return shopDao.read(id);
+	}
 }

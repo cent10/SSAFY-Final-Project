@@ -11,4 +11,7 @@ public interface ShopDao {
 	
 	// 업체 등록
 	public int create(ShopDto shopDto);
+	
+	// 업체 상세 조회
+	public ShopDto read(int id);
 }

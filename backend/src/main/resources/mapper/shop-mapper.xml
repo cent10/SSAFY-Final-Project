@@ -7,5 +7,12 @@
 		INSERT INTO shop
 		VALUES(#{id}, #{admin}, #{name}, #{address}, #{phone}, #{classification}, #{number}, #{description})
 	</insert>
+	
+	<!-- 업체 상세 조회 -->
+	<select id="read" resultType="com.activityx.allei.dto.ShopDto">
+		SELECT *
+		FROM shop
+		WHERE id=#{id}
+	</select>
 
 </mapper>

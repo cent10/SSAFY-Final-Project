@@ -8,4 +8,7 @@ public interface ShopService {
 	
 	// 업체 등록
 	void create(ShopDto shopDto);
+	
+	// 업체 상세 조회
+	ShopDto read(int id);
 }

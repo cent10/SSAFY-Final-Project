@@ -33,4 +33,11 @@ public class ShopContoller {
 		shopService.create(shopDto);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
+	
+	@ApiOperation(value = "업체 상세 조회", response = ShopDto.class)
+	@GetMapping("/{id}")
+	private ResponseEntity<ShopDto> read(@PathVariable("id") int id) {
+		ShopDto shop = shopService.read(id);
+		return new ResponseEntity<ShopDto>(shop, HttpStatus.OK);
+	}
 }
