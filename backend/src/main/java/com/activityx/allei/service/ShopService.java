@@ -17,4 +17,7 @@ public interface ShopService {
 	
 	// 업체 검색
 	List<ShopDto> search(String searchword);
+	
+	// 업체 수정
+	void update(ShopDto shopDto);
 }

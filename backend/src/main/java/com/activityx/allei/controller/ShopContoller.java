@@ -54,4 +54,11 @@ public class ShopContoller {
 		List<ShopDto> shopList = shopService.search(searchword);
 		return new ResponseEntity<List<ShopDto>>(shopList, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "업체 수정", response = ShopDto.class)
+	@PutMapping("/{id}")
+	private ResponseEntity<?> update(@RequestBody ShopDto shopDto) {
+		shopService.update(shopDto);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
 }

@@ -27,5 +27,12 @@
 		FROM shop
 		WHERE name LIKE CONCAT('%', #{searchword}, '%') OR description LIKE CONCAT('%', #{searchword}, '%')
 	</select>
+	
+	<!-- 업체 수정 -->
+	<update id="update">
+		UPDATE shop
+		SET name=#{name}, address=#{address}, phone=#{phone}, number=#{number}, description=#{description}
+		WHERE id=#{id}
+	</update>
 
 </mapper>

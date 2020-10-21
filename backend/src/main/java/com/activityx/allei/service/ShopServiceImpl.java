@@ -36,4 +36,15 @@ public class ShopServiceImpl implements ShopService {
 	public List<ShopDto> search(String searchword) {
 		return shopDao.search(searchword);
 	}
+	
+	@Override
+	public void update(ShopDto shopDto) {
+		try {
+			shopDao.update(shopDto);
+		} catch (Exception e) {
+			if(e.getMessage().contains("For")) {
+				throw new EntityNotFoundException(String.valueOf(shopDto.getId()));
+			}
+		}
+	}
 }
