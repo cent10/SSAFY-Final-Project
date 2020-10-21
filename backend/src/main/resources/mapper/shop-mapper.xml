@@ -5,7 +5,7 @@
 	<!-- 업체 등록 -->
 	<insert id="create">
 		INSERT INTO shop
-		VALUES(#{id}, #{admin}, #{name}, #{address}, #{phone}, #{classification}, #{number}, #{description})
+		VALUES(#{admin}, #{name}, #{address}, #{phone}, #{classification}, #{number}, #{description})
 	</insert>
 	
 	<!-- 업체 상세 조회 -->
@@ -37,8 +37,7 @@
 	
 	<!-- 업체 삭제 -->
 	<delete id="delete">
-		DELETE
-		FROM shop
+		DELETE FROM shop
 		WHERE id=#{id}
 	</delete>
 
