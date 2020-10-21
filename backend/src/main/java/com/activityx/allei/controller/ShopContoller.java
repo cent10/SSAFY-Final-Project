@@ -41,6 +41,13 @@ public class ShopContoller {
 		return new ResponseEntity<ShopDto>(shop, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "업체 리스트 조회", response = ShopDto.class)
+	@GetMapping("")
+	private ResponseEntity<List<ShopDto>> readAll() {
+		List<ShopDto> shopList = shopService.readAll();
+		return new ResponseEntity<List<ShopDto>>(shopList, HttpStatus.OK);
+	}
+	
 	@ApiOperation(value = "업체 검색", response = ShopDto.class)
 	@GetMapping("/search/{searchword}")
 	private ResponseEntity<List<ShopDto>> search(@PathVariable("searchword") String searchword) {

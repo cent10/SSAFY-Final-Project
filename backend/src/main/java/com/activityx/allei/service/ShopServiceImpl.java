@@ -28,6 +28,11 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
+	public List<ShopDto> readAll() {
+		return shopDao.readAll();
+	}
+
+	@Override
 	public List<ShopDto> search(String searchword) {
 		return shopDao.search(searchword);
 	}
