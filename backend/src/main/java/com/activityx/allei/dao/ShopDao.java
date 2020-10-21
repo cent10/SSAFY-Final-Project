@@ -14,4 +14,7 @@ public interface ShopDao {
 	
 	// 업체 상세 조회
 	public ShopDto read(int id);
+	
+	// 업체 검색
+	public List<ShopDto> search(String searchword);
 }

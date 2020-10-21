@@ -26,4 +26,9 @@ public class ShopServiceImpl implements ShopService {
 	public ShopDto read(int id) {
 		return shopDao.read(id);
 	}
+
+	@Override
+	public List<ShopDto> search(String searchword) {
+		return shopDao.search(searchword);
+	}
 }

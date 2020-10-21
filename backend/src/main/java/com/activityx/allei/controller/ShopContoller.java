@@ -40,4 +40,11 @@ public class ShopContoller {
 		ShopDto shop = shopService.read(id);
 		return new ResponseEntity<ShopDto>(shop, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "업체 검색", response = ShopDto.class)
+	@GetMapping("/search/{searchword}")
+	private ResponseEntity<List<ShopDto>> search(@PathVariable("searchword") String searchword) {
+		List<ShopDto> shopList = shopService.search(searchword);
+		return new ResponseEntity<List<ShopDto>>(shopList, HttpStatus.OK);
+	}
 }

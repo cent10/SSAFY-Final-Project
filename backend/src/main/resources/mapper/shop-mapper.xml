@@ -15,4 +15,11 @@
 		WHERE id=#{id}
 	</select>
 
+	<!-- 업체 검색 -->
+	<select id="search" resultType="com.activityx.allei.dto.ShopDto">
+		SELECT *
+		FROM shop
+		WHERE name LIKE CONCAT('%', #{searchword}, '%') OR description LIKE CONCAT('%', #{searchword}, '%')
+	</select>
+
 </mapper>
