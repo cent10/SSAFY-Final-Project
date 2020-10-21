@@ -20,4 +20,7 @@ public interface ShopService {
 	
 	// 업체 수정
 	void update(ShopDto shopDto);
+	
+	// 업체 삭제
+	void delete(int id);
 }

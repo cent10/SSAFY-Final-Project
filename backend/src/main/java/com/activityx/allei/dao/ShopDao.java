@@ -23,4 +23,7 @@ public interface ShopDao {
 	
 	// 업체 수정
 	public int update(ShopDto shopDto);
+	
+	// 업체 삭제
+	public int delete(int id);
 }

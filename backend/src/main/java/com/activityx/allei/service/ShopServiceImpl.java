@@ -47,4 +47,15 @@ public class ShopServiceImpl implements ShopService {
 			}
 		}
 	}
+
+	@Override
+	public void delete(int id) {
+		try {
+			shopDao.delete(id);
+		} catch (Exception e) {
+			if(e.getMessage().contains("For")) {
+				throw new EntityNotFoundException(String.valueOf(id));
+			}
+		}
+	}
 }

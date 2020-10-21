@@ -34,5 +34,12 @@
 		SET name=#{name}, address=#{address}, phone=#{phone}, number=#{number}, description=#{description}
 		WHERE id=#{id}
 	</update>
+	
+	<!-- 업체 삭제 -->
+	<delete id="delete">
+		DELETE
+		FROM shop
+		WHERE id=#{id}
+	</delete>
 
 </mapper>

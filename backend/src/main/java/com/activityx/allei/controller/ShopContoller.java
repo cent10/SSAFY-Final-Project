@@ -61,4 +61,11 @@ public class ShopContoller {
 		shopService.update(shopDto);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
+	
+	@ApiOperation(value = "업체 삭제", response = ShopDto.class)
+	@DeleteMapping("/{id}")
+	private ResponseEntity<?> update(@PathVariable("id") int id) {
+		shopService.delete(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 }
