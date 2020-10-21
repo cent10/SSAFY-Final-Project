@@ -14,5 +14,12 @@
 		FROM product
 		WHERE shop=#{shop}
 	</select>
+	
+	<!-- 상품 수정 -->
+	<update id="update">
+		UPDATE product
+		SET name=#{name}, description=#{description}, price=#{price}, num=#{num}
+		WHERE id=#{id}
+	</update>
 
 </mapper>
