@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.activityx.allei.dao.ProductDao">
+	
+	<!-- 상품 등록 -->
+	<insert id="create">
+		INSERT INTO product
+		VALUES(#{shop}, #{name}, #{description}, #{price}, #{num})
+	</insert>
+
+</mapper>
