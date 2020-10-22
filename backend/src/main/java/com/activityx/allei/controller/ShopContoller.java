@@ -129,7 +129,7 @@ public class ShopContoller {
 	}
 	
 	@ApiOperation(value = "해당 업체에 대한 상품 등록", response = BasicResponse.class)
-	@PostMapping("/{id}/products")
+	@PostMapping("/{shop}/products")
 	private ResponseEntity<BasicResponse> createProduct(@RequestBody ProductDto productDto) {
 		logger.debug("해당 업체에 대한 상품 등록");
 		final BasicResponse result = new BasicResponse();
@@ -143,11 +143,11 @@ public class ShopContoller {
 	}
 	
 	@ApiOperation(value = "해당 업체의 상품 리스트 조회", response = BasicResponse.class)
-	@GetMapping("/{id}/products")
-	private ResponseEntity<BasicResponse> readAllProducts(@PathVariable("id") int id) {
+	@GetMapping("/{shop}/products")
+	private ResponseEntity<BasicResponse> readAllProducts(@PathVariable("shop") int shop) {
 		logger.debug("해당 업체의 상품 리스트 조회");
 		final BasicResponse result = new BasicResponse();
-		List<ProductDto> productList = productService.readAll(id);
+		List<ProductDto> productList = productService.readAll(shop);
 		if (productList != null) {
 			result.status = true;
 			result.data = productList;
