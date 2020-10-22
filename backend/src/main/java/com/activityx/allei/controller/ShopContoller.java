@@ -38,7 +38,7 @@ public class ShopContoller {
 	@Autowired
 	ProductService productService;
 	
-	@ApiOperation(value = "업체 등록")
+	@ApiOperation(value = "업체 등록", response = BasicResponse.class)
 	@PostMapping("")
 	private ResponseEntity<BasicResponse> createShop(@RequestBody ShopDto shopDto) {
 		logger.debug("업체 등록");
@@ -100,7 +100,7 @@ public class ShopContoller {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "업체 수정")
+	@ApiOperation(value = "업체 수정", response = BasicResponse.class)
 	@PutMapping("/{id}")
 	private ResponseEntity<BasicResponse> updateShop(@RequestBody ShopDto shopDto) {
 		logger.debug("업체 수정");
@@ -114,7 +114,7 @@ public class ShopContoller {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "업체 삭제")
+	@ApiOperation(value = "업체 삭제", response = BasicResponse.class)
 	@DeleteMapping("/{id}")
 	private ResponseEntity<BasicResponse> deleteShop(@PathVariable("id") int id) {
 		logger.debug("업체 삭제");
@@ -158,7 +158,7 @@ public class ShopContoller {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "상품 수정")
+	@ApiOperation(value = "상품 수정", response = BasicResponse.class)
 	@PutMapping("/{shop}/products/{id}")
 	private ResponseEntity<BasicResponse> updateProduct(@RequestBody ProductDto productDto) {
 		logger.debug("상품 수정");
@@ -172,7 +172,7 @@ public class ShopContoller {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "상품 삭제")
+	@ApiOperation(value = "상품 삭제", response = BasicResponse.class)
 	@DeleteMapping("/{shop}/products/{id}")
 	private ResponseEntity<BasicResponse> deleteProduct(@PathVariable("id") int id) {
 		logger.debug("상품 삭제");
