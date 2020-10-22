@@ -128,5 +128,17 @@ public class ShopContoller {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	
+	@ApiOperation(value = "해당 업체에 대한 상품 등록", response = BasicResponse.class)
+	@PostMapping("/{id}/products")
+	private ResponseEntity<BasicResponse> createProduct(@RequestBody ProductDto productDto) {
+		logger.debug("해당 업체에 대한 상품 등록");
+		final BasicResponse result = new BasicResponse();
+		if (productService.create(productDto)) {
+			result.status = true;
+		} else {
+			result.status = false;
+			result.msg = "해당 업체에 대한 상품 등록에 실패했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 }
