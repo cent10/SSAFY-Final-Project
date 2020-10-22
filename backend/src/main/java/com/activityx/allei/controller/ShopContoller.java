@@ -141,4 +141,20 @@ public class ShopContoller {
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "해당 업체의 상품 리스트 조회", response = BasicResponse.class)
+	@GetMapping("/{id}/products")
+	private ResponseEntity<BasicResponse> readAllProduct(@PathVariable("id") int id) {
+		logger.debug("해당 업체의 상품 리스트 조회");
+		final BasicResponse result = new BasicResponse();
+		List<ProductDto> productList = productService.readAll(id);
+		if (productList != null) {
+			result.status = true;
+			result.data = productList;
+		} else {
+			result.status = false;
+			result.msg = "해당 업체의 상품 리스트가 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 }
