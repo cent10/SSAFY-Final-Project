@@ -157,4 +157,19 @@ public class ShopContoller {
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "상품 수정")
+	@PutMapping("/{shop}/products/{id}")
+	private ResponseEntity<BasicResponse> updateProduct(@RequestBody ProductDto productDto) {
+		logger.debug("업체 수정");
+		final BasicResponse result = new BasicResponse();
+		if (productService.update(productDto)) {
+			result.status = true;
+		} else {
+			result.status = false;
+			result.msg = "상품 수정에 실패했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
 }
