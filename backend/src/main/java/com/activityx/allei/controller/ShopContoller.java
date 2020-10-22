@@ -40,7 +40,7 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "업체 등록")
 	@PostMapping("")
-	private ResponseEntity<BasicResponse> create(@RequestBody ShopDto shopDto) {
+	private ResponseEntity<BasicResponse> createShop(@RequestBody ShopDto shopDto) {
 		logger.debug("업체 등록");
 		final BasicResponse result = new BasicResponse();
 		if (shopService.create(shopDto)) {
@@ -54,7 +54,7 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "업체 상세 조회", response = BasicResponse.class)
 	@GetMapping("/{id}")
-	private ResponseEntity<BasicResponse> read(@PathVariable("id") int id) {
+	private ResponseEntity<BasicResponse> readShop(@PathVariable("id") int id) {
 		logger.debug("업체 상세 조회");
 		final BasicResponse result = new BasicResponse();
 		ShopDto shopDto = shopService.read(id);
@@ -70,7 +70,7 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "업체 리스트 조회", response = BasicResponse.class)
 	@GetMapping("")
-	private ResponseEntity<BasicResponse> readAll() {
+	private ResponseEntity<BasicResponse> readAllShops() {
 		logger.debug("업체 리스트 조회");
 		final BasicResponse result = new BasicResponse();
 		List<ShopDto> shopList = shopService.readAll();
@@ -86,7 +86,7 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "업체 검색", response = BasicResponse.class)
 	@GetMapping("/search/{searchword}")
-	private ResponseEntity<BasicResponse> search(@PathVariable("searchword") String searchword) {
+	private ResponseEntity<BasicResponse> searchShop(@PathVariable("searchword") String searchword) {
 		logger.debug("업체 검색");
 		final BasicResponse result = new BasicResponse();
 		List<ShopDto> shopList = shopService.search(searchword);
@@ -102,7 +102,7 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "업체 수정")
 	@PutMapping("/{id}")
-	private ResponseEntity<BasicResponse> update(@RequestBody ShopDto shopDto) {
+	private ResponseEntity<BasicResponse> updateShop(@RequestBody ShopDto shopDto) {
 		logger.debug("업체 수정");
 		final BasicResponse result = new BasicResponse();
 		if (shopService.update(shopDto)) {
@@ -116,7 +116,7 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "업체 삭제")
 	@DeleteMapping("/{id}")
-	private ResponseEntity<BasicResponse> update(@PathVariable("id") int id) {
+	private ResponseEntity<BasicResponse> deleteShop(@PathVariable("id") int id) {
 		logger.debug("업체 삭제");
 		final BasicResponse result = new BasicResponse();
 		if (shopService.delete(id)) {
@@ -144,7 +144,7 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "해당 업체의 상품 리스트 조회", response = BasicResponse.class)
 	@GetMapping("/{id}/products")
-	private ResponseEntity<BasicResponse> readAllProduct(@PathVariable("id") int id) {
+	private ResponseEntity<BasicResponse> readAllProducts(@PathVariable("id") int id) {
 		logger.debug("해당 업체의 상품 리스트 조회");
 		final BasicResponse result = new BasicResponse();
 		List<ProductDto> productList = productService.readAll(id);
