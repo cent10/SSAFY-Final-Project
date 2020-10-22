@@ -27,4 +27,9 @@ public class TipServiceImpl implements TipService{
 		return dao.deleteTip(id) == 1;
 	}
 
+	@Override
+	public TipDto detailTip(int id) {
+		return dao.detailTip(id);
+	}
+
 }

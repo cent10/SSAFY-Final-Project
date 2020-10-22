@@ -29,6 +29,12 @@
 	</delete>
 	
 	<!-- 게시글 상세보기 -->
+	<select id="detailTip" resultType="TipDto">
+		select id, user, title, content, date, hits, category
+		from tip
+		where id = #{id}
+	</select>
+	
 	<!-- 전체 게시글 목록 -->
 	<!-- 조회수 증가 -->
 

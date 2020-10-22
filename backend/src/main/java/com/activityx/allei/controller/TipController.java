@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -69,6 +70,22 @@ public class TipController {
 		}else{
 			result.status = false;
 			result.msg = "팁 게시글을 삭제하지 못했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "팁 게시글 상세보기", response = BasicResponse.class)
+	@GetMapping("detail/{id}")
+	public ResponseEntity<BasicResponse> detailTip(@PathVariable int id) {
+		logger.debug("Tip Board test : detailTip - 호츌");
+		final BasicResponse result = new BasicResponse();
+		TipDto data = service.detailTip(id);
+		if(data != null){
+			result.status = true;
+			result.data = data;
+		}else{
+			result.status = false;
+			result.msg = "해당 게시글이 없습니다.";
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
