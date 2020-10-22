@@ -38,5 +38,10 @@ public class TipServiceImpl implements TipService{
 	public ArrayList<TipDto> allTips() {
 		return dao.allTips();
 	}
+	
+	@Override
+	public boolean increaseHits(int id) {
+		return dao.increaseHits(id) == 1;
+	}
 
 }

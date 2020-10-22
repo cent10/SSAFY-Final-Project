@@ -22,5 +22,6 @@ public interface TipDao {
 	ArrayList<TipDto> allTips();
 	
 	//조회수 증가
+	int increaseHits(int id);
 
 }

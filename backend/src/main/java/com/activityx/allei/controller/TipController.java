@@ -107,4 +107,18 @@ public class TipController {
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "특정 게시글 조회수 증가", response = BasicResponse.class)
+	@GetMapping("increase/{id}")
+	public ResponseEntity<BasicResponse> increaseHits(@PathVariable int id) {
+		logger.debug("Tip Board test : increaseHits - 호츌");
+		final BasicResponse result = new BasicResponse();
+		if(service.increaseHits(id)){
+			result.status = true;
+		}else{
+			result.status = false;
+			result.msg = "조회수 수정에 실패 했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 }

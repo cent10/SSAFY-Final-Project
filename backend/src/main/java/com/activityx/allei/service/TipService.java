@@ -17,5 +17,6 @@ public interface TipService {
 	//전체 게시글 목록
 	ArrayList<TipDto> allTips();
 	//조회수 증가
+	boolean increaseHits(int id);
 
 }

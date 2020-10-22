@@ -42,6 +42,11 @@
 	</select>
 	
 	<!-- 조회수 증가 -->
+	<update id="increaseHits">
+		update tip
+		set hits = hits+1
+		where id = #{id}
+	</update>
 
 </mapper>
 
