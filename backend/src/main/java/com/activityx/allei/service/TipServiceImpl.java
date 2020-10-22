@@ -1,5 +1,7 @@
 package com.activityx.allei.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,11 @@ public class TipServiceImpl implements TipService{
 	@Override
 	public TipDto detailTip(int id) {
 		return dao.detailTip(id);
+	}
+
+	@Override
+	public ArrayList<TipDto> allTips() {
+		return dao.allTips();
 	}
 
 }

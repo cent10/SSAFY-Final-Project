@@ -1,5 +1,7 @@
 package com.activityx.allei.controller;
 
+import java.util.ArrayList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +88,22 @@ public class TipController {
 		}else{
 			result.status = false;
 			result.msg = "해당 게시글이 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "모든 게시글을 가져 옵니다.", response = BasicResponse.class)
+	@GetMapping("all")
+	public ResponseEntity<BasicResponse> allTips() {
+		logger.debug("Tip Board test : allTips - 호츌");
+		final BasicResponse result = new BasicResponse();
+		ArrayList<TipDto> data = service.allTips();
+		if(data != null){
+			result.status = true;
+			result.data = data;
+		}else{
+			result.status = false;
+			result.msg = "게시글이 없습니다.";
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}

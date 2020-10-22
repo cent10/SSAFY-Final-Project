@@ -1,5 +1,7 @@
 package com.activityx.allei.service;
 
+import java.util.ArrayList;
+
 import com.activityx.allei.dto.TipDto;
 
 public interface TipService {
@@ -13,6 +15,7 @@ public interface TipService {
 	//게시글 상세보기
 	TipDto detailTip(int id);
 	//전체 게시글 목록
+	ArrayList<TipDto> allTips();
 	//조회수 증가
 
 }

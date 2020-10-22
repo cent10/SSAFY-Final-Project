@@ -1,5 +1,7 @@
 package com.activityx.allei.dao;
 
+import java.util.ArrayList;
+
 import com.activityx.allei.dto.TipDto;
 
 public interface TipDao {
@@ -17,6 +19,8 @@ public interface TipDao {
 	TipDto detailTip(int id);
 	
 	//전체 게시글 목록
+	ArrayList<TipDto> allTips();
+	
 	//조회수 증가
 
 }
