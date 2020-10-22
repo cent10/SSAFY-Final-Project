@@ -16,10 +16,8 @@ public class ShopServiceImpl implements ShopService {
 	ShopDao shopDao;
 
 	@Override
-	public void create(ShopDto shopDto) {
-		if (shopDao.create(shopDto) < 1) {
-			throw new IncorrectFormatException(String.valueOf(shopDto.getId()));
-		}
+	public boolean create(ShopDto shopDto) {
+		return shopDao.create(shopDto) == 1;
 	}
 
 	@Override
@@ -38,24 +36,12 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override
-	public void update(ShopDto shopDto) {
-		try {
-			shopDao.update(shopDto);
-		} catch (Exception e) {
-			if(e.getMessage().contains("For")) {
-				throw new EntityNotFoundException(String.valueOf(shopDto.getId()));
-			}
-		}
+	public boolean update(ShopDto shopDto) {
+		return shopDao.update(shopDto) == 1;
 	}
 
 	@Override
-	public void delete(int id) {
-		try {
-			shopDao.delete(id);
-		} catch (Exception e) {
-			if(e.getMessage().contains("For")) {
-				throw new EntityNotFoundException(String.valueOf(id));
-			}
-		}
+	public boolean delete(int id) {
+		return shopDao.delete(id) == 1;
 	}
 }

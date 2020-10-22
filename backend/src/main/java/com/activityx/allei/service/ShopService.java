@@ -7,7 +7,7 @@ import com.activityx.allei.dto.ShopDto;
 public interface ShopService {
 	
 	// 업체 등록
-	void create(ShopDto shopDto);
+	boolean create(ShopDto shopDto);
 	
 	// 업체 상세 조회
 	ShopDto read(int id);
@@ -19,8 +19,8 @@ public interface ShopService {
 	List<ShopDto> search(String searchword);
 	
 	// 업체 수정
-	void update(ShopDto shopDto);
+	boolean update(ShopDto shopDto);
 	
 	// 업체 삭제
-	void delete(int id);
+	boolean delete(int id);
 }
