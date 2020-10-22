@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
-@RequestMapping("/activityx/shops")
+@RequestMapping("/shops")
 public class ShopContoller {
 	@Autowired
 	ShopService shopService;
