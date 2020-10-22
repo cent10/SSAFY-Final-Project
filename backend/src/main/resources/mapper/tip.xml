@@ -23,6 +23,11 @@
 	</update>
 	
 	<!-- 게시글 삭제 -->
+	<delete id="deleteTip">
+		delete from tip 
+		where id = #{id}
+	</delete>
+	
 	<!-- 게시글 상세보기 -->
 	<!-- 전체 게시글 목록 -->
 	<!-- 조회수 증가 -->

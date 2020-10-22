@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,6 +55,20 @@ public class TipController {
 		}else{
 			result.status = false;
 			result.msg = "팁 게시글 수정에 실패했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "팁 게시글 삭제", response = BasicResponse.class)
+	@DeleteMapping("delete/{id}")
+	public ResponseEntity<BasicResponse> deleteTip(@PathVariable int id) {
+		logger.debug("Tip Board test : deleteTip - 호츌");
+		final BasicResponse result = new BasicResponse();
+		if(service.deleteTip(id)){
+			result.status = true;
+		}else{
+			result.status = false;
+			result.msg = "팁 게시글을 삭제하지 못했습니다.";
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}

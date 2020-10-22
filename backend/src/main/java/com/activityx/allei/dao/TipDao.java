@@ -11,6 +11,8 @@ public interface TipDao {
 	int modifyTip(TipDto tip);
 	
 	//게시글 삭제
+	int deleteTip(int id);
+	
 	//게시글 상세보기
 	//전체 게시글 목록
 	//조회수 증가

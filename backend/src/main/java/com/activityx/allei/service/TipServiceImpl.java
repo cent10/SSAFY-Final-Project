@@ -22,4 +22,9 @@ public class TipServiceImpl implements TipService{
 		return dao.modifyTip(tip) == 1;
 	}
 
+	@Override
+	public boolean deleteTip(int id) {
+		return dao.deleteTip(id) == 1;
+	}
+
 }
