@@ -161,7 +161,7 @@ public class ShopContoller {
 	@ApiOperation(value = "상품 수정")
 	@PutMapping("/{shop}/products/{id}")
 	private ResponseEntity<BasicResponse> updateProduct(@RequestBody ProductDto productDto) {
-		logger.debug("업체 수정");
+		logger.debug("상품 수정");
 		final BasicResponse result = new BasicResponse();
 		if (productService.update(productDto)) {
 			result.status = true;
@@ -172,4 +172,17 @@ public class ShopContoller {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "상품 삭제")
+	@DeleteMapping("/{shop}/products/{id}")
+	private ResponseEntity<BasicResponse> deleteProduct(@PathVariable("id") int id) {
+		logger.debug("상품 삭제");
+		final BasicResponse result = new BasicResponse();
+		if (productService.delete(id)) {
+			result.status = true;
+		} else {
+			result.status = false;
+			result.msg = "상품 삭제에 실패했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 }
