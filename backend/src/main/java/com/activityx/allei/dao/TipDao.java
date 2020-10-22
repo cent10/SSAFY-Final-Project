@@ -1,7 +1,5 @@
 package com.activityx.allei.dao;
 
-import java.util.ArrayList;
-
 import com.activityx.allei.dto.TipDto;
 
 public interface TipDao {
@@ -10,6 +8,8 @@ public interface TipDao {
 	int createTip(TipDto tip);
 	
 	//게시글 수정
+	int modifyTip(TipDto tip);
+	
 	//게시글 삭제
 	//게시글 상세보기
 	//전체 게시글 목록

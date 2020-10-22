@@ -17,4 +17,9 @@ public class TipServiceImpl implements TipService{
 		return dao.createTip(tip) == 1;
 	}
 
+	@Override
+	public boolean modifyTip(TipDto tip) {
+		return dao.modifyTip(tip) == 1;
+	}
+
 }
