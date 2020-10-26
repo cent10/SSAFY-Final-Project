@@ -36,6 +36,11 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override
+	public List<ShopDto> detailedSearch(int minPrice, int maxPrice, String region, String category) {
+		return shopDao.detailedSearch(minPrice, maxPrice, region, category);
+	}
+	
+	@Override
 	public boolean update(ShopDto shopDto) {
 		return shopDao.update(shopDto) == 1;
 	}
@@ -44,4 +49,5 @@ public class ShopServiceImpl implements ShopService {
 	public boolean delete(int id) {
 		return shopDao.delete(id) == 1;
 	}
+
 }
