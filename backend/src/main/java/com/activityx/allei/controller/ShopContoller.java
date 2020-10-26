@@ -102,7 +102,7 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "업체 상세 검색", response = BasicResponse.class)
 	@GetMapping("/search")
-	private ResponseEntity<BasicResponse> detailedSearchShop(int minPrice, int maxPrice, String region, int category) {
+	private ResponseEntity<BasicResponse> detailedSearchShop(int minPrice, int maxPrice, String region, String category) {
 		logger.debug("업체 상세 검색");
 		final BasicResponse result = new BasicResponse();
 		List<ShopDto> shopList = shopService.detailedSearch(minPrice, maxPrice, region, category);
