@@ -21,6 +21,9 @@ public interface ShopDao {
 	// 업체 검색
 	public List<ShopDto> search(String searchword);
 	
+	// 업체 상세 검색
+	public List<ShopDto> detailedSearch(int minPrice, int maxPrice, String region, String category);
+	
 	// 업체 수정
 	public int update(ShopDto shopDto);
 	
