@@ -12,9 +12,10 @@
         @change="getArticles"
       >
         <option value="null">카테고리</option>
-    	
         <option v-for="(onecategoty,id) in categorys" :key="id" :value="onecategory.category">{{onecategory.category}}</option>
       </select>
+
+    </div>
     <p />
     <p></p>
     <table class="table table-striped table-bordered table-hover">
@@ -50,6 +51,7 @@
 </template>
 
 <script>
+/*jslint smarttabs:true */
 // import sessionManager from "@/components/SessionManager.js";
 const API_URL = process.env.VUE_APP_SERVER_URL;
 
