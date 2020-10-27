@@ -5,6 +5,8 @@ import Home from '../views/Home.vue'
 import TipList from "@/components/TipList.vue"
 import TipDetail from "@/components/TipDetail.vue"
 import TipUpdate from "@/components/TipUpdate.vue"
+import TipWrite from "@/components/TipWrite.vue"
+
 
 
 Vue.use(VueRouter)
@@ -29,6 +31,11 @@ const routes = [
     path: '/tipupdate/:id',
     name: 'TipUpdate',
     component: TipUpdate
+  },
+  {
+    path: '/tip/create/',
+    name: 'TipWrite',
+    component: TipWrite
   }
 ]
 
