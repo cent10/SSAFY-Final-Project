@@ -12,7 +12,7 @@
         @change="getArticles"
       >
         <option value="null">카테고리</option>
-        <option v-for="(onecategoty,id) in categorys" :key="id" :value="onecategory.category">{{onecategory.category}}</option>
+        <option v-for="(onecategory,id) in categorys" :key="id" :value="onecategory.category">{{onecategory.category}}</option>
       </select>
 
     </div>
