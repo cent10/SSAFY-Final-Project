@@ -1,13 +1,15 @@
 package com.activityx.allei.service;
 
-import com.activityx.allei.dto.DetailReservationDto;
+import java.util.List;
+import java.util.Map;
+
 import com.activityx.allei.dto.ReservationDto;
 
 public interface ReservationService {
 	
 	// 예약정보 조회
-	public ReservationDto readReservation(int id);
+	Map<String, Object> readReservation(int id);
 	
-	// 상세예약정보 조회
-	public DetailReservationDto readDetailReservation(int reservation);
+	// 사용자의 예약정보 리스트 조회
+	List<ReservationDto> readAllReservation(int id);
 }

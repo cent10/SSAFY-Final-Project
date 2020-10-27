@@ -1,5 +1,7 @@
 package com.activityx.allei.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.activityx.allei.dto.DetailReservationDto;
@@ -13,4 +15,7 @@ public interface ReservationDao {
 	
 	// 상세예약정보 조회
 	public DetailReservationDto readDetailReservation(int reservation);
+	
+	// 사용자의 예약정보 리스트 조회
+	public List<ReservationDto> readAllReservation(int id);
 }

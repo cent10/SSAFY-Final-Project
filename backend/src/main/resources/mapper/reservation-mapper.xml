@@ -15,5 +15,12 @@
 		FROM detail_reservation
 		WHERE reservation=#{reservation}
 	</select>
+	
+	<!-- 예약정보 리스트 조회 -->
+	<select id="read" resultType="com.activityx.allei.dto.DetailReservationDto">
+		SELECT *
+		FROM reservation
+		WHERE user=#{id}
+	</select>
 
 </mapper>
