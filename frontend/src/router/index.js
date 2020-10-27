@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
 import TipList from "@/components/TipList.vue"
+import TipDetail from "@/components/TipDetail.vue"
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,11 @@ const routes = [
     path: '/tiplist',
     name: 'TipList',
     component: TipList
+  },
+  {
+    path: '/tipdetail/:id',
+    name: 'TipDetail',
+    component: TipDetail
   }
 ]
 
