@@ -7,6 +7,8 @@ import com.activityx.allei.dto.ReservationDto;
 
 public interface ReservationService {
 	
+	// 예약하기
+	boolean create(ReservationDto reservationDto, int product, int num);
 	
 	// 예약정보 조회
 	Map<String, Object> readReservation(int id);

@@ -10,6 +10,8 @@ import com.activityx.allei.dto.ReservationDto;
 @Mapper
 public interface ReservationDao {
 	
+	// 예약정보 등록
+	public int createReservation(ReservationDto reservationDto);
 	
 	// 상세예약정보 등록
 	public int createDetailReservation(int reservation, int product, int num);

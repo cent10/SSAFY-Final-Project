@@ -34,6 +34,19 @@ public class ReservationController {
 	@Autowired
 	ReservationService reservationService;
 	
+	@ApiOperation(value = "예약하기", response = BasicResponse.class)
+	@PostMapping("")
+	private ResponseEntity<BasicResponse> createReservation(@RequestParam(value = "product") int product, @RequestParam(value = "num") int num, @RequestBody ReservationDto reservationDto) {
+		logger.debug("예약하기");
+		final BasicResponse result = new BasicResponse();
+		if (reservationService.create(reservationDto, product, num)) {
+			result.status = true;
+		} else {
+			result.status = false;
+			result.msg = "예약하기가 실패했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 	
 	@ApiOperation(value = "예약정보 조회", response = BasicResponse.class)
 	@GetMapping("/{id}")
