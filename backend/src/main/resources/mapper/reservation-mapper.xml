@@ -2,22 +2,30 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.activityx.allei.dao.ReservationDao">
 
+
+	
+	<!-- 상세예약정보 등록 -->
+	<insert id="createDetailReservation">
+		INSERT INTO detail_reservation
+		VALUES(#{id}, #{reservation}, #{product}, #{num})
+	</insert>
+
 	<!-- 예약정보 조회 -->
-	<select id="read" resultType="com.activityx.allei.dto.ReservationDto">
+	<select id="readReservation" resultType="com.activityx.allei.dto.ReservationDto">
 		SELECT *
 		FROM reservation
 		WHERE id=#{id}
 	</select>
 	
 	<!-- 상세예약정보 조회 -->
-	<select id="read" resultType="com.activityx.allei.dto.DetailReservationDto">
+	<select id="readDetailReservation" resultType="com.activityx.allei.dto.DetailReservationDto">
 		SELECT *
 		FROM detail_reservation
 		WHERE reservation=#{reservation}
 	</select>
 	
 	<!-- 예약정보 리스트 조회 -->
-	<select id="read" resultType="com.activityx.allei.dto.DetailReservationDto">
+	<select id="readAllReservation" resultType="com.activityx.allei.dto.DetailReservationDto">
 		SELECT *
 		FROM reservation
 		WHERE user=#{id}
