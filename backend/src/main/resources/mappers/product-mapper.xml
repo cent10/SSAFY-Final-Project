@@ -27,5 +27,12 @@
 		DELETE FROM product
 		WHERE id=#{id}
 	</delete>
+	
+	<!-- 예약정보에 해당하는 상품 조회 -->
+	<select id="readProduct" resultType="com.activityx.allei.dto.ProductDto">
+		SELECT *
+		FROM product
+		WHERE id=#{product}
+	</select>
 
 </mapper>

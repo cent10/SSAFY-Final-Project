@@ -29,7 +29,7 @@
 	</select>
 	
 	<!-- 업체 상세 검색 -->
-	<select id="search" resultType="com.activityx.allei.dto.ShopDto">
+	<select id="detailedSearch" resultType="com.activityx.allei.dto.ShopDto">
 		SELECT *
 		FROM shop
 		WHERE id IN (SELECT shop

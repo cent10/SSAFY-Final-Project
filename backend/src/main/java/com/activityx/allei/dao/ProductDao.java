@@ -20,4 +20,7 @@ public interface ProductDao {
 	
 	// 상품 삭제
 	public int delete(int id);
+	
+	// 예약정보에 해당하는 상품 조회
+	public ProductDto readProduct(int product);
 }
