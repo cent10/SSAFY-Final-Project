@@ -24,4 +24,7 @@ public interface ReservationDao {
 	
 	// 사용자의 예약정보 리스트 조회
 	public List<ReservationDto> readAllReservation(int id);
+	
+	// 예약정보 등록
+	public int deleteReservation(int id);
 }

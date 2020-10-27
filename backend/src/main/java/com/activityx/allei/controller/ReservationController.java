@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.activityx.allei.dto.BasicResponse;
 import com.activityx.allei.dto.ReservationDto;
-import com.activityx.allei.dto.ShopDto;
 import com.activityx.allei.service.ReservationService;
 
 import io.swagger.annotations.ApiOperation;
@@ -76,6 +76,20 @@ public class ReservationController {
 		} else {
 			result.status = false;
 			result.msg = "해당 사용자의 예약정보 리스트가 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "예약취소", response = BasicResponse.class)
+	@DeleteMapping("/{id}")
+	private ResponseEntity<BasicResponse> deleteReservation(@PathVariable("id") int id) {
+		logger.debug("예약취소");
+		final BasicResponse result = new BasicResponse();
+		if (reservationService.deleteReservation(id)) {
+			result.status = true;
+		} else {
+			result.status = false;
+			result.msg = "예약취소가 실패했습니다.";
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}

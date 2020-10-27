@@ -15,4 +15,7 @@ public interface ReservationService {
 	
 	// 사용자의 예약정보 리스트 조회
 	List<ReservationDto> readAllReservation(int id);
+	
+	// 예약정보 등록
+	boolean deleteReservation(int id);
 }

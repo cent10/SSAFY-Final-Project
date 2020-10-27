@@ -34,5 +34,11 @@
 		FROM reservation
 		WHERE user=#{id}
 	</select>
+	
+	<!-- 예약취소 -->
+	<delete id="deleteReservation">
+		DELETE FROM reservation
+		WHERE id=#{id}
+	</delete>
 
 </mapper>

@@ -50,5 +50,10 @@ public class ReservationServiceImpl implements ReservationService {
 	public List<ReservationDto> readAllReservation(int id) {
 		return reservationDao.readAllReservation(id);
 	}
+
+	@Override
+	public boolean deleteReservation(int id) {
+		return reservationDao.deleteReservation(id) == 1;
+	}
 	
 }
