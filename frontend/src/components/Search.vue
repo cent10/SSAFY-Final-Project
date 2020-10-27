@@ -45,6 +45,11 @@ export default {
   },
   props: {
     msg: String
+  },
+  methods: {
+    moveTab(name) {
+      this.$router.push({ name: name });
+    },
   }
 }
 </script>
