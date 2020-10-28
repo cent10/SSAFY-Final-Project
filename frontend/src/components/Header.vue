@@ -7,7 +7,7 @@
         <b-nav-item>
             공지사항
         </b-nav-item>
-        <b-nav-item>
+        <b-nav-item v-b-modal.modal-login>
             로그인
         </b-nav-item>
     </b-navbar-nav>
@@ -17,14 +17,29 @@
 <script>
 export default {
     name: "Header",
+    data() {
+      return{
+        scrollPosition: null
+      }
+     },
+     methods: {
+       updateScroll() {
+         this.scrollPosition = window.scrollY
+       }
+     },
+     mounted() {
+       window.addEventListener('scroll', this.updateScroll);
+     }
 }
 </script>
 
 <style scoped>
-  .yol-header  {
+  .yol-header {
       height: 65px;
-      background-color: rgba(1, 1, 1, 0.5);
       padding-left: 15%;
       padding-right: 15%;
+  }
+  .yol-header-bg {
+      background-color: rgba(1, 1, 1, 0.5);
   }
 </style>
