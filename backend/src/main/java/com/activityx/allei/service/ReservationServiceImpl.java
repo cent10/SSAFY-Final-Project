@@ -24,13 +24,8 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Override
 	public boolean create(ReservationDto reservationDto, int product, int num) {
-		System.out.println("reservationDto: " + reservationDto);
-		System.out.println("product: " + product);
-		System.out.println("num: " + num);
 		int check1 = reservationDao.createReservation(reservationDto);
 		int check2 = reservationDao.createDetailReservation(reservationDto.getId(), product, num);
-		System.out.println("check1: " + check1);
-		System.out.println("check2: " + check2);
 		return (check1 + check2) > 1;
 	}
 	
