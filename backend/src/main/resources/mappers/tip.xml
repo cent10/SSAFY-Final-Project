@@ -47,6 +47,15 @@
 		set hits = hits+1
 		where id = #{id}
 	</update>
+	
+	<!-- 통합 검색 -->
+	<select id="getTipsHasKeyword" resultType="TipDto">
+		select id, user, title, content, date, hits, category
+		from tip
+		where category like CONCAT('%', #{keyword}, '%')
+		or title like CONCAT('%', #{keyword}, '%')
+		or content like CONCAT('%', #{keyword}, '%')
+	</select>
 
 </mapper>
 

@@ -24,4 +24,7 @@ public interface TipDao {
 	//조회수 증가
 	int increaseHits(int id);
 
+	//통합검색
+	ArrayList<TipDto> getTipsHasKeyword(String keyword);
+	
 }

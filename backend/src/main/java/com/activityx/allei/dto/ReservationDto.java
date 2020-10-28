@@ -49,6 +49,6 @@ public class ReservationDto {
 	
 	@Override
 	public String toString() {
-		return "ReservationDto [id=" + id + ", user=" + user + ", shop=" + shop + "]";
+		return "ReservationDto [id=" + id + ", user=" + user + ", shop=" + shop + ", date=" + date + "]";
 	}
 }

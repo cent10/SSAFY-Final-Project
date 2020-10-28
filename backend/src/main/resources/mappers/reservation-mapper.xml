@@ -4,14 +4,14 @@
 
 	<!-- 예약정보 등록 -->
 	<insert id="createReservation" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO reservation
-		VALUES(#{id}, #{user}, #{shop}, #{date})
+		INSERT INTO reservation (user, shop, date)
+		VALUES(#{user}, #{shop}, #{date})
 	</insert>
 	
 	<!-- 상세예약정보 등록 -->
 	<insert id="createDetailReservation">
-		INSERT INTO detail_reservation
-		VALUES(#{id}, #{reservation}, #{product}, #{num})
+		INSERT INTO detail_reservation (reservation, product, num)
+		VALUES(#{reservation}, #{product}, #{num})
 	</insert>
 
 	<!-- 예약정보 조회 -->
@@ -29,7 +29,7 @@
 	</select>
 	
 	<!-- 예약정보 리스트 조회 -->
-	<select id="readAllReservation" resultType="com.activityx.allei.dto.DetailReservationDto">
+	<select id="readAllReservation" resultType="com.activityx.allei.dto.ReservationDto">
 		SELECT *
 		FROM reservation
 		WHERE user=#{id}

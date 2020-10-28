@@ -43,5 +43,10 @@ public class TipServiceImpl implements TipService{
 	public boolean increaseHits(int id) {
 		return dao.increaseHits(id) == 1;
 	}
+	
+	@Override
+	public ArrayList<TipDto> getTipsHasKeyword(String keyword) {
+		return dao.getTipsHasKeyword(keyword);
+	}
 
 }
