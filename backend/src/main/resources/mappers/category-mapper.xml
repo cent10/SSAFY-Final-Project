@@ -15,5 +15,11 @@
 		FROM category, shop_category
 		WHERE category.code = shop_category.code AND shop_category.shop = #{shop}
 	</select>
+	
+	<!-- 카테고리 목록 가져오기 -->
+	<select id="getAllCategories" resultType="CategoryDto">
+		select code as id, name as category
+		from category
+	</select>
 
 </mapper>
