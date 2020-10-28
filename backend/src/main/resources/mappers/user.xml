@@ -17,14 +17,61 @@
         select id, email, name, domain, key
         from user
     </select>
-    
+
 	<!-- findById -->
+    <select id="findById" resultType="User">
+        select id, email, name, domain, key
+        from user
+        where id = #{id}
+    </select>
+
 	<!-- findByName -->
+    <select id="findByName" resultType="User">
+        select id, email, name, domain, key
+        from user
+        where name = #{name}
+    </select>
+
 	<!-- findlistByName -->
+    <select id="findlistByName" resultType="User">
+        select id, email, name, domain, key
+        from user
+        where name like CONCAT('%', #{name}, '%')
+    </select>
+
 	<!-- findByEmail -->
+    <select id="findByEmail" resultType="User">
+        select id, email, name, domain, key
+        from user
+        where email = #{email}
+    </select>
+
 	<!-- findlistByEmail -->
+    <select id="findlistByEmail" resultType="User">
+        select id, email, name, domain, key
+        from user
+        where email like CONCAT('%', #{email}, '%')
+    </select>
+
 	<!-- findByKey -->
+    <select id="findByKey" resultType="User">
+        select id, email, name, domain, key
+        from user
+        where key = #{key}
+    </select>
+    
 	<!-- update -->
+    <update id="update">
+        update user
+        set email = #{email}
+            name = #{name}
+        where id = #{id}
+    </update>
+
 	<!-- delete -->
+    <delete id="delete">
+        delete from user
+        where id = #{id}
+    </delete>
 
 </mapper>
