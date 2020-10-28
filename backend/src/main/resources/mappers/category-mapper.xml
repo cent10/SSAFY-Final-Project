@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.activityx.allei.dao.CategoryDao">
+	
+	<!-- 카테고리 이름으로 카테고리 코드 조회 -->
+	<select id="readCode" resultType="Integer">
+		SELECT code
+		FROM category
+		WHERE name LIKE #{name}
+	</select>
+	
+	<!-- 업체 아이디로 카테고리 이름 조회 -->
+	<select id="readName" resultType="String">
+		SELECT name
+		FROM category, shop_category
+		WHERE category.code = shop_category.code AND shop_category.shop = #{shop}
+	</select>
+	
+	<!-- 카테고리 목록 가져오기 -->
+	<select id="getAllCategories" resultType="CategoryDto">
+		select code as id, name as category
+		from category
+	</select>
+
+</mapper>
