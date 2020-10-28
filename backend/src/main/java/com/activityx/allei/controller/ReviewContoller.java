@@ -107,5 +107,21 @@ public class ReviewContoller {
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
-
+	
+	@ApiOperation(value = "후기 답글 조회", response = BasicResponse.class)
+	@GetMapping("/{review}/replies/{id}")
+	private ResponseEntity<BasicResponse> readReviewReply(@PathVariable("review") int review) {
+		logger.debug("후기 답글 조회");
+		final BasicResponse result = new BasicResponse();
+		ReviewReplyDto reviewReplyDto = reviewReplyService.read(review);
+		if (reviewReplyDto != null) {
+			result.status = true;
+			result.data = reviewReplyDto;
+		} else {
+			result.status = false;
+			result.msg = "해당 후기의 답글이 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
 }

@@ -18,5 +18,10 @@ public class ReviewReplyServiceImpl implements ReviewReplyService {
 		return reviewReplyDao.create(reviewReplyDto) == 1;
 	}
 
+	@Override
+	public ReviewReplyDto read(int review) {
+		return reviewReplyDao.read(review);
+	}
+
 	
 }

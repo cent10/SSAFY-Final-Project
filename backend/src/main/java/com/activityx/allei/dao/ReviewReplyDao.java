@@ -10,4 +10,6 @@ public interface ReviewReplyDao {
 	// 후기 답글 등록
 	public int create(ReviewReplyDto reviewReplyDto);
 	
+	// 후기 답글 조회
+	public ReviewReplyDto read(int review);
 }

@@ -6,4 +6,8 @@ public interface ReviewReplyService {
 
 	// 후기 답글 등록
 	boolean create(ReviewReplyDto reviewDto);
+	
+	// 후기 답글 조회
+	ReviewReplyDto read(int review);
+	
 }

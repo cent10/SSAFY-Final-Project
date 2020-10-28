@@ -7,4 +7,11 @@
 		INSERT INTO review_reply (replier, review, content, date)
 		VALUES(#{replier}, #{review}, #{content}, #{date})
 	</insert>
+	
+	<!-- 후기 답글 조회 -->
+	<select id="read" resultType="com.activityx.allei.dto.ReviewReplyDto">
+		SELECT *
+		FROM review_reply
+		WHERE review=#{review}
+	</select>
 </mapper>
