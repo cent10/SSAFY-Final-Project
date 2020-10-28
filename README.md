@@ -6,7 +6,7 @@
 
 gantt
     dateFormat  YYYY-MM-DD
-    title       야 올레
+    title       야! 올레?
 
 
     section 프로젝트 준비
