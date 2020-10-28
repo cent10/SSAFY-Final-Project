@@ -29,7 +29,7 @@
 	</select>
 	
 	<!-- 예약정보 리스트 조회 -->
-	<select id="readAllReservation" resultType="com.activityx.allei.dto.DetailReservationDto">
+	<select id="readAllReservation" resultType="com.activityx.allei.dto.ReservationDto">
 		SELECT *
 		FROM reservation
 		WHERE user=#{id}
