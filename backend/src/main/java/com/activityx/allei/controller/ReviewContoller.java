@@ -3,7 +3,6 @@ package com.activityx.allei.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,14 +21,6 @@ import com.activityx.allei.service.ReviewService;
 
 import io.swagger.annotations.ApiOperation;
 
-=======
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.activityx.allei.service.ReviewService;
-
->>>>>>> 4a47f71a0c22b591e8d3bed8ab36df9b3f7cd6a9
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
 @RequestMapping("/reviews")
@@ -40,7 +31,6 @@ public class ReviewContoller {
 	@Autowired
 	ReviewService reviewService;
 	
-<<<<<<< HEAD
 	@ApiOperation(value = "후기 작성", response = BasicResponse.class)
 	@PostMapping("")
 	private ResponseEntity<BasicResponse> createReview(@RequestBody ReviewDto reviewDto) {
@@ -98,7 +88,4 @@ public class ReviewContoller {
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
-=======
-	
->>>>>>> 4a47f71a0c22b591e8d3bed8ab36df9b3f7cd6a9
 }
