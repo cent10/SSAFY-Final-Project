@@ -100,6 +100,22 @@ public class ShopContoller {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "업체 상세 검색", response = BasicResponse.class)
+	@GetMapping("/search")
+	private ResponseEntity<BasicResponse> detailedSearchShop(int minPrice, int maxPrice, String region, String category) {
+		logger.debug("업체 상세 검색");
+		final BasicResponse result = new BasicResponse();
+		List<ShopDto> shopList = shopService.detailedSearch(minPrice, maxPrice, region, category);
+		if (shopList != null) {
+			result.status = true;
+			result.data = shopList;
+		} else {
+			result.status = false;
+			result.msg = "업체가 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
 	@ApiOperation(value = "업체 수정", response = BasicResponse.class)
 	@PutMapping("/{id}")
 	private ResponseEntity<BasicResponse> updateShop(@RequestBody ShopDto shopDto) {

@@ -28,6 +28,17 @@
 		WHERE name LIKE CONCAT('%', #{searchword}, '%') OR description LIKE CONCAT('%', #{searchword}, '%')
 	</select>
 	
+	<!-- 업체 상세 검색 -->
+	<select id="detailedSearch" resultType="com.activityx.allei.dto.ShopDto">
+		SELECT *
+		FROM shop
+		WHERE id IN (SELECT shop
+					FROM product
+					WHERE price BETWEEN #{minPrice} AND #{maxPrice}
+					AND (name LIKE CONCAT('%', #{category}, '%') OR description LIKE CONCAT('%', #{category}, '%')))
+			  AND address LIKE CONCAT('%', #{region}, '%')
+	</select>
+	
 	<!-- 업체 수정 -->
 	<update id="update">
 		UPDATE shop
