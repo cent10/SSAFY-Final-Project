@@ -1,5 +1,6 @@
 package com.activityx.allei.service;
 
+<<<<<<< HEAD
 import com.activityx.allei.dto.ReviewDto;
 
 public interface ReviewService {
@@ -15,4 +16,8 @@ public interface ReviewService {
 	
 	// 후기 삭제
 	boolean delete(int id);
+=======
+public interface ReviewService {
+
+>>>>>>> 4a47f71a0c22b591e8d3bed8ab36df9b3f7cd6a9
 }
