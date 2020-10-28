@@ -3,7 +3,7 @@
 <mapper namespace="com.activityx.allei.dao.ShopDao">
 	
 	<!-- 업체 등록 -->
-	<insert id="create">
+	<insert id="createShop" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO shop (admin, name, address, phone, classification, number, description)
 		VALUES(#{admin}, #{name}, #{address}, #{phone}, #{classification}, #{number}, #{description})
 	</insert>

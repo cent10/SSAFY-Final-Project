@@ -7,7 +7,7 @@ import com.activityx.allei.dto.ShopDto;
 public interface ShopService {
 	
 	// 업체 등록
-	boolean create(ShopDto shopDto);
+	boolean create(ShopDto shopDto, String categoryName);
 	
 	// 업체 상세 조회
 	ShopDto read(int id);

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.activityx.allei.dto.BasicResponse;
@@ -40,10 +41,10 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "업체 등록", response = BasicResponse.class)
 	@PostMapping("")
-	private ResponseEntity<BasicResponse> createShop(@RequestBody ShopDto shopDto) {
+	private ResponseEntity<BasicResponse> createShop(@RequestParam(value = "categoryName") String categoryName, @RequestBody ShopDto shopDto) {
 		logger.debug("업체 등록");
 		final BasicResponse result = new BasicResponse();
-		if (shopService.create(shopDto)) {
+		if (shopService.create(shopDto, categoryName)) {
 			result.status = true;
 		} else {
 			result.status = false;

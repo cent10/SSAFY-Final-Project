@@ -5,17 +5,32 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.activityx.allei.dao.CategoryDao;
+import com.activityx.allei.dao.ShopCategoryDao;
 import com.activityx.allei.dao.ShopDao;
+import com.activityx.allei.dto.ShopCategoryDto;
 import com.activityx.allei.dto.ShopDto;
 
 @Service
 public class ShopServiceImpl implements ShopService {
 	@Autowired
 	ShopDao shopDao;
+	
+	@Autowired
+	ShopCategoryDao shopCategoryDao;
+	
+	@Autowired
+	CategoryDao categoryDao;
 
 	@Override
-	public boolean create(ShopDto shopDto) {
-		return shopDao.create(shopDto) == 1;
+	public boolean create(ShopDto shopDto, String categoryName) {
+		int check1 = shopDao.createShop(shopDto);
+		System.out.println("shopDto: " + shopDto);
+		ShopCategoryDto shopCategoryDto = new ShopCategoryDto(0, shopDto.getId(), categoryDao.readCode(categoryName));
+		System.out.println("shopCategoryDto: " + shopCategoryDto);
+		int check2 = shopCategoryDao.createShopCategory(shopCategoryDto);
+		
+		return check1 + check2 > 1;
 	}
 
 	@Override
