@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.activityx.allei.dao.ShopDao;
 import com.activityx.allei.dto.ShopDto;
-import com.activityx.allei.error.exception.EntityNotFoundException;
-import com.activityx.allei.error.exception.IncorrectFormatException;
 
 @Service
 public class ShopServiceImpl implements ShopService {
