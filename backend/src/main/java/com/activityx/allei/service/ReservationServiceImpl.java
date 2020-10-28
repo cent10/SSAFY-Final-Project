@@ -39,7 +39,7 @@ public class ReservationServiceImpl implements ReservationService {
 		Map<String, Object> map = new HashMap<>();
 		ReservationDto reservationDto = reservationDao.readReservation(id);
 		DetailReservationDto detailReservationDto = reservationDao.readDetailReservation(id);
-		ProductDto productDto = productDao.readProduct(detailReservationDto.getProudct());
+		ProductDto productDto = productDao.readProduct(detailReservationDto.getProduct());
 		map.put("reservation", reservationDto);
 		map.put("detailReservation", detailReservationDto);
 		map.put("product", productDto);
