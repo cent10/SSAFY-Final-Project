@@ -7,8 +7,6 @@
 gantt
     dateFormat  YYYY-MM-DD
     title       야 올레
-    
-    excludes    weekends
 
 
     section 프로젝트 준비
