@@ -3,6 +3,7 @@
 ### 간트차트
 
 ```mermaid
+
 gantt
     dateFormat  YYYY-MM-DD
     title       야! 올레?
