@@ -4,7 +4,7 @@
 
 	<!-- 후기 등록 -->
 	<insert id="create">
-		INSERT INTO review
+		INSERT INTO review (reservation, rate, content, date)
 		VALUES(#{reservation}, #{rate}, #{content}, #{date})
 	</insert>
 	
