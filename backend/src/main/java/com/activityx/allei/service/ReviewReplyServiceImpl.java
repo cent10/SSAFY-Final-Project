@@ -28,6 +28,10 @@ public class ReviewReplyServiceImpl implements ReviewReplyService {
 		return reviewReplyDao.update(reviewReplyDto) == 1;
 	}
 
+	@Override
+	public boolean delete(int id) {
+		return reviewReplyDao.delete(id) == 1;
+	}
 
 	
 }

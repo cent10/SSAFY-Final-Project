@@ -13,4 +13,6 @@ public interface ReviewReplyService {
 	// 후기 답글 수정
 	boolean update(ReviewReplyDto reviewDto);
 	
+	// 후기 답글 삭제
+	boolean delete(int id);
 }

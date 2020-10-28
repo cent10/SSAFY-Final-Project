@@ -22,4 +22,9 @@
 		WHERE id=#{id}
 	</update>
 	
+	<!-- 후기 답글 삭제 -->
+	<delete id="review_reply">
+		DELETE FROM review_reply
+		WHERE id=#{id}
+	</delete>
 </mapper>

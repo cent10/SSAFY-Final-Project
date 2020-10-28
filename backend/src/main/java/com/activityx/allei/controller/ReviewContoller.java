@@ -137,4 +137,18 @@ public class ReviewContoller {
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "후기 답글 삭제", response = BasicResponse.class)
+	@DeleteMapping("/{id}/replies")
+	private ResponseEntity<BasicResponse> deleteReviewReply(@PathVariable("id") int id) {
+		logger.debug("후기 답글 삭제");
+		final BasicResponse result = new BasicResponse();
+		if (reviewReplyService.delete(id)) {
+			result.status = true;
+		} else {
+			result.status = false;
+			result.msg = "후기 답글 삭제에 실패했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 }

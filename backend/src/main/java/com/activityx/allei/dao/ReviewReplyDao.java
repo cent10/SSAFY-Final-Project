@@ -16,4 +16,6 @@ public interface ReviewReplyDao {
 	// 후기 답글 수정
 	public int update(ReviewReplyDto reviewReplyDto);
 	
+	// 후기 답글 삭제
+	public int delete(int id);
 }
