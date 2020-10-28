@@ -4,13 +4,13 @@
 
 	<!-- 예약정보 등록 -->
 	<insert id="createReservation" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO reservation
+		INSERT INTO reservation (user, shop, date)
 		VALUES(#{user}, #{shop}, #{date})
 	</insert>
 	
 	<!-- 상세예약정보 등록 -->
 	<insert id="createDetailReservation">
-		INSERT INTO detail_reservation
+		INSERT INTO detail_reservation (reservation, product, num)
 		VALUES(#{reservation}, #{product}, #{num})
 	</insert>
 
