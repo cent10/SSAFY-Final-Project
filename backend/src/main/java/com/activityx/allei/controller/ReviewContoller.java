@@ -95,7 +95,7 @@ public class ReviewContoller {
 	}
 	
 	@ApiOperation(value = "후기 답글 작성", response = BasicResponse.class)
-	@PostMapping("/{id}/replies")
+	@PostMapping("/{review}/replies")
 	private ResponseEntity<BasicResponse> createReviewReply(@RequestBody ReviewReplyDto reviewReplyDto) {
 		logger.debug("후기 답글 작성");
 		final BasicResponse result = new BasicResponse();
@@ -125,7 +125,7 @@ public class ReviewContoller {
 	}
 	
 	@ApiOperation(value = "후기 답글 수정", response = BasicResponse.class)
-	@PutMapping("/{id}/replies")
+	@PutMapping("/{review}/replies/{id}")
 	private ResponseEntity<BasicResponse> updateReviewReply(@RequestBody ReviewReplyDto reviewReplyDto) {
 		logger.debug("후기 답글 수정");
 		final BasicResponse result = new BasicResponse();
@@ -139,7 +139,7 @@ public class ReviewContoller {
 	}
 	
 	@ApiOperation(value = "후기 답글 삭제", response = BasicResponse.class)
-	@DeleteMapping("/{id}/replies")
+	@DeleteMapping("/{review}/replies/{id}")
 	private ResponseEntity<BasicResponse> deleteReviewReply(@PathVariable("id") int id) {
 		logger.debug("후기 답글 삭제");
 		final BasicResponse result = new BasicResponse();
