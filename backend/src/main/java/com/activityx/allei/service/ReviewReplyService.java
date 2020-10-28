@@ -10,4 +10,7 @@ public interface ReviewReplyService {
 	// 후기 답글 조회
 	ReviewReplyDto read(int review);
 	
+	// 후기 답글 수정
+	boolean update(ReviewReplyDto reviewDto);
+	
 }

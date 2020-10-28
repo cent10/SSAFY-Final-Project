@@ -23,5 +23,11 @@ public class ReviewReplyServiceImpl implements ReviewReplyService {
 		return reviewReplyDao.read(review);
 	}
 
+	@Override
+	public boolean update(ReviewReplyDto reviewReplyDto) {
+		return reviewReplyDao.update(reviewReplyDto) == 1;
+	}
+
+
 	
 }
