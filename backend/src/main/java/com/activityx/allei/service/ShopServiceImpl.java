@@ -1,6 +1,8 @@
 package com.activityx.allei.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,17 +27,20 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public boolean create(ShopDto shopDto, String categoryName) {
 		int check1 = shopDao.createShop(shopDto);
-		System.out.println("shopDto: " + shopDto);
 		ShopCategoryDto shopCategoryDto = new ShopCategoryDto(0, shopDto.getId(), categoryDao.readCode(categoryName));
-		System.out.println("shopCategoryDto: " + shopCategoryDto);
 		int check2 = shopCategoryDao.createShopCategory(shopCategoryDto);
 		
 		return check1 + check2 > 1;
 	}
 
 	@Override
-	public ShopDto read(int id) {
-		return shopDao.read(id);
+	public Map<String, Object> read(int id) {
+		Map<String, Object> map = new HashMap<>();
+		ShopDto shopDto = shopDao.read(id);
+		String category = categoryDao.readName(id);
+		map.put("shop", shopDto);
+		map.put("category", category);
+		return map;
 	}
 
 	@Override

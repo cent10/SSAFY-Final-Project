@@ -1,6 +1,7 @@
 package com.activityx.allei.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,10 +59,10 @@ public class ShopContoller {
 	private ResponseEntity<BasicResponse> readShop(@PathVariable("id") int id) {
 		logger.debug("업체 상세 조회");
 		final BasicResponse result = new BasicResponse();
-		ShopDto shopDto = shopService.read(id);
-		if (shopDto != null) {
+		Map<String, Object> map = shopService.read(id);
+		if (map != null) {
 			result.status = true;
-			result.data = shopDto;
+			result.data = map;
 		} else {
 			result.status = false;
 			result.msg = "해당 업체가 없습니다.";
