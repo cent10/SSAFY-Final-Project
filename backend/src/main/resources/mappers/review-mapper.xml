@@ -1,17 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<<<<<<< HEAD
+<mapper namespace="com.activityx.allei.dao.ReviewDao">
+
+	<!-- 후기 등록 -->
+	<insert id="create">
+		INSERT INTO review
+		VALUES(#{reservation}, #{rate}, #{content}, #{date})
+	</insert>
+	
+	<!-- 후기 조회 -->
+	<select id="read" resultType="com.activityx.allei.dto.ShopDto">
+		SELECT *
+		FROM review
+		WHERE id=#{id}
+	</select>
+	
+	<!-- 후기 수정 -->
+	<update id="update">
+		UPDATE review
+		SET rate=#{rate}, content=#{content}, date=#{date}
+		WHERE id=#{id}
+	</update>
+	
+	<!-- 후기 삭제 -->
+	<delete id="delete">
+		DELETE FROM review
+		WHERE id=#{id}
+	</delete>
+=======
 <mapper namespace="com.activityx.allei.dao.ReservationDao">
 
 	<!-- 예약정보 등록 -->
 	<insert id="createReservation" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO reservation
-		VALUES(#{user}, #{shop}, #{date})
+		VALUES(#{id}, #{user}, #{shop}, #{date})
 	</insert>
 	
 	<!-- 상세예약정보 등록 -->
 	<insert id="createDetailReservation">
 		INSERT INTO detail_reservation
-		VALUES(#{reservation}, #{product}, #{num})
+		VALUES(#{id}, #{reservation}, #{product}, #{num})
 	</insert>
 
 	<!-- 예약정보 조회 -->
@@ -41,4 +70,5 @@
 		WHERE id=#{id}
 	</delete>
 
+>>>>>>> 4a47f71a0c22b591e8d3bed8ab36df9b3f7cd6a9
 </mapper>
