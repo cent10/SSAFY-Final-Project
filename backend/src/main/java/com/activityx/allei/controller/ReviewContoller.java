@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.activityx.allei.dto.BasicResponse;
 import com.activityx.allei.dto.ReviewDto;
+import com.activityx.allei.dto.ReviewReplyDto;
+import com.activityx.allei.service.ReviewReplyService;
 import com.activityx.allei.service.ReviewService;
 
 import io.swagger.annotations.ApiOperation;
@@ -30,6 +32,9 @@ public class ReviewContoller {
 	
 	@Autowired
 	ReviewService reviewService;
+	
+	@Autowired
+	ReviewReplyService reviewReplyService;
 	
 	@ApiOperation(value = "후기 작성", response = BasicResponse.class)
 	@PostMapping("")
@@ -88,4 +93,19 @@ public class ReviewContoller {
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "후기 답글 작성", response = BasicResponse.class)
+	@PostMapping("/{id}/replies")
+	private ResponseEntity<BasicResponse> createReviewReply(@RequestBody ReviewReplyDto reviewReplyDto) {
+		logger.debug("후기 답글 작성");
+		final BasicResponse result = new BasicResponse();
+		if (reviewReplyService.create(reviewReplyDto)) {
+			result.status = true;
+		} else {
+			result.status = false;
+			result.msg = "후기 답글 작성에 실패했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+
 }
