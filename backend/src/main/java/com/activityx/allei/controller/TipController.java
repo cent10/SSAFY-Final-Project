@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.activityx.allei.dto.BasicResponse;
@@ -118,6 +119,22 @@ public class TipController {
 		}else{
 			result.status = false;
 			result.msg = "조회수 수정에 실패 했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "통합 검색을 합니다.", response = BasicResponse.class)
+	@GetMapping("total")
+	public ResponseEntity<BasicResponse> getTipsHasKeyword(@RequestParam String keyword) {
+		logger.debug("Tip Board test : getTipsHasKeyword - 호츌");
+		final BasicResponse result = new BasicResponse();
+		ArrayList<TipDto> data = service.getTipsHasKeyword(keyword);
+		if(data != null){
+			result.status = true;
+			result.data = data;
+		}else{
+			result.status = false;
+			result.msg = "게시글이 없습니다.";
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}

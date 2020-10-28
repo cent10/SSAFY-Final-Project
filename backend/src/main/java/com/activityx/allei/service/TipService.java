@@ -18,5 +18,7 @@ public interface TipService {
 	ArrayList<TipDto> allTips();
 	//조회수 증가
 	boolean increaseHits(int id);
+	//통합검색
+	ArrayList<TipDto> getTipsHasKeyword(String keyword);
 
 }
