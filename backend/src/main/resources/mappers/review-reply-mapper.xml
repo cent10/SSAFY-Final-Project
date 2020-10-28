@@ -18,7 +18,7 @@
 	<!-- 후기 답글 수정 -->
 	<update id="update">
 		UPDATE review_reply
-		SET rate=#{review}, content=#{content}, date=#{date}
+		SET content=#{content}, date=#{date}
 		WHERE id=#{id}
 	</update>
 	
