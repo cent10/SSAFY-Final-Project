@@ -4,7 +4,7 @@
 	
 	<!-- 상품 등록 -->
 	<insert id="create">
-		INSERT INTO product
+		INSERT INTO product (shop, name, description, price, num)
 		VALUES(#{shop}, #{name}, #{description}, #{price}, #{num})
 	</insert>
 	
