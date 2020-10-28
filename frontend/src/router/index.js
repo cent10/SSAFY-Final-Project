@@ -2,6 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
+import TipList from "@/components/TipList.vue"
+import TipDetail from "@/components/TipDetail.vue"
+import TipUpdate from "@/components/TipUpdate.vue"
+import TipWrite from "@/components/TipWrite.vue"
+
+
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -9,6 +16,26 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/tiplist',
+    name: 'TipList',
+    component: TipList
+  },
+  {
+    path: '/tipdetail/:id',
+    name: 'TipDetail',
+    component: TipDetail
+  },
+  {
+    path: '/tipupdate/:id',
+    name: 'TipUpdate',
+    component: TipUpdate
+  },
+  {
+    path: '/tip/create/',
+    name: 'TipWrite',
+    component: TipWrite
   }
 ]
 

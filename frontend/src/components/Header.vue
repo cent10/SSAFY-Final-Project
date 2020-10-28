@@ -1,5 +1,5 @@
 <template>
-  <b-navbar fixed="top" type="dark" variant="secondary" class="myheader">
+  <b-navbar class="yol-header" fixed="top" type="dark">
     <b-navbar-brand href="#">
       야! 올레?
     </b-navbar-brand>
@@ -21,7 +21,10 @@ export default {
 </script>
 
 <style scoped>
-  .myheader {
-      height: 60px;
+  .yol-header  {
+      height: 65px;
+      background-color: rgba(1, 1, 1, 0.5);
+      padding-left: 15%;
+      padding-right: 15%;
   }
 </style>

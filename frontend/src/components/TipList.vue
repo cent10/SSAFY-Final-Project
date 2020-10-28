@@ -12,18 +12,21 @@
         @change="getArticles"
       >
         <option value="null">카테고리</option>
-    	
-        <option v-for="(onecategoty,id) in categorys" :key="id" :value="onecategory.category">{{onecategory.category}}</option>
+        <option v-for="(onecategory,id) in categorys" :key="id" :value="onecategory.category">{{onecategory.category}}</option>
       </select>
+
+    </div>
     <p />
     <p></p>
     <table class="table table-striped table-bordered table-hover">
       <thead>
         <tr>
-          <th style="width:25%;">카테고리</th>
-          <th style="width:25%;">제목</th>
-          <th style="width:25%;">날짜</th>
-          <th style="width:25%;">조회수</th>
+          <th style="width:20%;">카테고리</th>
+          <th style="width:20%;">제목</th>
+          <th style="width:20%;">내용</th>
+          <th style="width:15%;">사용자</th>
+          <th style="width:15%;">날짜</th>
+          <th style="width:10%;">조회수</th>
         </tr>
       </thead>
       <tbody>
@@ -33,10 +36,13 @@
           
           @click="moveDetail(notice.id)"
         >
-          <td>{{notice.city.city.slice(0, 2)}}</td>
-          <td>{{notice.borough.gu.slice(0, 3)}}</td>
-          <td>{{notice.animal.kind}}</td>
-          <td>{{notice.title.slice(0, 5)}}</td>
+          <td>{{notice.category.slice(0, 2)}}</td>
+          <td>{{notice.title.slice(0, 3)}}</td>
+          <td>{{notice.content.slice(0, 5)}}</td>
+          <td>{{notice.user}}</td>
+          <td>{{notice.date}}</td>
+          <td>{{notice.hits}}</td>
+
         </tr>
       </tbody>
     </table>
@@ -45,10 +51,11 @@
 </template>
 
 <script>
+/*jslint smarttabs:true */
 // import sessionManager from "@/components/SessionManager.js";
 const API_URL = process.env.VUE_APP_SERVER_URL;
 
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 import axios from "axios";
 
 export default {
@@ -64,23 +71,19 @@ export default {
       g: "all",
 
       title: "",
-      gu: "",
-      citys: [],
+      
       no: "",
 
       categorys: [],
-      gugun: [],
-      animals: [],
-      breeds: [],
+      notices: [],
+      
       name: "",
-      gender: "",
-      age: "",
+      
       time: "",
-      img_path: "",
+  
       content: "",
-      selectedCity: null,
-      selectedGu: null,
-      selectedKind: null,
+      
+      selectedCategory: null,
     };
   },
   components: {},
@@ -89,7 +92,7 @@ export default {
   },
   created() {
     axios
-      .get(`${API_URL}/*****`)
+      .get(`${API_URL}/tip/category`)
       .then(({ data }) => {
         this.categorys = data;
       })
@@ -100,7 +103,7 @@ export default {
 
     
     axios
-      .get(`${API_URL}/articles_find/`)
+      .get(`${API_URL}/tip/all`)
       .then(({ data }) => {
         this.notices = data;
         //   console.log(this.data)
@@ -114,27 +117,29 @@ export default {
   },
   methods: {
     getArticles() {
-      var city = (this.selectedCity == "null") ? null : this.selectedCity
-      var borough = (this.selectedGu == "null") ? null : this.selectedGu
-      var animal = (this.selectedKind == "null") ? null : this.selectedKind
+      var category = (this.selectedCategory == "null") ? null : this.selectedCategory
+    
       const data =  {
-        'city': city,
-        'borough': borough,
-        'animal': animal
+        'category': category,
       }
-      const token = this.$cookies.get('auth-token')
-      axios.post(`${API_URL}/articles_find/search/`, data)
+      // const token = this.$cookies.get('auth-token')
+      axios.post(`${API_URL}/tip/search/`, data)
       .then((res) => {
         this.notices = res.data
       })
       .catch((err) => {
+        alert("정보를 받아올때 에러가 발생했습니다.");
         console.log(err)
       })
     },
     moveDetail(id) {
-      this.$router.push({ path: "/articles_find/" + id });
+      axios.get(`${API_URL}/tip/increase/`+ id)
+      .catch((err) =>{
+        console.log(err)
+      })
+      this.$router.push({ path: "/tip/detail/" + id });
     },
-    keyWord(city, gu, kind) {
+    // keyWord(city, gu, kind) {
       // console.log(city);
       // console.log(gu);
       // console.log(kind);
@@ -142,22 +147,22 @@ export default {
       // console.log(this.selectedGu);
       // console.log(this.selectedKind);
 
-      if (
-        city === this.selectedCity &&
-        gu === this.selectedGu &&
-        kind === this.selectedKind
-      ) {
-        return true;
-      } else if (
-        this.selectedCity == null &&
-        this.selectedGu == null &&
-        this.selectedKind == null
-      ) {
-        return true;
-      }
+    //   if (
+    //     city === this.selectedCity &&
+    //     gu === this.selectedGu &&
+    //     kind === this.selectedKind
+    //   ) {
+    //     return true;
+    //   } else if (
+    //     this.selectedCity == null &&
+    //     this.selectedGu == null &&
+    //     this.selectedKind == null
+    //   ) {
+    //     return true;
+    //   }
 
-      return false;
-    },
+    //   return false;
+    // },
   },
   filter: {},
 };
