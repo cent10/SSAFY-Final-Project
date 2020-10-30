@@ -49,8 +49,13 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	public List<ShopDto> search(String searchword) {
-		return shopDao.search(searchword);
+	public Map<String, Object> search(String searchword) {
+		Map<String, Object> map = new HashMap<>();
+		List<ShopDto> leisureShops = shopDao.searchLeisureShops(searchword);
+		List<ShopDto> rentalShops = shopDao.searchRentalShops(searchword);
+		map.put("leisureShops", leisureShops);
+		map.put("rentalShops", rentalShops);
+		return map;
 	}
 	
 	@Override

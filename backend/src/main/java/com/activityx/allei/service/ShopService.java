@@ -17,7 +17,7 @@ public interface ShopService {
 	List<ShopDto> readAll();
 	
 	// 업체 검색
-	List<ShopDto> search(String searchword);
+	Map<String, Object> search(String searchword);
 	
 	// 업체 상세 검색
 	List<ShopDto> detailedSearch(int minPrice, int maxPrice, String region, String category);
