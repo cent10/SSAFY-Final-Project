@@ -18,9 +18,12 @@ public interface ShopDao {
 	
 	// 업체 리스트 조회
 	public List<ShopDto> readAll();
-	
-	// 업체 검색
-	public List<ShopDto> search(String searchword);
+		
+	// 레저 서비스 업체 검색
+	public List<ShopDto> searchLeisureShops(String searchword);
+
+	// 장비 대여 업체 검색
+	public List<ShopDto> searchRentalShops(String searchword);
 	
 	// 업체 상세 검색
 	public List<ShopDto> detailedSearch(int minPrice, int maxPrice, String region, String category);
