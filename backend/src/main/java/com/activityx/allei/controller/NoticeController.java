@@ -46,4 +46,20 @@ private static final Logger logger = LoggerFactory.getLogger(SampleController.cl
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "공지사항 상세보기", response = BasicResponse.class)
+	@GetMapping("/{id}")
+	private ResponseEntity<BasicResponse> readNotice(@PathVariable("id") int id) {
+		logger.debug("공지사항 상세보기");
+		final BasicResponse result = new BasicResponse();
+		NoticeDto noticeDto = noticeService.read(id);
+		if (noticeDto != null) {
+			result.status = true;
+			result.data = noticeDto;
+		} else {
+			result.status = false;
+			result.msg = "해당 공지사항이 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 }

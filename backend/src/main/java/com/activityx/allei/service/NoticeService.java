@@ -8,4 +8,7 @@ public interface NoticeService {
 
 	// 공지사항 등록
 	boolean create(NoticeDto noticeDto);
+	
+	// 공지사항 상세보기
+	NoticeDto read(int id);
 }

@@ -18,4 +18,10 @@ public class NoticeServiceImpl implements NoticeService {
 	public boolean create(NoticeDto noticeDto) {
 		return noticeDao.create(noticeDto) == 1;
 	}
+
+	@Override
+	public NoticeDto read(int id) {
+		noticeDao.increaseHits(id);
+		return noticeDao.read(id);
+	}
 }

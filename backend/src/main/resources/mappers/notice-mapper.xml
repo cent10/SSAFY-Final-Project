@@ -7,5 +7,19 @@
 		INSERT INTO notice (user, title, content)
 		VALUES(#{user}, #{title}, #{content})
 	</insert>
+	
+	<!-- 공지사항 상세보기 -->
+	<select id="read" resultType="com.activityx.allei.dto.NoticeDto">
+		SELECT *
+		FROM notice
+		WHERE id=#{id}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="increaseHits">
+		UPDATE notice
+		SET hits=hits+1
+		WHERE id=#{id}
+	</update>
 
 </mapper>
