@@ -17,4 +17,7 @@ public interface NoticeService {
 	
 	// 공지사항 검색 (제목으로 검색)
 	List<NoticeDto> search(String searchword);
+	
+	// 공지사항 수정
+	boolean update(NoticeDto noticeDto);
 }

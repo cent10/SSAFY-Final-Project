@@ -28,6 +28,13 @@
 		WHERE title LIKE CONCAT('%', #{searchword}, '%')
 	</select>
 	
+	<!-- 공지사항 수정 -->
+	<update id="update">
+		UPDATE notice
+		SET title=#{title}, content=#{content}
+		WHERE id=#{id}
+	</update>
+	
 	<!-- 조회수 증가 -->
 	<update id="increaseHits">
 		UPDATE notice

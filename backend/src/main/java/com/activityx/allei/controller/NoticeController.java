@@ -94,4 +94,18 @@ private static final Logger logger = LoggerFactory.getLogger(SampleController.cl
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "공지사항 수정", response = BasicResponse.class)
+	@PutMapping("/{id}")
+	private ResponseEntity<BasicResponse> updateNotice(@RequestBody NoticeDto noticeDto) {
+		logger.debug("공지사항 수정");
+		final BasicResponse result = new BasicResponse();
+		if (noticeService.update(noticeDto)) {
+			result.status = true;
+		} else {
+			result.status = false;
+			result.msg = "공지사항 수정에 실패했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 }

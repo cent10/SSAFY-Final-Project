@@ -34,4 +34,9 @@ public class NoticeServiceImpl implements NoticeService {
 	public List<NoticeDto> search(String searchword) {
 		return noticeDao.search(searchword);
 	}
+
+	@Override
+	public boolean update(NoticeDto noticeDto) {
+		return noticeDao.update(noticeDto) == 1;
+	}
 }
