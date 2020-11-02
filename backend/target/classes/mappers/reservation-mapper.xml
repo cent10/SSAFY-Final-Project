@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.activityx.allei.dao.ReservationDao">
+
+	<!-- 예약정보 등록 -->
+	<insert id="createReservation" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO reservation (user, shop, date)
+		VALUES(#{user}, #{shop}, #{date})
+	</insert>
+	
+	<!-- 상세예약정보 등록 -->
+	<insert id="createDetailReservation">
+		INSERT INTO detail_reservation (reservation, product, num)
+		VALUES(#{reservation}, #{product}, #{num})
+	</insert>
+
+	<!-- 예약정보 조회 -->
+	<select id="readReservation" resultType="com.activityx.allei.dto.ReservationDto">
+		SELECT *
+		FROM reservation
+		WHERE id=#{id}
+	</select>
+	
+	<!-- 상세예약정보 조회 -->
+	<select id="readDetailReservation" resultType="com.activityx.allei.dto.DetailReservationDto">
+		SELECT *
+		FROM detail_reservation
+		WHERE reservation=#{reservation}
+	</select>
+	
+	<!-- 예약정보 리스트 조회 -->
+	<select id="readAllReservation" resultType="com.activityx.allei.dto.ReservationDto">
+		SELECT *
+		FROM reservation
+		WHERE user=#{id}
+	</select>
+	
+	<!-- 예약취소 -->
+	<delete id="deleteReservation">
+		DELETE FROM reservation
+		WHERE id=#{id}
+	</delete>
+
+</mapper>
