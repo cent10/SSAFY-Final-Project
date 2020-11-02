@@ -91,10 +91,10 @@ public class ShopContoller {
 	private ResponseEntity<BasicResponse> searchShop(@PathVariable("searchword") String searchword) {
 		logger.debug("업체 검색");
 		final BasicResponse result = new BasicResponse();
-		List<ShopDto> shopList = shopService.search(searchword);
-		if (shopList != null) {
+		Map<String, Object> map = shopService.search(searchword);
+		if (map != null) {
 			result.status = true;
-			result.data = shopList;
+			result.data = map;
 		} else {
 			result.status = false;
 			result.msg = "업체가 없습니다.";
