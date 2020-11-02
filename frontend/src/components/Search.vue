@@ -66,6 +66,6 @@ export default {
   height: 100%;
   background-color: rgb(1, 1, 1, 0.6);
 }
-.yol-title {
-}
+/* .yol-title {
+} */
 </style>
