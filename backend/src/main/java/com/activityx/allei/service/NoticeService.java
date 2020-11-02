@@ -14,4 +14,7 @@ public interface NoticeService {
 	
 	// 공지사항 리스트 조회
 	List<NoticeDto> readAll();
+	
+	// 공지사항 검색 (제목으로 검색)
+	List<NoticeDto> search(String searchword);
 }

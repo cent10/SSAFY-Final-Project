@@ -29,4 +29,9 @@ public class NoticeServiceImpl implements NoticeService {
 	public List<NoticeDto> readAll() {
 		return noticeDao.readAll();
 	}
+
+	@Override
+	public List<NoticeDto> search(String searchword) {
+		return noticeDao.search(searchword);
+	}
 }

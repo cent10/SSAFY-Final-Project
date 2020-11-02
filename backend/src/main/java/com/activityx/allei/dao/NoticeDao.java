@@ -18,6 +18,9 @@ public interface NoticeDao {
 	// 공지사항 리스트 조회
 	public List<NoticeDto> readAll();
 	
+	// 공지사항 검색 (제목으로 검색)
+	public List<NoticeDto> search(String searchword);
+	
 	// 조회수 증가
 	public int increaseHits(int id);
 }

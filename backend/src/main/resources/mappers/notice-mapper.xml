@@ -21,6 +21,13 @@
 		FROM notice
 	</select>
 	
+	<!-- 공지사항 검색 (제목으로 검색) -->
+	<select id="search" resultType="com.activityx.allei.dto.NoticeDto">
+		SELECT *
+		FROM notice
+		WHERE title LIKE CONCAT('%', #{searchword}, '%')
+	</select>
+	
 	<!-- 조회수 증가 -->
 	<update id="increaseHits">
 		UPDATE notice

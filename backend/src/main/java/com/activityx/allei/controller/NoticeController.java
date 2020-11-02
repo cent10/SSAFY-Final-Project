@@ -78,4 +78,20 @@ private static final Logger logger = LoggerFactory.getLogger(SampleController.cl
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "공지사항 검색 (제목으로 검색)", response = BasicResponse.class)
+	@GetMapping("/search/{searchword}")
+	private ResponseEntity<BasicResponse> searchNotice(@PathVariable("searchword") String searchword) {
+		logger.debug("공지사항 검색 (제목으로 검색)");
+		final BasicResponse result = new BasicResponse();
+		List<NoticeDto> noticeList = noticeService.search(searchword);
+		if (noticeList != null) {
+			result.status = true;
+			result.data = noticeList;
+		} else {
+			result.status = false;
+			result.msg = "검색된 공지사항이 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 }
