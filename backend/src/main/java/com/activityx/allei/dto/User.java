@@ -5,14 +5,14 @@ public class User {
 	private String email;
 	private String name;
 	private String domain;
-	private long key;
+	private long ukey;
 
-	public long getKey() {
-		return key;
+	public long getUkey() {
+		return ukey;
 	}
 
-	public void setKey(long key) {
-		this.key = key;
+	public void setUkey(long ukey) {
+		this.ukey = ukey;
 	}
 
 	public int getId() {

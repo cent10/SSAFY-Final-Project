@@ -24,7 +24,7 @@ public interface UserService {
 
 	List<User> findlistByEmail(String email);
 
-	User findByKey(long key);
+	User findByUkey(long ukey);
 
 	// 회원정보수정
 	boolean modifyUser(User user);
