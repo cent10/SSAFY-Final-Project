@@ -51,7 +51,7 @@
           <td>{{notice.title.slice(0, 3)}}</td>
           <td>{{notice.content.slice(0, 5)}}</td>
           <td>{{notice.user}}</td>
-          <td>{{notice.date}}</td>
+          <td>{{notice.date.slice(0,10)}}</td>
           <td>{{notice.hits}}</td>
 
         </tr>
@@ -94,6 +94,7 @@ export default {
   
       content: "",
       orderCount: 0,
+      category: null,
 
       // category: "",
       
@@ -106,9 +107,13 @@ export default {
   },
   created() {
     axios
-      .get(`${API_URL}/tip/category`)
-      .then(({ data }) => {
-        this.categorys = data;
+      .get(`${API_URL}/category/all`)
+      .then((res) => {
+        console.log(res)
+        console.log(res.data);
+        console.log(res.data.data);
+        this.categorys = res.data.data;
+        console.log(this.categorys);
       })
       .catch((err) => {
         alert("정보를 받아올때 에러가 발생했습니다.");
@@ -119,7 +124,8 @@ export default {
     axios
       .get(`${API_URL}/tip/all`)
       .then(({ data }) => {
-        this.notices = data;
+        console.log(data)
+        this.notices = data.data;
         //   console.log(this.data)
         //   this.comments = notices.comments;
         //   console.log(comments)
@@ -151,7 +157,7 @@ export default {
       .catch((err) =>{
         console.log(err)
       })
-      this.$router.push({ path: "/tip/detail/" + id });
+      this.$router.push({ path: "/tipdetail/" + id });
     },
     movewrite(){
       this.$router.push({ path: "/tip/create/" });

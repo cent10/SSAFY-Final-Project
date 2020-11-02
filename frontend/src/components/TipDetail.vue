@@ -18,7 +18,7 @@
         </tr>
         <tr>
           <td>날짜</td>
-          <td style="white-space:pre;">{{notice.date}}</td>
+          <td style="white-space:pre;">{{notice.date.slice(0,10)}}</td>
         </tr>
         <tr>
           <td>내용</td>
@@ -31,8 +31,11 @@
       </tbody>
     </table>
     
-    <b-button v-if="notice.user == user" class="mybutton1" @click="moveNoticeModify()">수정</b-button>
-    <b-button  v-if="notice.user == user" class="mybutton2 mx-3" @click="moveNoticeDelete()">삭제</b-button>
+    <!-- <b-button v-if="notice.user == user" class="mybutton1" @click="moveNoticeModify()">수정</b-button> -->
+    <b-button class="mybutton1" @click="moveNoticeModify()">수정</b-button>
+
+    <!-- <b-button  v-if="notice.user == user" class="mybutton2 mx-3" @click="moveNoticeDelete()">삭제</b-button> -->
+    <b-button class="mybutton2 mx-3" @click="moveNoticeDelete()">삭제</b-button>
 
     <b-button class="border-0" @click="moveNotice()">목록으로</b-button>
 
@@ -138,7 +141,7 @@ export default {
 
     axios({
       method: "GET",
-      url: `${API_URL}/tip/detail/` + this.$route.params.id + "/",
+      url: `${API_URL}/tip/detail/` + this.$route.params.id ,
 
     //   headers: {
     //     Authorization: `Token ${token}`,
@@ -146,7 +149,7 @@ export default {
     })
       .then(({ data }) => {
         console.log(data);
-        this.notice = data;
+        this.notice = data.data;
         
       })
       .catch((err) => {
@@ -348,7 +351,7 @@ export default {
     //   console.log();
       axios({
         method: "DELETE",
-        url: `${API_URL}/tipdelete/` + this.$route.params.id,
+        url: `${API_URL}/tip/delete/` + this.$route.params.id,
         // headers: {
         //   Authorization: `Token ${token}`,
         // },
