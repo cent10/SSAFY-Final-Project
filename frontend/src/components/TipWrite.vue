@@ -46,14 +46,19 @@ export default {
     };
   },
   created() {
-    axios.get(`${API_URL}/tip/category`)
-            .then(({ data }) => {
-                this.categorys = data;
-            })
-            .catch((err) => {
-                alert("정보를 받아올때 에러가 발생했습니다.");
-                console.log(err);
-            });
+    axios
+      .get(`${API_URL}/category/all`)
+      .then((res) => {
+        console.log(res)
+        console.log(res.data);
+        console.log(res.data.data);
+        this.categorys = res.data.data;
+        console.log(this.categorys);
+      })
+      .catch((err) => {
+        alert("정보를 받아올때 에러가 발생했습니다.");
+        console.log(err);
+      });
   },
 
   components: {
@@ -69,7 +74,7 @@ export default {
     //   console.log();
       axios({
         method: "POST",
-        url: `${API_URL}/tip/create/`,
+        url: `${API_URL}/tip/create`,
         data: {
           
           category: this.SelectedCategory,
@@ -87,7 +92,7 @@ export default {
           console.log(data);
           console.log(data.id);
           // if (data == 'success'){
-          this.$router.push({ path: `/tiplist/` }); //리스트 전체목록
+          this.$router.push({ path: `/tiplist` }); //리스트 전체목록
           // }
         })
         .catch((err) => {
