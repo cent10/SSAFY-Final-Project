@@ -25,7 +25,7 @@ public interface UserDao {
 
 	public List<User> findlistByEmail(String email);
 
-	public User findByKey(long key);
+	public User findByUkey(long ukey);
 
 	// update
 	public int update(User user);

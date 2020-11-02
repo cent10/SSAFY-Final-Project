@@ -6,58 +6,58 @@
 	<!-- create -->
 	<insert id="create">
         insert into user(
-            email, name, key
+            email, name, ukey
         ) values (
-            #{email}, #{name}, #{key}
+            #{email}, #{name}, #{ukey}
         )
 	</insert>
 
 	<!-- readAll -->
     <select id="readAll" resultType="User">
-        select id, email, name, domain, key
+        select id, email, name, domain, ukey
         from user
     </select>
 
 	<!-- findById -->
     <select id="findById" resultType="User">
-        select id, email, name, domain, key
+        select id, email, name, domain, ukey
         from user
         where id = #{id}
     </select>
 
 	<!-- findByName -->
     <select id="findByName" resultType="User">
-        select id, email, name, domain, key
+        select id, email, name, domain, ukey
         from user
         where name = #{name}
     </select>
 
 	<!-- findlistByName -->
     <select id="findlistByName" resultType="User">
-        select id, email, name, domain, key
+        select id, email, name, domain, ukey
         from user
         where name like CONCAT('%', #{name}, '%')
     </select>
 
 	<!-- findByEmail -->
     <select id="findByEmail" resultType="User">
-        select id, email, name, domain, key
+        select id, email, name, domain, ukey
         from user
         where email = #{email}
     </select>
 
 	<!-- findlistByEmail -->
     <select id="findlistByEmail" resultType="User">
-        select id, email, name, domain, key
+        select id, email, name, domain, ukey
         from user
         where email like CONCAT('%', #{email}, '%')
     </select>
 
-	<!-- findByKey -->
-    <select id="findByKey" resultType="User">
-        select id, email, name, domain, key
+	<!-- findByUkey -->
+    <select id="findByUkey" resultType="User">
+        select id, email, name, domain, ukey
         from user
-        where key = #{key}
+        where ukey = #{ukey}
     </select>
     
 	<!-- update -->

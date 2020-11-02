@@ -175,12 +175,12 @@ public class UserController {
         return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "유저 key값으로 정보 조회", response = BasicResponse.class)
-    @GetMapping("findByKey/{key}")
-    public ResponseEntity<BasicResponse> readUserByKey(@PathVariable long key) {
-        logger.debug("User DB test : readUserByKey - 호출");
+    @ApiOperation(value = "유저 ukey값으로 정보 조회", response = BasicResponse.class)
+    @GetMapping("findByUkey/{ukey}")
+    public ResponseEntity<BasicResponse> readUserByKey(@PathVariable long ukey) {
+        logger.debug("User DB test : readUserByUkey - 호출");
         final BasicResponse result = new BasicResponse();
-        User data = service.findByKey(key);
+        User data = service.findByUkey(ukey);
         if (data != null) {
             result.status = true;
             result.data = data;
