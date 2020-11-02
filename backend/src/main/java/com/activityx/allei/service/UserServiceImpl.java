@@ -55,8 +55,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findByKey(long key) {
-		return dao.findByKey(key);
+	public User findByUkey(long ukey) {
+		return dao.findByUkey(ukey);
 	}
 
 	@Override
