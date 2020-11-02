@@ -2,8 +2,11 @@ package com.activityx.allei.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.activityx.allei.dto.TipDto;
 
+@Mapper
 public interface TipDao {
 	
 	//게시글 쓰기

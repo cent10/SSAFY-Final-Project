@@ -21,11 +21,18 @@
 		FROM shop
 	</select>
 
-	<!-- 업체 검색 -->
-	<select id="search" resultType="com.activityx.allei.dto.ShopDto">
+	<!-- 레저 서비스 업체 검색 -->
+	<select id="searchLeisureShops" resultType="com.activityx.allei.dto.ShopDto">
 		SELECT *
 		FROM shop
-		WHERE name LIKE CONCAT('%', #{searchword}, '%') OR description LIKE CONCAT('%', #{searchword}, '%')
+		WHERE (name LIKE CONCAT('%', #{searchword}, '%') OR description LIKE CONCAT('%', #{searchword}, '%')) AND classification = 0
+	</select>
+	
+	<!-- 장비 대여 업체 검색 -->
+	<select id="searchRentalShops" resultType="com.activityx.allei.dto.ShopDto">
+		SELECT *
+		FROM shop
+		WHERE (name LIKE CONCAT('%', #{searchword}, '%') OR description LIKE CONCAT('%', #{searchword}, '%')) AND classification = 1
 	</select>
 	
 	<!-- 업체 상세 검색 -->
