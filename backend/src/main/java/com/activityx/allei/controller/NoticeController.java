@@ -108,4 +108,18 @@ private static final Logger logger = LoggerFactory.getLogger(SampleController.cl
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "공지사항 삭제", response = BasicResponse.class)
+	@DeleteMapping("/{id}")
+	private ResponseEntity<BasicResponse> deleteNotice(@PathVariable("id") int id) {
+		logger.debug("공지사항 삭제");
+		final BasicResponse result = new BasicResponse();
+		if (noticeService.delete(id)) {
+			result.status = true;
+		} else {
+			result.status = false;
+			result.msg = "공지사항 삭제에 실패했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 }

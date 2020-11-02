@@ -24,6 +24,9 @@ public interface NoticeDao {
 	// 공지사항 수정
 	public int update(NoticeDto noticeDto);
 	
+	// 공지사항 삭제
+	public int delete(int id);
+	
 	// 조회수 증가
 	public int increaseHits(int id);
 }

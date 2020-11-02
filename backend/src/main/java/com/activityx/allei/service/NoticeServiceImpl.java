@@ -39,4 +39,9 @@ public class NoticeServiceImpl implements NoticeService {
 	public boolean update(NoticeDto noticeDto) {
 		return noticeDao.update(noticeDto) == 1;
 	}
+
+	@Override
+	public boolean delete(int id) {
+		return noticeDao.delete(id) == 1;
+	}
 }

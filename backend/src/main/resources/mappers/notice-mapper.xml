@@ -35,6 +35,12 @@
 		WHERE id=#{id}
 	</update>
 	
+	<!-- 공지사항 삭제 -->
+	<delete id="delete">
+		DELETE FROM notice
+		WHERE id=#{id}
+	</delete>
+	
 	<!-- 조회수 증가 -->
 	<update id="increaseHits">
 		UPDATE notice

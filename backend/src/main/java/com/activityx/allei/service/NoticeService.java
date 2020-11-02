@@ -20,4 +20,7 @@ public interface NoticeService {
 	
 	// 공지사항 수정
 	boolean update(NoticeDto noticeDto);
+	
+	// 공지사항 삭제
+	boolean delete(int id);
 }
