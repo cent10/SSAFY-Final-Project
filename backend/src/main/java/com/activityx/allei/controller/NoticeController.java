@@ -62,4 +62,20 @@ private static final Logger logger = LoggerFactory.getLogger(SampleController.cl
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "공지사항 리스트 조회", response = BasicResponse.class)
+	@GetMapping("")
+	private ResponseEntity<BasicResponse> readAllNotices() {
+		logger.debug("공지사항 리스트 조회");
+		final BasicResponse result = new BasicResponse();
+		List<NoticeDto> noticeList = noticeService.readAll();
+		if (noticeList != null) {
+			result.status = true;
+			result.data = noticeList;
+		} else {
+			result.status = false;
+			result.msg = "공지사항이 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 }

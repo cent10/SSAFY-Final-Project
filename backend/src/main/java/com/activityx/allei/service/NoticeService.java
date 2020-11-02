@@ -11,4 +11,7 @@ public interface NoticeService {
 	
 	// 공지사항 상세보기
 	NoticeDto read(int id);
+	
+	// 공지사항 리스트 조회
+	List<NoticeDto> readAll();
 }

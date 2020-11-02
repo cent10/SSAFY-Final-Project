@@ -24,4 +24,9 @@ public class NoticeServiceImpl implements NoticeService {
 		noticeDao.increaseHits(id);
 		return noticeDao.read(id);
 	}
+
+	@Override
+	public List<NoticeDto> readAll() {
+		return noticeDao.readAll();
+	}
 }

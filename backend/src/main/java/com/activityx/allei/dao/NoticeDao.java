@@ -15,6 +15,9 @@ public interface NoticeDao {
 	// 공지사항 상세보기
 	public NoticeDto read(int id);
 	
+	// 공지사항 리스트 조회
+	public List<NoticeDto> readAll();
+	
 	// 조회수 증가
 	public int increaseHits(int id);
 }
