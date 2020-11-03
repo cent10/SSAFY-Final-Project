@@ -1,5 +1,9 @@
 <template>
   <div>
+  
+  
+  
+  
     <div style="width:40%; margin:0px auto">	
 		<div class="form-group">
         <input type="text" class="form-control" placeholder="* 제목" v-model="notice.title">
