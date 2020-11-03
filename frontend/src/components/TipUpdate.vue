@@ -1,9 +1,8 @@
 <template>
   <div>
   
-  
-  
-  
+    <h1 class="mt-2 mb-3">팁 수정 페이지</h1>
+
     <div style="width:40%; margin:0px auto">	
 		<div class="form-group">
         <input type="text" class="form-control" placeholder="* 제목" v-model="notice.title">
