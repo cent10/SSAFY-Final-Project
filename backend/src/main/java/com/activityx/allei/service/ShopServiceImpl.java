@@ -59,6 +59,16 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override
+	public Map<String, Object> searchLimit(String searchword) {
+		Map<String, Object> map = new HashMap<>();
+		List<ShopDto> leisureShops = shopDao.searchLeisureShopsLimit(searchword);
+		List<ShopDto> rentalShops = shopDao.searchRentalShopsLimit(searchword);
+		map.put("leisureShops", leisureShops);
+		map.put("rentalShops", rentalShops);
+		return map;
+	}
+	
+	@Override
 	public List<ShopDto> detailedSearch(int minPrice, int maxPrice, String region, String category) {
 		return shopDao.detailedSearch(minPrice, maxPrice, region, category);
 	}
