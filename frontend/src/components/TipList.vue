@@ -24,7 +24,7 @@
           <th style="width:20%;">카테고리</th>
           <th style="width:20%;">제목</th>
           <th style="width:20%;">내용</th>
-          <th style="width:15%;">사용자</th>
+          <th style="width:15%;">작성자</th>
           <th style="width:15%;">날짜</th>
           <th style="width:10%;">조회수</th>
         </tr>
@@ -36,9 +36,9 @@
           
           @click="moveDetail(notice.id)"
         >
-          <td>{{notice.category.slice(0, 2)}}</td>
-          <td>{{notice.title.slice(0, 3)}}</td>
-          <td>{{notice.content.slice(0, 5)}}</td>
+          <td>{{notice.category.slice(0, 6)}}</td>
+          <td>{{notice.title.slice(0, 8)}}</td>
+          <td>{{notice.content.slice(0, 7)}}</td>
           <td>{{notice.user}}</td>
           <td>{{notice.date}}</td>
           <td>{{notice.hits}}</td>
