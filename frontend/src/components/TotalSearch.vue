@@ -19,8 +19,8 @@
         <b-jumbotron header="야! 올레?" header-level="2" text-variant="white"  bg-variant="transparent">
           <p>#번지점프  #행글라이더  #스키장비</p>
           <b-nav-form>
-              <b-form-input size="lg" class="mr-sm-2"></b-form-input>
-              <b-button size="lg" class="my-2 my-sm-0" variant="dark" type="submit">검색</b-button>
+              <b-form-input size="lg" class="mr-sm-2" v-model="word"></b-form-input>
+              <b-button size="lg" class="my-2 my-sm-0" variant="dark" @click="search">검색</b-button>
           </b-nav-form>
         </b-jumbotron>
     </div>
@@ -36,11 +36,13 @@ import bg5 from '../assets/bg5.jpg';
 import bg6 from '../assets/bg6.jpg';
 import bg7 from '../assets/bg7.jpg';
 import bg8 from '../assets/bg8.jpg';
+// import axios from 'axios';
 
 export default {
   name: 'TotalSearch',
   data: function() {
     return {
+      slide: 0,
       bg1: bg1,
       bg2: bg2,
       bg3: bg3,
@@ -49,6 +51,12 @@ export default {
       bg6: bg6,
       bg7: bg7,
       bg8: bg8,
+      word: '',
+    }
+  },
+  methods: {
+    search: function () {
+      this.$router.push({ path: `totalresult/${this.word}`});
     }
   }
 }

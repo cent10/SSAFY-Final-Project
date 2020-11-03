@@ -7,6 +7,7 @@ import TipDetail from "@/components/TipDetail.vue"
 import TipUpdate from "@/components/TipUpdate.vue"
 import TipWrite from "@/components/TipWrite.vue"
 
+import TotalResult from "@/components/TotalResult.vue"
 
 
 Vue.use(VueRouter)
@@ -36,6 +37,11 @@ const routes = [
     path: '/tip/create/',
     name: 'TipWrite',
     component: TipWrite
+  },{
+    path: '/totalresult/:word',
+    name: 'TotalResult',
+    component: TotalResult,
+    props: true
   }
 ]
 
