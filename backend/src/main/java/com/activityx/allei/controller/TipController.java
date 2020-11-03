@@ -130,7 +130,7 @@ public class TipController {
 	
 	@ApiOperation(value = "통합 검색을 합니다.", response = BasicResponse.class)
 	@GetMapping("total")
-	public ResponseEntity<BasicResponse> getTipsHasKeyword(@RequestParam String keyword) {
+	public ResponseEntity<BasicResponse> getTipsHasKeyword(@RequestParam(required = false) String keyword) {
 		logger.debug("Tip Board test : getTipsHasKeyword - 호츌");
 		final BasicResponse result = new BasicResponse();
 		ArrayList<TipDto> data = service.getTipsHasKeyword(keyword);
