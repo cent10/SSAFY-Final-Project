@@ -56,7 +56,10 @@ export default {
   },
   methods: {
     search: function () {
-      this.$router.push({ path: `totalresult/${this.word}`});
+      if(this.word === '')
+        alert("검색어를 입력해주세요!");
+      else
+        this.$router.push({ path: `totalresult/${this.word}`});
     }
   }
 }
