@@ -25,6 +25,12 @@ public interface ShopDao {
 	// 장비 대여 업체 검색
 	public List<ShopDto> searchRentalShops(String searchword);
 	
+	// 레저 서비스 업체 검색 (10개)
+	public List<ShopDto> searchLeisureShopsLimit(String searchword);
+	
+	// 장비 대여 업체 검색 (10개)
+	public List<ShopDto> searchRentalShopsLimit(String searchword);
+	
 	// 업체 상세 검색
 	public List<ShopDto> detailedSearch(int minPrice, int maxPrice, String region, String category);
 	

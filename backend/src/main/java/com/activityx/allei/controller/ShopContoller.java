@@ -102,6 +102,22 @@ public class ShopContoller {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "업체 검색 (레저 서비스 업체 10개, 장비 대여 업체 10개)", response = BasicResponse.class)
+	@GetMapping("/search/{searchword}/limit")
+	private ResponseEntity<BasicResponse> searchShopLimit(@PathVariable("searchword") String searchword) {
+		logger.debug("업체 검색 (레저 서비스 업체 10개, 장비 대여 업체 10개)\"");
+		final BasicResponse result = new BasicResponse();
+		Map<String, Object> map = shopService.searchLimit(searchword);
+		if (map != null) {
+			result.status = true;
+			result.data = map;
+		} else {
+			result.status = false;
+			result.msg = "업체가 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
 	@ApiOperation(value = "업체 상세 검색", response = BasicResponse.class)
 	@GetMapping("/search")
 	private ResponseEntity<BasicResponse> detailedSearchShop(int minPrice, int maxPrice, String region, String category) {
