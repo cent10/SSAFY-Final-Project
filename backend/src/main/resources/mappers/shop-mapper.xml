@@ -35,6 +35,22 @@
 		WHERE (name LIKE CONCAT('%', #{searchword}, '%') OR description LIKE CONCAT('%', #{searchword}, '%')) AND classification = 1
 	</select>
 	
+	<!-- 레저 서비스 업체 검색 (10개) -->
+	<select id="searchLeisureShopsLimit" resultType="com.activityx.allei.dto.ShopDto">
+		SELECT *
+		FROM shop
+		WHERE (name LIKE CONCAT('%', #{searchword}, '%') OR description LIKE CONCAT('%', #{searchword}, '%')) AND classification = 0
+		LIMIT 10
+	</select>
+	
+	<!-- 장비 대여 업체 검색 (10개) -->
+	<select id="searchRentalShopsLimit" resultType="com.activityx.allei.dto.ShopDto">
+		SELECT *
+		FROM shop
+		WHERE (name LIKE CONCAT('%', #{searchword}, '%') OR description LIKE CONCAT('%', #{searchword}, '%')) AND classification = 1
+		LIMIT 10
+	</select>
+	
 	<!-- 업체 상세 검색 -->
 	<select id="detailedSearch" resultType="com.activityx.allei.dto.ShopDto">
 		SELECT shop.id, shop.admin, shop.name, shop.address, shop.phone, shop.classification, shop.number, shop.description
