@@ -4,7 +4,7 @@
       야! 올레?
     </b-navbar-brand>
     <b-navbar-nav class="ml-auto">
-        <b-nav-item>
+        <b-nav-item @click="noticelist()">
             공지사항
         </b-nav-item>
         <b-nav-item v-b-modal.modal-login>
@@ -25,6 +25,9 @@ export default {
      methods: {
        updateScroll() {
          this.scrollPosition = window.scrollY
+       },
+       noticelist(){
+          this.$router.push({ path: "/noticelist/" });
        }
      },
      mounted() {
