@@ -10,12 +10,7 @@
       header-border-variant="white"
       content-class
       hide-footer>
-      <a href="https://kauth.kakao.com/oauth/authorize
-            ?client_id=c917624215999ace922acc8e48ce073e
-            &redirect_uri=http://k3a210.p.ssafy.io/login
-            &response_type=code">
         <b-img id="kakao" center :src="kakao"/>
-      </a>
     </b-modal>
   </div>
 </template>
@@ -35,6 +30,17 @@ export default {
     return {
       kakao: kakao,
     };
+  },
+  mounted(){
+    const elK = document.getElementById("kakao");
+    elK.addEventListener("click", function () {
+      open(
+        `https://kauth.kakao.com/oauth/authorize?client_id=c917624215999ace922acc8e48ce073e&redirect_uri=http://k3a210.p.ssafy.io/login&response_type=code`,
+        "",
+        "width=400,height=500"
+      );
+    }
+    );
   }
 }
 </script>
