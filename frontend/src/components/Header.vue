@@ -1,6 +1,6 @@
 <template>
   <b-navbar class="yol-header" fixed="top" type="dark">
-    <b-navbar-brand href="#">
+    <b-navbar-brand href="/">
       야! 올레?
     </b-navbar-brand>
     <b-navbar-nav class="ml-auto">
@@ -41,6 +41,7 @@ export default {
       height: 65px;
       padding-left: 15%;
       padding-right: 15%;
+      background-color: black;
   }
   .yol-header-bg {
       background-color: rgba(1, 1, 1, 0.5);
