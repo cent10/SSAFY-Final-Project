@@ -52,9 +52,11 @@
 	<select id="getTipsHasKeyword" resultType="TipDto">
 		select id, user, title, content, date, hits, category
 		from tip
-		where category like CONCAT('%', #{keyword}, '%')
-		or title like CONCAT('%', #{keyword}, '%')
-		or content like CONCAT('%', #{keyword}, '%')
+		<if test="keyword.equals('') and keyword != null">
+			where category like CONCAT('%', #{keyword}, '%')
+			or title like CONCAT('%', #{keyword}, '%')
+			or content like CONCAT('%', #{keyword}, '%')
+		</if>
 	</select>
 
 </mapper>
