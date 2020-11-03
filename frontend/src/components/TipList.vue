@@ -71,10 +71,15 @@ import axios from "axios";
 
 export default {
   name: "TipList",
+  props: {
+    word: {
+      type: String,
+      default: ""
+    }
+  },
   data() {
     return {
       key: "1",
-      word: "",
       orderTitle: 0,
       id: "",
 

@@ -26,7 +26,8 @@ const routes = [
   {
     path: '/tiplist',
     name: 'TipList',
-    component: TipList
+    component: TipList,
+    props: true
   },
   {
     path: '/tipdetail/:id',

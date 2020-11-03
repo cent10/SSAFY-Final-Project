@@ -5,7 +5,7 @@
         <h3> 레저 / 액티비티 </h3>
     </b-row>
     <b-row>
-      <carousel-3d :width="200" :height="400" controls-visible :perspective="0" :space="300" >
+      <carousel-3d v-if="leisures.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" >
         <slide v-for="(leisure, i) in leisures" :key="i" :index="i">
         <div class="post-card">
           <span class="post-tag">카테고리</span>
@@ -21,15 +21,19 @@
         </div>
         </slide>
       </carousel-3d>
+    <div v-else class="no-search">
+        <img :src="empty"/>
+        <h3>검색결과 없음</h3>
+      </div>
     </b-row>
     <b-row>
-      <div class="more">더보기...</div>
+      <div v-if="leisures.length > 0" class="more">더보기...</div>
     </b-row>
     <b-row>
         <h3> 장비 대여 </h3>
     </b-row>
     <b-row>
-      <carousel-3d :width="200" :height="400" controls-visible :perspective="0" :space="300" >
+      <carousel-3d v-if="equips.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" >
         <slide v-for="(equip, i) in equips" :key="i" :index="i">
         <div class="post-card">
           <span class="post-tag">카테고리</span>
@@ -45,17 +49,21 @@
         </div>
         </slide>
       </carousel-3d>
+      <div v-else class="no-search">
+        <img :src="empty"/>
+        <h3>검색결과 없음</h3>
+      </div>
     </b-row>
     <b-row>
-      <div class="more">더보기...</div>
+      <div v-if="equips.length > 0" class="more">더보기...</div>
     </b-row>
     <b-row>
       <h3> 정보 공유 </h3>
     </b-row>
     <b-row>
-      <carousel-3d :width="200" :height="400" controls-visible :perspective="0" :space="300" >
-        <slide v-for="(tip, i) in tips" :key="i" :index="i">
-        <div class="post-card">
+      <carousel-3d v-if="tips.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" :count="tips.length">
+        <slide v-for="(tip, i) in tips" :key="tip.id" :index="i">
+        <div class="post-card" @click="viewTip(tip.id)">
           <span class="post-tag">{{tip.category}}</span>
           <div class="post-tip">
             <div class="post-text">
@@ -67,15 +75,20 @@
         </div>
         </slide>
       </carousel-3d>
+      <div v-else class="no-search">
+        <img :src="empty"/>
+        <h3>검색결과 없음</h3>
+      </div>
     </b-row>
     <b-row>
-      <div class="more">더보기...</div>
+      <router-link v-if="tips.length > 0" class="more" :to="{ name: 'TipList', params: { word: this.word }}">더보기...</router-link>
     </b-row>
   </b-container>
   </div>
 </template>
 
 <script>
+import empty from '../assets/empty.png';
 import { Carousel3d, Slide } from 'vue-carousel-3d';
 import axios from 'axios';
 
@@ -91,6 +104,7 @@ export default {
   },
   data() {
     return {
+      empty,
       leisures: [
         {
           name: '업체명1',
@@ -100,11 +114,6 @@ export default {
         {
           name: '업체명2',
           description: '설명설명설명설명설명설명2',
-          // logo: ''
-        },
-        {
-          name: '업체명3',
-          description: '설명설명설명설명설명설명3',
           // logo: ''
         },
       ],
@@ -125,37 +134,42 @@ export default {
           // logo: ''
         },
       ],
-      tips: [
-        {
-          title: '스키타는법',
-          date: 2020-10-11,
-          hits: 12,
-          category: '스키'
-        },
-        {
-          title: '번지점프하는법',
-          date: 2020-10-14,
-          hits: 29,
-          category: '번지점프'
-        },
-      ],
+      tips: [],
     };
   },
   components: {
     Carousel3d,
     Slide
   },
+  methods: {
+    viewTip(id) {
+      console.log(id);
+      this.$router.push({ path: `/tipdetail/`+id});
+    }
+  },
   created () {
     axios({
         method: "GET",
-        url: `${API_URL}/shops/search/` + this.word,
+        url: `${API_URL}/shops/search/`+this.word,
       })
         .then((res) => {
           console.log(res.data.data);
         })
         .catch((err) => {
           console.log(err);
-          alert("통합검색 에러가 발생했습니다.");
+          alert("예약업체를 검색하던 도중 에러가 발생했습니다.");
+        });
+        
+    axios({
+        method: "GET",
+        url: `${API_URL}/tip/total?keyword=` + this.word,
+      })
+        .then((res) => {
+          this.tips = res.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("팁을 검색하던 도중 에러가 발생했습니다.");
         });
   }
 }
@@ -232,5 +246,15 @@ export default {
   .more {
     width: 100%;
     text-align: right;
+  }
+  .no-search {
+    width: 100%;
+    height: 400px;
+  }
+  .no-search img {
+    width: 100px;
+    height: 100px;
+    margin-top: 7%;
+    margin-bottom: 7%;
   }
 </style>
