@@ -10,7 +10,9 @@
       header-border-variant="white"
       content-class
       hide-footer>
+      <button>
         <b-img id="kakao" center :src="kakao"/>
+      </button>
     </b-modal>
   </div>
 </template>
