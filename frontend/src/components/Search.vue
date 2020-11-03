@@ -23,6 +23,7 @@
         :img-src="tip"
         text-variant="white"
         title="팁"
+        @click="tiplist()"
       >
       </b-card>
     </b-card-group>
@@ -50,6 +51,9 @@ export default {
     moveTab(name) {
       this.$router.push({ name: name });
     },
+    tiplist(){
+      this.$router.push({ path: "/tiplist/" });
+    }
   }
 }
 </script>
@@ -66,6 +70,6 @@ export default {
   height: 100%;
   background-color: rgb(1, 1, 1, 0.6);
 }
-.yol-title {
-}
+/* .yol-title {
+} */
 </style>
