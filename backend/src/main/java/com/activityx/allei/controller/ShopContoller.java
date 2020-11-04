@@ -86,26 +86,26 @@ public class ShopContoller {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "업체 검색", response = BasicResponse.class)
-	@GetMapping("/search/{searchword}")
-	private ResponseEntity<BasicResponse> searchShop(@PathVariable("searchword") String searchword) {
-		logger.debug("업체 검색");
-		final BasicResponse result = new BasicResponse();
-		Map<String, Object> map = shopService.search(searchword);
-		if (map != null) {
-			result.status = true;
-			result.data = map;
-		} else {
-			result.status = false;
-			result.msg = "업체가 없습니다.";
-		}
-		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
-	}
+//	@ApiOperation(value = "업체 검색", response = BasicResponse.class)
+//	@GetMapping("/search/{searchword}")
+//	private ResponseEntity<BasicResponse> searchShop(@PathVariable("searchword") String searchword) {
+//		logger.debug("업체 검색");
+//		final BasicResponse result = new BasicResponse();
+//		Map<String, Object> map = shopService.search(searchword);
+//		if (map != null) {
+//			result.status = true;
+//			result.data = map;
+//		} else {
+//			result.status = false;
+//			result.msg = "업체가 없습니다.";
+//		}
+//		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+//	}
 	
-	@ApiOperation(value = "업체 검색 (레저 서비스 업체 10개, 장비 대여 업체 10개)", response = BasicResponse.class)
-	@GetMapping("/search/{searchword}/limit")
+	@ApiOperation(value = "업체 검색 (레저 서비스 업체 (상위 12개), 장비 대여 업체 (상위 12개))", response = BasicResponse.class)
+	@GetMapping("/search/{searchword}")
 	private ResponseEntity<BasicResponse> searchShopLimit(@PathVariable("searchword") String searchword) {
-		logger.debug("업체 검색 (레저 서비스 업체 10개, 장비 대여 업체 10개)\"");
+		logger.debug("업체 검색 (레저 서비스 업체 (상위 12개), 장비 대여 업체 (상위 12개))");
 		final BasicResponse result = new BasicResponse();
 		Map<String, Object> map = shopService.searchLimit(searchword);
 		if (map != null) {
@@ -118,18 +118,42 @@ public class ShopContoller {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "업체 상세 검색", response = BasicResponse.class)
-	@GetMapping("/search")
-	private ResponseEntity<BasicResponse> detailedSearchShop(int minPrice, int maxPrice, String region, String category) {
-		logger.debug("업체 상세 검색");
+	@ApiOperation(value = "레저 서비스 업체 상세 검색 ((num*12번)부터 12개)", response = BasicResponse.class)
+	@GetMapping("/detailsearch/leisureshop")
+	private ResponseEntity<BasicResponse> detailSearchLeisureShop(@RequestParam(value = "num (번호 (0부터 시작))") int num,
+															 @RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
+															 @RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
+															 @RequestParam(value = "region (지역))", defaultValue = "") String region, 
+															 @RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+		logger.debug("레저 서비스 업체 상세 검색");
 		final BasicResponse result = new BasicResponse();
-		List<ShopDto> shopList = shopService.detailedSearch(minPrice, maxPrice, region, category);
-		if (shopList != null) {
+		List<ShopDto> shopList = shopService.detailSearchLeisureShop(num, minPrice, maxPrice, region, category);
+		if (shopList.size() > 0) {
 			result.status = true;
 			result.data = shopList;
 		} else {
 			result.status = false;
-			result.msg = "업체가 없습니다.";
+			result.msg = "해당되는 레저 서비스 업체들이 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "장비 대여 업체 상세 검색 ((num*12번)부터 12개)", response = BasicResponse.class)
+	@GetMapping("/detailsearch/rentalshop")
+	private ResponseEntity<BasicResponse> detailSearchRentalShop(@RequestParam(value = "num (번호 (0부터 시작))") int num,
+			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
+			@RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
+			@RequestParam(value = "region (지역))", defaultValue = "") String region, 
+			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+		logger.debug("장비 대여 업체 상세 검색");
+		final BasicResponse result = new BasicResponse();
+		List<ShopDto> shopList = shopService.detailSearchRentalShop(num, minPrice, maxPrice, region, category);
+		if (shopList.size() > 0) {
+			result.status = true;
+			result.data = shopList;
+		} else {
+			result.status = false;
+			result.msg = "해당되는 장비 대여 업체들이 없습니다.";
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
