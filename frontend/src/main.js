@@ -4,9 +4,12 @@ import router from './router'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import  VueSweetalert2  from  'vue-sweetalert2' ;
+
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
+Vue.use(VueSweetalert2);
 
 Vue.config.productionTip = false
 
