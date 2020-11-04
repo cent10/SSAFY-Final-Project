@@ -39,6 +39,12 @@
 	<select id="allTips" resultType="TipDto">
 		select id, user, title, content, date, hits, category
 		from tip
+		<if test="!keyword.equals('') and keyword != null">
+			where category like CONCAT('%', #{keyword}, '%')
+			or title like CONCAT('%', #{keyword}, '%')
+			or content like CONCAT('%', #{keyword}, '%')
+		</if>
+		order by hits desc
 	</select>
 	
 	<!-- 조회수 증가 -->
@@ -52,9 +58,13 @@
 	<select id="getTipsHasKeyword" resultType="TipDto">
 		select id, user, title, content, date, hits, category
 		from tip
-		where category like CONCAT('%', #{keyword}, '%')
-		or title like CONCAT('%', #{keyword}, '%')
-		or content like CONCAT('%', #{keyword}, '%')
+		<if test="!keyword.equals('') and keyword != null">
+			where category like CONCAT('%', #{keyword}, '%')
+			or title like CONCAT('%', #{keyword}, '%')
+			or content like CONCAT('%', #{keyword}, '%')
+		</if>
+		order by hits desc
+		limit 10
 	</select>
 
 </mapper>

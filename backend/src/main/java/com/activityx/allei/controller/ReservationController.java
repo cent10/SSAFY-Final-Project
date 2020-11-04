@@ -36,7 +36,7 @@ public class ReservationController {
 	
 	@ApiOperation(value = "예약하기", response = BasicResponse.class)
 	@PostMapping("")
-	private ResponseEntity<BasicResponse> createReservation(@RequestParam(value = "product") int product, @RequestParam(value = "num") int num, @RequestBody ReservationDto reservationDto) {
+	private ResponseEntity<BasicResponse> createReservation(@RequestParam(value = "product(상품 아이디)") int product, @RequestParam(value = "num(예약 수량)") int num, @RequestBody ReservationDto reservationDto) {
 		logger.debug("예약하기");
 		final BasicResponse result = new BasicResponse();
 		if (reservationService.create(reservationDto, product, num)) {

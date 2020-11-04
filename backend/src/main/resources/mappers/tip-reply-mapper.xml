@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.activityx.allei.dao.TipReplyDao">
+
+	<!-- 특정 글에 대한 모든 댓글 가져오기 -->
+	<select id="getAllReplies" resultType="TipReplyDto">
+		select id, replier, tip, content, date
+		from tip_reply
+		where tip = #{tipId}
+	</select>
+	
+	<!-- 댓글 쓰기 -->
+	<insert id="addReply">
+		insert into tip_reply (
+			replier, tip, content
+		) values (
+			#{replier}, #{tip}, #{content}
+		)
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="modifyReply">
+		update tip_reply
+		set content = #{content}
+		where id = #{id}
+	</update>
+
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply">
+		delete from tip_reply
+		where id = #{id}
+	</delete>
+
+</mapper>
+

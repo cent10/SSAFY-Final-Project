@@ -19,8 +19,14 @@ public interface ShopService {
 	// 업체 검색
 	Map<String, Object> search(String searchword);
 	
-	// 업체 상세 검색
-	List<ShopDto> detailedSearch(int minPrice, int maxPrice, String region, String category);
+	// 업체 검색 (레저 서비스 업체 10개, 장비 대여 업체 10개)
+	Map<String, Object> searchLimit(String searchword);
+	
+	// 레저 서비스 업체 상세 검색
+	List<ShopDto> detailSearchLeisureShop(int num, int minPrice, int maxPrice, String region, String category);
+	
+	// 장비 대여 업체 상세 검색
+	List<ShopDto> detailSearchRentalShop(int num, int minPrice, int maxPrice, String region, String category);
 	
 	// 업체 수정
 	boolean update(ShopDto shopDto);

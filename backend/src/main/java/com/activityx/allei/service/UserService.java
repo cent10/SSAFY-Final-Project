@@ -28,4 +28,7 @@ public interface UserService {
 
 	// 회원정보수정
 	boolean modifyUser(User user);
+	
+	// 유저 권한 코드 조회 (1:ADMIN, 2:USER, 3:SELLER)
+	int readUserAuthority(int user);
 }
