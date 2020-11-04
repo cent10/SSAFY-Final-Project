@@ -42,7 +42,7 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "업체 등록", response = BasicResponse.class)
 	@PostMapping("")
-	private ResponseEntity<BasicResponse> createShop(@RequestParam(value = "categoryName") String categoryName, @RequestBody ShopDto shopDto) {
+	private ResponseEntity<BasicResponse> createShop(@RequestParam(value = "categoryName (카테고리 이름)") String categoryName, @RequestBody ShopDto shopDto) {
 		logger.debug("업체 등록");
 		final BasicResponse result = new BasicResponse();
 		if (shopService.create(shopDto, categoryName)) {
