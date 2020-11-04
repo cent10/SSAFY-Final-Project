@@ -9,7 +9,7 @@ public class ReservationDto {
 	private int user;	// 사용자 아이디
 	private int shop;	// 업체 아이디
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
-	private Date date;
+	private Date date;	// 예약한 날짜
 	
 	public ReservationDto() {
 		super();
