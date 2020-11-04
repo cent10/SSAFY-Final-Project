@@ -160,6 +160,22 @@ public class TipController {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "특정 댓글을 가져 옵니다.", response = BasicResponse.class)
+	@GetMapping("reply/detail/{id}")
+	public ResponseEntity<BasicResponse> getReply(@PathVariable int id) {
+		logger.debug("Tip Reply test : getReply - 호츌");
+		final BasicResponse result = new BasicResponse();
+		TipReplyDto data = replyService.getReply(id);
+		if(data != null){
+			result.status = true;
+			result.data = data;
+		}else{
+			result.status = false;
+			result.msg = "댓글이 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
 	@ApiOperation(value = "댓글을 작성 합니다.", response = BasicResponse.class)
 	@PostMapping("reply/add")
 	public ResponseEntity<BasicResponse> addReply(@RequestBody TipReplyDto tipReply) {
