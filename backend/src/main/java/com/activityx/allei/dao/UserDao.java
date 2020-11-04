@@ -32,4 +32,10 @@ public interface UserDao {
 
 	// delete
 	public int delete(int id);
+	
+	// 유저 권한 부여 ('2:USER'로 부여)
+	public int authorizeUser(int user);
+	
+	// 유저 권한 코드 조회 (1:ADMIN, 2:USER, 3:SELLER)
+	public int readUserAuthority(int user);
 }
