@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.activityx.allei.dao.UserDao">
 	<!-- create -->
-	<insert id="create">
+	<insert id="create" useGeneratedKeys="true" keyProperty="id">
         insert into user(
             email, name, ukey
         ) values (
@@ -73,5 +73,17 @@
         delete from user
         where id = #{id}
     </delete>
-
+    
+ 	<!-- 유저 권한 부여 ('2:USER'로 부여) -->
+ 	<insert id="authorizeUser">
+        INSERT INTO user_authority(user, code)
+        VALUES (#{user}, 2)
+	</insert>
+	
+	<!-- 유저 권한 코드 조회 (1:ADMIN, 2:USER, 3:SELLER) -->
+	<select id="readUserAuthority" resultType="Integer">
+		SELECT code
+		FROM user_authority
+		WHERE user=#{user}
+	</select>
 </mapper>
