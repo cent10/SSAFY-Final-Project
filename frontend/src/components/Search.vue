@@ -9,6 +9,7 @@
         text-variant="white"
         title="레저/액티비티 업체 찾기"
         class="yol-card"
+        @click="leisurelist()"
       >
       </b-card>
       <b-card
@@ -33,31 +34,34 @@
 </template>
 
 <script>
-import leisure from '../assets/leisure.jpg';
-import equip from '../assets/equipment.jpg';
-import tip from '../assets/tip.jpg';
+import leisure from "../assets/leisure.jpg";
+import equip from "../assets/equipment.jpg";
+import tip from "../assets/tip.jpg";
 
 export default {
-  name: 'Search',
-  data: function() {
+  name: "Search",
+  data: function () {
     return {
       leisure,
       equip,
-      tip
+      tip,
     };
   },
   props: {
-    msg: String
+    msg: String,
   },
   methods: {
     moveTab(name) {
       this.$router.push({ name: name });
     },
-    tiplist(){
-      this.$router.push({ path: "/tiplist/" });
-    }
-  }
-}
+    tiplist() {
+      this.$router.push({ path: "/tiplist" });
+    },
+    leisurelist() {
+      this.$router.push({ path: "/leisurelist" });
+    },
+  },
+};
 </script>
 
 <style scoped>
