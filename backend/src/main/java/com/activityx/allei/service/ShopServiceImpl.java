@@ -1,5 +1,6 @@
 package com.activityx.allei.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,8 +60,41 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override
-	public List<ShopDto> detailedSearch(int minPrice, int maxPrice, String region, String category) {
-		return shopDao.detailedSearch(minPrice, maxPrice, region, category);
+	public Map<String, Object> searchLimit(String searchword) {
+		Map<String, Object> map = new HashMap<>();
+		List<ShopDto> leisureShops = shopDao.searchLeisureShopsLimit(searchword);
+		List<ShopDto> rentalShops = shopDao.searchRentalShopsLimit(searchword);
+		map.put("leisureShops", leisureShops);
+		map.put("rentalShops", rentalShops);
+		return map;
+	}
+	
+	@Override
+	public List<ShopDto> detailSearchLeisureShop(int num, int minPrice, int maxPrice, String region, String category) {
+		List<ShopDto> shopList = shopDao.detailSearchLeisureShop(minPrice, maxPrice, region, category);
+		List<ShopDto> data = new ArrayList<>();
+		for (int i = num * 12; i < num * 12 + 12; i++) {
+			if (i >= shopList.size()) {
+				break;
+			}
+			data.add(shopList.get(i));
+		}
+		
+		return data;
+	}
+	
+	@Override
+	public List<ShopDto> detailSearchRentalShop(int num, int minPrice, int maxPrice, String region, String category) {
+		List<ShopDto> shopList = shopDao.detailSearchRentalShop(minPrice, maxPrice, region, category);
+		List<ShopDto> data = new ArrayList<>();
+		for (int i = num * 12; i < num * 12 + 12; i++) {
+			if (i >= shopList.size()) {
+				break;
+			}
+			data.add(shopList.get(i));
+		}
+		
+		return data;
 	}
 	
 	@Override

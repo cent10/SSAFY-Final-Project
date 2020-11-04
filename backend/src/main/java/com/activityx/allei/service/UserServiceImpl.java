@@ -16,7 +16,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean joinUser(User user) {
-		return dao.create(user) == 1;
+		int check1 = dao.create(user);
+		System.out.println("check1: " + check1);
+		System.out.println("userid: " + user.getId());
+		int check2 = dao.authorizeUser(user.getId());
+		System.out.println("check2: " + check2);
+		return (check1 + check2) > 1;
 	}
 
 	@Override
@@ -62,6 +67,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean modifyUser(User user) {
 		return dao.update(user) == 1;
+	}
+
+	@Override
+	public int readUserAuthority(int user) {
+		return dao.readUserAuthority(user);
 	}
 
 }
