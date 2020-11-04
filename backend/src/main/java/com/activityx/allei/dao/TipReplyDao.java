@@ -12,6 +12,9 @@ public interface TipReplyDao {
 	//특정 글에 대한 모든 댓글 가져오기
 	ArrayList<TipReplyDto> getAllReplies(int tipId);
 	
+	//댓글 상세보기
+	TipReplyDto getReply(int id);
+	
 	//댓글 쓰기
 	int addReply(TipReplyDto tipReply);
 	

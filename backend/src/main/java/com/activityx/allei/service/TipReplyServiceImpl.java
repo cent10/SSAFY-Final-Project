@@ -18,6 +18,11 @@ public class TipReplyServiceImpl implements TipReplyService {
 	public ArrayList<TipReplyDto> getAllReplies(int tipId) {
 		return dao.getAllReplies(tipId);
 	}
+	
+	@Override
+	public TipReplyDto getReply(int id) {
+		return dao.getReply(id);
+	}
 
 	@Override
 	public boolean addReply(TipReplyDto tipReply) {
