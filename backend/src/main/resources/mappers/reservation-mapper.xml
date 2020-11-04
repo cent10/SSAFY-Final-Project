@@ -10,8 +10,8 @@
 	
 	<!-- 상세예약정보 등록 -->
 	<insert id="createDetailReservation">
-		INSERT INTO detail_reservation (reservation, product, num)
-		VALUES(#{reservation}, #{product}, #{num})
+		INSERT INTO detail_reservation (reservation, product, num, start, end)
+		VALUES(#{reservation}, #{product}, #{num}, #{start}, #{end})
 	</insert>
 
 	<!-- 예약정보 조회 -->
