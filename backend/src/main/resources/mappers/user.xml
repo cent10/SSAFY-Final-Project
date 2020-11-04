@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.activityx.allei.dao.UserDao">
+	<!-- create -->
+	<insert id="create" useGeneratedKeys="true" keyProperty="id">
+        insert into user(
+            email, name, ukey
+        ) values (
+            #{email}, #{name}, #{ukey}
+        )
+	</insert>
+
+	<!-- readAll -->
+    <select id="readAll" resultType="User">
+        select id, email, name, domain, ukey
+        from user
+    </select>
+
+	<!-- findById -->
+    <select id="findById" resultType="User">
+        select id, email, name, domain, ukey
+        from user
+        where id = #{id}
+    </select>
+
+	<!-- findByName -->
+    <select id="findByName" resultType="User">
+        select id, email, name, domain, ukey
+        from user
+        where name = #{name}
+    </select>
+
+	<!-- findlistByName -->
+    <select id="findlistByName" resultType="User">
+        select id, email, name, domain, ukey
+        from user
+        where name like CONCAT('%', #{name}, '%')
+    </select>
+
+	<!-- findByEmail -->
+    <select id="findByEmail" resultType="User">
+        select id, email, name, domain, ukey
+        from user
+        where email = #{email}
+    </select>
+
+	<!-- findlistByEmail -->
+    <select id="findlistByEmail" resultType="User">
+        select id, email, name, domain, ukey
+        from user
+        where email like CONCAT('%', #{email}, '%')
+    </select>
+
+	<!-- findByUkey -->
+    <select id="findByUkey" resultType="User">
+        select id, email, name, domain, ukey
+        from user
+        where ukey = #{ukey}
+    </select>
+    
+	<!-- update -->
+    <update id="update">
+        update user
+        set email = #{email}
+            name = #{name}
+        where id = #{id}
+    </update>
+
+	<!-- delete -->
+    <delete id="delete">
+        delete from user
+        where id = #{id}
+    </delete>
+    
+ 	<!-- 유저 권한 부여 ('2:USER'로 부여) -->
+ 	<insert id="authorizeUser">
+        INSERT INTO user_authority(user, code)
+        VALUES (#{user}, 2)
+	</insert>
+	
+	<!-- 유저 권한 코드 조회 (1:ADMIN, 2:USER, 3:SELLER) -->
+	<select id="readUserAuthority" resultType="Integer">
+		SELECT code
+		FROM user_authority
+		WHERE user=#{user}
+	</select>
+</mapper>
