@@ -72,6 +72,6 @@ export default {
   height: 100%;
   cursor: pointer;
 }
-/* .yol-title {
-} */
+.yol-title {
+}
 </style>
