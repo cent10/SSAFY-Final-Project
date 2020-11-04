@@ -47,6 +47,9 @@ public class KakaoAPI {
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(result);
 
+			System.out.println(element.getAsJsonObject().get("id").getAsString());
+			long key = Long.parseLong(element.getAsJsonObject().get("id").getAsString());
+
 			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
@@ -55,6 +58,7 @@ public class KakaoAPI {
 
 			userInfo.put("nickname", nickname);
 			userInfo.put("email", email);
+			userInfo.put("ukey", key);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -107,8 +111,8 @@ public class KakaoAPI {
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
-			sb.append("&client_id=b5f85af25d1bdf961d4f2016bafe3c6e");
-			sb.append("&redirect_uri=http://localhost:8000/login");
+			sb.append("&client_id=c917624215999ace922acc8e48ce073e");
+			sb.append("&redirect_uri=http://localhost:8080/login");
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
 			bw.flush();
@@ -134,6 +138,11 @@ public class KakaoAPI {
 			access_Token = element.getAsJsonObject().get("access_token").getAsString();
 			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
 
+			// //얻은 데이터를 json으로 바꿔지는지 잘 모르곘음
+			// JsonElement data = (JsonElement) conn.getContent();
+			// access_Token = data.getAsJsonObject().get("acess_token").getAsString();
+			// refresh_Token = data.getAsJsonObject().get("refresh_token").getAsString();
+
 			System.out.println("access_token : " + access_Token);
 			System.out.println("refresh_token : " + refresh_Token);
 
@@ -145,5 +154,42 @@ public class KakaoAPI {
 		}
 
 		return access_Token;
+	}
+
+	private String requestToServer(String apiURL, String params) throws IOException {
+		URL url = new URL(apiURL);
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		con.setRequestMethod("POST");
+		con.setDoOutput(true);
+
+		OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+		wr.write(params);
+		wr.flush();
+		wr.close();
+
+		int responseCode = con.getResponseCode();
+		BufferedReader br;
+
+		System.out.println("\nSending 'POST' request to URL : " + apiURL);
+		System.out.println("Post parameters : " + params);
+		System.out.println("Response Code : " + responseCode);
+		System.out.println("responseCode = " + responseCode);
+		if (responseCode == 200) { // 정상 호출
+			br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		} else { // 에러 발생
+			br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+		}
+		String inputLine;
+		StringBuffer res = new StringBuffer();
+		while ((inputLine = br.readLine()) != null) {
+			res.append(inputLine);
+		}
+		br.close();
+		if (responseCode == 200) {
+			return res.toString();
+		} else {
+			return null;
+		}
+
 	}
 }
