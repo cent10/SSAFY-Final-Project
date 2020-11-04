@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.activityx.allei.dto.ShopCategoryDto;
 import com.activityx.allei.dto.ShopDto;
 
 @Mapper
@@ -32,7 +31,10 @@ public interface ShopDao {
 	public List<ShopDto> searchRentalShopsLimit(String searchword);
 	
 	// 업체 상세 검색
-	public List<ShopDto> detailedSearch(int minPrice, int maxPrice, String region, String category);
+	public List<ShopDto> detailSearchLeisureShop(int minPrice, int maxPrice, String region, String category);
+	
+	// 업체 상세 검색
+	public List<ShopDto> detailSearchRentalShop(int minPrice, int maxPrice, String region, String category);
 	
 	// 업체 수정
 	public int update(ShopDto shopDto);
