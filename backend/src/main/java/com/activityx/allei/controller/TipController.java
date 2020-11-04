@@ -100,10 +100,10 @@ public class TipController {
 	
 	@ApiOperation(value = "모든 게시글을 가져 옵니다.", response = BasicResponse.class)
 	@GetMapping("all")
-	public ResponseEntity<BasicResponse> allTips() {
+	public ResponseEntity<BasicResponse> allTips(@RequestParam(required = false) String keyword) {
 		logger.debug("Tip Board test : allTips - 호츌");
 		final BasicResponse result = new BasicResponse();
-		ArrayList<TipDto> data = service.allTips();
+		ArrayList<TipDto> data = service.allTips(keyword);
 		if(data != null){
 			result.status = true;
 			result.data = data;
@@ -130,7 +130,7 @@ public class TipController {
 	
 	@ApiOperation(value = "통합 검색을 합니다.", response = BasicResponse.class)
 	@GetMapping("total")
-	public ResponseEntity<BasicResponse> getTipsHasKeyword(@RequestParam String keyword) {
+	public ResponseEntity<BasicResponse> getTipsHasKeyword(@RequestParam(required = false) String keyword) {
 		logger.debug("Tip Board test : getTipsHasKeyword - 호츌");
 		final BasicResponse result = new BasicResponse();
 		ArrayList<TipDto> data = service.getTipsHasKeyword(keyword);
