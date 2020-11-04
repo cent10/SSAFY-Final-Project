@@ -11,6 +11,13 @@
 		where tip = #{tipId}
 	</select>
 	
+	<!-- 댓글 상세보기 -->
+	<select id="getReply" resultType="TipReplyDto">
+		select id, replier, tip, content, date
+		from tip_reply
+		where id = #{id}
+	</select>
+	
 	<!-- 댓글 쓰기 -->
 	<insert id="addReply">
 		insert into tip_reply (

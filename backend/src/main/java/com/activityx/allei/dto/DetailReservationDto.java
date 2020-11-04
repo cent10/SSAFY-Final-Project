@@ -9,9 +9,9 @@ public class DetailReservationDto {
 	private int reservation;	// 예약번호
 	private int product;	// 상품번호
 	private int num;	// 수량
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+	@JsonFormat(pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date start;	// 시작날짜
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+	@JsonFormat(pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date end;	// 끝날짜
 	
 	public DetailReservationDto() {
