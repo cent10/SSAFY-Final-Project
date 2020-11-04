@@ -9,12 +9,14 @@ public class ShopDto {
 	private boolean classification;	// 구분 (0:레저, 1:장비)
 	private String number;	// 사업자등록번호
 	private String description;	// 설명
+	private String img;	// 이미지
+	private String region;	// 지역
 	
 	public ShopDto() {
 		super();
 	}
 	public ShopDto(int id, int admin, String name, String address, String phone, boolean classification, String number,
-			String description) {
+			String description, String img, String region) {
 		super();
 		this.id = id;
 		this.admin = admin;
@@ -24,6 +26,8 @@ public class ShopDto {
 		this.classification = classification;
 		this.number = number;
 		this.description = description;
+		this.img = img;
+		this.region = region;
 	}
 	
 	public int getId() {
@@ -74,10 +78,23 @@ public class ShopDto {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
+	public String getRegion() {
+		return region;
+	}
+	public void setRegion(String region) {
+		this.region = region;
+	}
 	
 	@Override
 	public String toString() {
 		return "ShopDto [id=" + id + ", admin=" + admin + ", name=" + name + ", address=" + address + ", phone=" + phone
-				+ ", classification=" + classification + ", number=" + number + ", description=" + description + "]";
+				+ ", classification=" + classification + ", number=" + number + ", description=" + description
+				+ ", img=" + img + ", region=" + region + "]";
 	}
 }
