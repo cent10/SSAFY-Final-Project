@@ -35,8 +35,8 @@ public class TipServiceImpl implements TipService{
 	}
 
 	@Override
-	public ArrayList<TipDto> allTips() {
-		return dao.allTips();
+	public ArrayList<TipDto> allTips(String keyword) {
+		return dao.allTips(keyword);
 	}
 	
 	@Override
