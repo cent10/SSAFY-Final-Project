@@ -4,8 +4,8 @@
 
 	<!-- 후기 등록 -->
 	<insert id="create">
-		INSERT INTO review (reservation, rate, content, date)
-		VALUES(#{reservation}, #{rate}, #{content}, #{date})
+		INSERT INTO review (reservation, rate, content)
+		VALUES(#{reservation}, #{rate}, #{content})
 	</insert>
 	
 	<!-- 후기 조회 -->
@@ -18,7 +18,7 @@
 	<!-- 후기 수정 -->
 	<update id="update">
 		UPDATE review
-		SET rate=#{rate}, content=#{content}, date=#{date}
+		SET rate=#{rate}, content=#{content}
 		WHERE id=#{id}
 	</update>
 	
