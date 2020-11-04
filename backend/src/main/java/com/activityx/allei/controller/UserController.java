@@ -1,6 +1,5 @@
 package com.activityx.allei.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -16,13 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.activityx.allei.dto.BasicResponse;
-import com.activityx.allei.dto.TipDto;
 import com.activityx.allei.dto.User;
-import com.activityx.allei.service.TipService;
 import com.activityx.allei.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
@@ -189,6 +185,22 @@ public class UserController {
             result.msg = "유저 정보가 없습니다.";
         }
         return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+    }
+    
+    @ApiOperation(value = "유저 권한 코드 조회 (1:ADMIN, 2:USER, 3:SELLER)", response = BasicResponse.class)
+    @GetMapping("authority/{id}")
+    public ResponseEntity<BasicResponse> readUserAuthority(@PathVariable int id) {
+    	logger.debug("User DB test : readUserAuthority - 호출");
+    	final BasicResponse result = new BasicResponse();
+    	int data = service.readUserAuthority(id);
+    	if (data > 0) {
+    		result.status = true;
+    		result.data = data;
+    	} else {
+    		result.status = false;
+    		result.msg = "유저 권한 조회를 할 수 없습니다.";
+    	}
+    	return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
     }
 
 }
