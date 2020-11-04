@@ -174,7 +174,7 @@ public class TipController {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "댓글을 작성 합니다.", response = BasicResponse.class)
+	@ApiOperation(value = "댓글을 수정 합니다.", response = BasicResponse.class)
 	@PutMapping("reply/modify")
 	public ResponseEntity<BasicResponse> modifyReply(@RequestBody TipReplyDto tipReply) {
 		logger.debug("Tip Reply test : modifyReply - 호츌");
@@ -188,7 +188,7 @@ public class TipController {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "댓글을 작성 합니다.", response = BasicResponse.class)
+	@ApiOperation(value = "댓글을 삭제 합니다.", response = BasicResponse.class)
 	@DeleteMapping("reply/delete/{id}")
 	public ResponseEntity<BasicResponse> deleteReply(@PathVariable int id) {
 		logger.debug("Tip Reply test : deleteReply - 호츌");
