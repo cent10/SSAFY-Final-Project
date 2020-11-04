@@ -118,7 +118,7 @@ public class ShopContoller {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "레저 서비스 업체 상세 검색 ((num*12번)부터 12개)", response = BasicResponse.class)
+	@ApiOperation(value = "레저 서비스 업체 상세 검색 ((num*12)번부터 12개)", response = BasicResponse.class)
 	@GetMapping("/detailsearch/leisureshop")
 	private ResponseEntity<BasicResponse> detailSearchLeisureShop(@RequestParam(value = "num (번호 (0부터 시작))") int num,
 															 @RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
@@ -138,7 +138,7 @@ public class ShopContoller {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "장비 대여 업체 상세 검색 ((num*12번)부터 12개)", response = BasicResponse.class)
+	@ApiOperation(value = "장비 대여 업체 상세 검색 ((num*12)번부터 12개)", response = BasicResponse.class)
 	@GetMapping("/detailsearch/rentalshop")
 	private ResponseEntity<BasicResponse> detailSearchRentalShop(@RequestParam(value = "num (번호 (0부터 시작))") int num,
 			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
