@@ -39,7 +39,7 @@
 	<select id="allTips" resultType="TipDto">
 		select id, user, title, content, date, hits, category
 		from tip
-		<if test="!keyword.equals('') and keyword != null">
+		<if test="keyword != null">
 			where category like CONCAT('%', #{keyword}, '%')
 			or title like CONCAT('%', #{keyword}, '%')
 			or content like CONCAT('%', #{keyword}, '%')
@@ -58,7 +58,7 @@
 	<select id="getTipsHasKeyword" resultType="TipDto">
 		select id, user, title, content, date, hits, category
 		from tip
-		<if test="!keyword.equals('') and keyword != null">
+		<if test="keyword != null">
 			where category like CONCAT('%', #{keyword}, '%')
 			or title like CONCAT('%', #{keyword}, '%')
 			or content like CONCAT('%', #{keyword}, '%')
