@@ -1,5 +1,6 @@
 package com.activityx.allei.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +9,7 @@ import com.activityx.allei.dto.ReservationDto;
 public interface ReservationService {
 	
 	// 예약하기
-	boolean create(ReservationDto reservationDto, int product, int num);
+	boolean create(ReservationDto reservationDto, int product, int num, String start, String end);
 	
 	// 예약정보 조회
 	Map<String, Object> readReservation(int id);

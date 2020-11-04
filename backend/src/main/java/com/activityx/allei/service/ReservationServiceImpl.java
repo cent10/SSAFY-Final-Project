@@ -1,5 +1,6 @@
 package com.activityx.allei.service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +24,9 @@ public class ReservationServiceImpl implements ReservationService {
 	ProductDao productDao;
 	
 	@Override
-	public boolean create(ReservationDto reservationDto, int product, int num) {
+	public boolean create(ReservationDto reservationDto, int product, int num, String start, String end) {
 		int check1 = reservationDao.createReservation(reservationDto);
-		int check2 = reservationDao.createDetailReservation(reservationDto.getId(), product, num);
+		int check2 = reservationDao.createDetailReservation(reservationDto.getId(), product, num, start, end);
 		return (check1 + check2) > 1;
 	}
 	
