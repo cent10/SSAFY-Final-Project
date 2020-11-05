@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.activityx.allei.dto.BasicResponse;
 import com.activityx.allei.dto.ProductDto;
+import com.activityx.allei.dto.ShopBean;
 import com.activityx.allei.dto.ShopDto;
 import com.activityx.allei.service.ProductService;
 import com.activityx.allei.service.ShopService;
@@ -127,7 +128,7 @@ public class ShopContoller {
 															 @RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
 		logger.debug("레저 서비스 업체 상세 검색");
 		final BasicResponse result = new BasicResponse();
-		List<ShopDto> shopList = shopService.detailSearchLeisureShop(num, minPrice, maxPrice, region, category);
+		List<ShopBean> shopList = shopService.detailSearchLeisureShop(num, minPrice, maxPrice, region, category);
 		if (shopList.size() > 0) {
 			result.status = true;
 			result.data = shopList;
@@ -147,7 +148,87 @@ public class ShopContoller {
 			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
 		logger.debug("장비 대여 업체 상세 검색");
 		final BasicResponse result = new BasicResponse();
-		List<ShopDto> shopList = shopService.detailSearchRentalShop(num, minPrice, maxPrice, region, category);
+		List<ShopBean> shopList = shopService.detailSearchRentalShop(num, minPrice, maxPrice, region, category);
+		if (shopList.size() > 0) {
+			result.status = true;
+			result.data = shopList;
+		} else {
+			result.status = false;
+			result.msg = "해당되는 장비 대여 업체들이 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "레저 서비스 업체 상세 검색 (가격 낮은 순) ((num*12)번부터 12개)", response = BasicResponse.class)
+	@GetMapping("/detailsearch/leisureshop/orderbyprice")
+	private ResponseEntity<BasicResponse> detailSearchLeisureShopOrderByPrice(@RequestParam(value = "num (번호 (0부터 시작))") int num,
+			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
+			@RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
+			@RequestParam(value = "region (지역))", defaultValue = "") String region, 
+			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+		logger.debug("레저 서비스 업체 상세 검색 (가격 낮은 순)");
+		final BasicResponse result = new BasicResponse();
+		List<ShopBean> shopList = shopService.detailSearchLeisureShopOrderByPrice(num, minPrice, maxPrice, region, category);
+		if (shopList.size() > 0) {
+			result.status = true;
+			result.data = shopList;
+		} else {
+			result.status = false;
+			result.msg = "해당되는 레저 서비스 업체들이 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "장비 대여 업체 상세 검색 (가격 낮은 순) ((num*12)번부터 12개)", response = BasicResponse.class)
+	@GetMapping("/detailsearch/rentalshop/orderbyprice")
+	private ResponseEntity<BasicResponse> detailSearchRentalShopOrderByPrice(@RequestParam(value = "num (번호 (0부터 시작))") int num,
+			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
+			@RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
+			@RequestParam(value = "region (지역))", defaultValue = "") String region, 
+			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+		logger.debug("장비 대여 업체 상세 검색 (가격 낮은 순)");
+		final BasicResponse result = new BasicResponse();
+		List<ShopBean> shopList = shopService.detailSearchRentalShopOrderByPrice(num, minPrice, maxPrice, region, category);
+		if (shopList.size() > 0) {
+			result.status = true;
+			result.data = shopList;
+		} else {
+			result.status = false;
+			result.msg = "해당되는 장비 대여 업체들이 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "레저 서비스 업체 상세 검색 (평점 높은 순) ((num*12)번부터 12개)", response = BasicResponse.class)
+	@GetMapping("/detailsearch/leisureshop/orderbyrate")
+	private ResponseEntity<BasicResponse> detailSearchLeisureShopOrderByRate(@RequestParam(value = "num (번호 (0부터 시작))") int num,
+			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
+			@RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
+			@RequestParam(value = "region (지역))", defaultValue = "") String region, 
+			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+		logger.debug("레저 서비스 업체 상세 검색 (평점 높은 순)");
+		final BasicResponse result = new BasicResponse();
+		List<ShopBean> shopList = shopService.detailSearchLeisureShopOrderByRate(num, minPrice, maxPrice, region, category);
+		if (shopList.size() > 0) {
+			result.status = true;
+			result.data = shopList;
+		} else {
+			result.status = false;
+			result.msg = "해당되는 레저 서비스 업체들이 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "장비 대여 업체 상세 검색 (평점 높은 순) ((num*12)번부터 12개)", response = BasicResponse.class)
+	@GetMapping("/detailsearch/rentalshop/orderbyrate")
+	private ResponseEntity<BasicResponse> detailSearchRentalShopOrderByRate(@RequestParam(value = "num (번호 (0부터 시작))") int num,
+			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
+			@RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
+			@RequestParam(value = "region (지역))", defaultValue = "") String region, 
+			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+		logger.debug("장비 대여 업체 상세 검색 (평점 높은 순)");
+		final BasicResponse result = new BasicResponse();
+		List<ShopBean> shopList = shopService.detailSearchRentalShopOrderByRate(num, minPrice, maxPrice, region, category);
 		if (shopList.size() > 0) {
 			result.status = true;
 			result.data = shopList;

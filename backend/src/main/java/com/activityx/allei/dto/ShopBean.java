@@ -1,6 +1,6 @@
 package com.activityx.allei.dto;
 
-public class ShopDto {
+public class ShopBean {
 	private int id;	// 아이디
 	private int admin;	// 관리자 아이디
 	private String name;	// 업체명
@@ -12,11 +12,14 @@ public class ShopDto {
 	private String img;	// 이미지
 	private String region;	// 지역
 	
-	public ShopDto() {
+	private float avgRate;	// 평균 평점
+	private int minPrice;	// 상품 중에서 가장 저렴한 상품가격
+	
+	public ShopBean() {
 		super();
 	}
-	public ShopDto(int id, int admin, String name, String address, String phone, boolean classification, String number,
-			String description, String img, String region) {
+	public ShopBean(int id, int admin, String name, String address, String phone, boolean classification, String number,
+			String description, String img, String region, float avgRate, int minPrice) {
 		super();
 		this.id = id;
 		this.admin = admin;
@@ -28,6 +31,8 @@ public class ShopDto {
 		this.description = description;
 		this.img = img;
 		this.region = region;
+		this.avgRate = avgRate;
+		this.minPrice = minPrice;
 	}
 
 	public int getId() {
@@ -90,11 +95,23 @@ public class ShopDto {
 	public void setRegion(String region) {
 		this.region = region;
 	}
+	public float getAvgRate() {
+		return avgRate;
+	}
+	public void setAvgRate(float avgRate) {
+		this.avgRate = avgRate;
+	}
+	public int getMinPrice() {
+		return minPrice;
+	}
+	public void setMinPrice(int minPrice) {
+		this.minPrice = minPrice;
+	}
 	
 	@Override
 	public String toString() {
 		return "ShopBean [id=" + id + ", admin=" + admin + ", name=" + name + ", address=" + address + ", phone="
 				+ phone + ", classification=" + classification + ", number=" + number + ", description=" + description
-				+ ", img=" + img + ", region=" + region + "]";
+				+ ", img=" + img + ", region=" + region + ", avgRate=" + avgRate + ", minPrice=" + minPrice + "]";
 	}
 }
