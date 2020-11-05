@@ -7,12 +7,17 @@
     <b-navbar-brand href="/"> 야! 올레? </b-navbar-brand>
     <b-navbar-nav class="ml-auto">
       <b-nav-item @click="noticelist()"> 공지사항 </b-nav-item>
-      <b-nav-item v-b-modal.modal-login> 로그인 </b-nav-item>
+      <b-nav-item v-b-modal.modal-login v-if="!this.$cookies.isKey('yol_token')"> 로그인 </b-nav-item>
+      <b-nav-item @click="logout" v-else> 로그아웃 </b-nav-item>
     </b-navbar-nav>
   </b-navbar>
 </template>
 
 <script>
+// const API_URL = process.env.VUE_APP_SERVER_URL;
+
+// import axios from 'axios';
+
 export default {
   name: "Header",
   data() {
@@ -32,6 +37,29 @@ export default {
     noticelist() {
       this.$router.push({ path: "/noticelist/" });
     },
+    logout() {
+      
+            this.$cookies.remove("yol_nickname");
+            this.$cookies.remove("yol_token");
+            this.$cookies.remove("yol_ukey");
+        // axios({
+        //     method: "GET",
+        //     url: `${API_URL}/logout`,
+        //     params: {
+        //         code: this.$route.query.code
+        //     }
+        // })
+        // .then(() => {
+        //     this.$cookies.remove("yol_nickname");
+        //     this.$cookies.remove("yol_token");
+        //     this.$cookies.remove("yol_ukey");
+        // })
+        // .catch((err) => {
+        //     console.log(err);
+        //     alert("로그인 과정 중 에러가 발생했습니다.");
+        // });
+      this.$router.go(this.$router.currentRoute);
+    }
   },
   mounted() {
     window.addEventListener("scroll", this.updateScroll);
