@@ -23,4 +23,7 @@ public interface ProductDao {
 	
 	// 예약정보에 해당하는 상품 조회
 	public ProductDto readProduct(int product);
+	
+	// 업체의 상품 중에서 가장 저렴한 상품가격 조회
+	public int readProductMinPrice(int shop);
 }

@@ -53,7 +53,7 @@
 	
 	<!-- 레저 서비스 업체 상세 검색 -->
 	<select id="detailSearchLeisureShop" resultType="com.activityx.allei.dto.ShopDto">
-		SELECT shop.id, shop.admin, shop.name, shop.address, shop.phone, shop.classification, shop.number, shop.description
+		SELECT shop.id, shop.admin, shop.name, shop.address, shop.phone, shop.classification, shop.number, shop.description, shop.img, shop.region
 		FROM shop, (SELECT shop_category.id, shop_category.shop, shop_category.code
 					FROM category, shop_category
 					WHERE name LIKE CONCAT('%', #{category}, '%') AND category.code = shop_category.code) AS ctgr
@@ -64,7 +64,7 @@
 	
 	<!-- 장비 대여 업체 상세 검색 -->
 	<select id="detailSearchRentalShop" resultType="com.activityx.allei.dto.ShopDto">
-		SELECT shop.id, shop.admin, shop.name, shop.address, shop.phone, shop.classification, shop.number, shop.description
+		SELECT shop.id, shop.admin, shop.name, shop.address, shop.phone, shop.classification, shop.number, shop.description, shop.img, shop.region
 		FROM shop, (SELECT shop_category.id, shop_category.shop, shop_category.code
 					FROM category, shop_category
 					WHERE name LIKE CONCAT('%', #{category}, '%') AND category.code = shop_category.code) AS ctgr
@@ -85,5 +85,13 @@
 		DELETE FROM shop
 		WHERE id=#{id}
 	</delete>
+	
+	<!-- 업체 평점 조회 -->
+	<select id="readRate" resultType="float">
+		SELECT AVG(rate)
+		FROM reservation, review
+		WHERE reservation.id = review.reservation AND reservation.shop = #{shop}
+		GROUP BY reservation.shop
+	</select>
 
 </mapper>

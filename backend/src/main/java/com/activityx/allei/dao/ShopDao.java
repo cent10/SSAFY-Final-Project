@@ -24,10 +24,10 @@ public interface ShopDao {
 	// 장비 대여 업체 검색
 	public List<ShopDto> searchRentalShops(String searchword);
 	
-	// 레저 서비스 업체 검색 (10개)
+	// 레저 서비스 업체 검색 (12개)
 	public List<ShopDto> searchLeisureShopsLimit(String searchword);
 	
-	// 장비 대여 업체 검색 (10개)
+	// 장비 대여 업체 검색 (12개)
 	public List<ShopDto> searchRentalShopsLimit(String searchword);
 	
 	// 업체 상세 검색
@@ -41,4 +41,7 @@ public interface ShopDao {
 	
 	// 업체 삭제
 	public int delete(int id);
+	
+	// 업체 평점 조회
+	public float readRate(int shop);
 }

@@ -34,5 +34,12 @@
 		FROM product
 		WHERE id=#{product}
 	</select>
+	
+	<!-- 업체의 상품 중에서 가장 저렴한 상품가격 조회 -->
+	<select id="readProductMinPrice" resultType="int">
+		SELECT MIN(price)
+		FROM product
+		WHERE shop=#{shop}
+	</select>
 
 </mapper>
