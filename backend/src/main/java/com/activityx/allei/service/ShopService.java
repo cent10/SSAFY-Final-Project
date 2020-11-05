@@ -3,6 +3,7 @@ package com.activityx.allei.service;
 import java.util.List;
 import java.util.Map;
 
+import com.activityx.allei.dto.ShopBean;
 import com.activityx.allei.dto.ShopDto;
 
 public interface ShopService {
@@ -22,11 +23,23 @@ public interface ShopService {
 	// 업체 검색 (레저 서비스 업체 10개, 장비 대여 업체 10개)
 	Map<String, Object> searchLimit(String searchword);
 	
-	// 레저 서비스 업체 상세 검색
-	List<ShopDto> detailSearchLeisureShop(int num, int minPrice, int maxPrice, String region, String category);
+	// 레저 서비스 업체 상세 검색 (기본: id순)
+	List<ShopBean> detailSearchLeisureShop(int num, int minPrice, int maxPrice, String region, String category);
 	
-	// 장비 대여 업체 상세 검색
-	List<ShopDto> detailSearchRentalShop(int num, int minPrice, int maxPrice, String region, String category);
+	// 장비 대여 업체 상세 검색 (기본: id순)
+	List<ShopBean> detailSearchRentalShop(int num, int minPrice, int maxPrice, String region, String category);
+	
+	// 레저 서비스 업체 상세 검색 (가격 낮은 순)
+	List<ShopBean> detailSearchLeisureShopOrderByPrice(int num, int minPrice, int maxPrice, String region, String category);
+	
+	// 장비 대여 업체 상세 검색 (가격 낮은 순)
+	List<ShopBean> detailSearchRentalShopOrderByPrice(int num, int minPrice, int maxPrice, String region, String category);
+	
+	// 레저 서비스 업체 상세 검색 (평점 높은 순)
+	List<ShopBean> detailSearchLeisureShopOrderByRate(int num, int minPrice, int maxPrice, String region, String category);
+	
+	// 장비 대여 업체 상세 검색 (평점 높은 순)
+	List<ShopBean> detailSearchRentalShopOrderByRate(int num, int minPrice, int maxPrice, String region, String category);
 	
 	// 업체 수정
 	boolean update(ShopDto shopDto);
