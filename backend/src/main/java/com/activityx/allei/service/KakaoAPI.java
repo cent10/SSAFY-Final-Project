@@ -95,6 +95,37 @@ public class KakaoAPI {
 		}
 	}
 
+	public int checkTime(String access_Token) {
+		String reqURL = "https://kapi.kakao.com/v1/user/access_token_info";
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+			int responseCode = conn.getResponseCode();
+			System.out.println("responseCode : " + responseCode);
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+			String result = "";
+			String line = "";
+
+			while ((line = br.readLine()) != null) {
+				result += line;
+			}
+			System.out.println(result);
+
+			JsonParser parser = new JsonParser();
+			JsonElement element = parser.parse(result);
+			int expires_in = Integer.parseInt(element.getAsJsonObject().get("expires_in").getAsString());
+			System.out.println(expires_in);
+			return expires_in;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
 	public String getAccessToken(String authorize_code) {
 		String access_Token = "";
 		String refresh_Token = "";
