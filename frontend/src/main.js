@@ -5,13 +5,22 @@ import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import  VueSweetalert2  from  'vue-sweetalert2' ;
+<<<<<<< HEAD
 
+=======
+import VueCookies from "vue-cookies";
+>>>>>>> frontend
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 Vue.use(VueSweetalert2);
+<<<<<<< HEAD
+=======
+Vue.use(VueCookies);
+>>>>>>> frontend
 
 Vue.config.productionTip = false
+Vue.$cookies.config("2h");
 
 new Vue({
   router,

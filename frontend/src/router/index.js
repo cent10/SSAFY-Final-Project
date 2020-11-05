@@ -14,6 +14,11 @@ import NoticeDetail from "@/components/NoticeDetail.vue"
 import NoticeWrite from "@/components/NoticeWrite.vue"
 import NoticeUpdate from "@/components/NoticeUpdate.vue"
 
+<<<<<<< HEAD
+=======
+import Login from "@/components/Login.vue"
+
+>>>>>>> frontend
 
 Vue.use(VueRouter)
 
@@ -69,6 +74,11 @@ const routes = [
     path: '/noticeupdate/:id',
     name: 'NoticeUpdate',
     component: NoticeUpdate
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
 ]
 
