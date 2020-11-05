@@ -52,7 +52,6 @@ import bg5 from "../assets/bg5.jpg";
 import bg6 from "../assets/bg6.jpg";
 import bg7 from "../assets/bg7.jpg";
 import bg8 from "../assets/bg8.jpg";
-// import axios from 'axios';
 
 export default {
   name: "TotalSearch",
