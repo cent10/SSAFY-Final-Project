@@ -1,6 +1,6 @@
 <template>
   <div>
-  
+    
     <h1 class="mt-2 mb-3">팁 수정 페이지</h1>
 
     <div style="width:40%; margin:0px auto">	
@@ -13,7 +13,7 @@
 				<option value="null">카테고리</option>			
                 <option v-for='(onecategory,id) in categorys' :key="id" :value="onecategory.category" >{{onecategory.category}}</option>											    
 			</select>			 
-            <input type="text" class="form-control" placeholder="내용" v-model="notice.content">
+            <textarea class="form-control" rows="5" placeholder="내용" v-model="notice.content"></textarea>
              
 		</div>		 
 		<button type="button" class="btn btn-primary" style="width:100%; margin:10px auto;" @click="submit()">수정</button>
@@ -34,7 +34,8 @@
         data() {
             return {
               notice: {},
-            
+              categorys: [],
+
               title: '',
 
               content: '',
@@ -53,7 +54,7 @@
             // console.log(token)
             axios({
                     method: "GET"
-                    ,url:`${API_URL}/tip/detail`+this.$route.params.id,
+                    ,url:`${API_URL}/tip/detail/`+this.$route.params.id,
                     
                     // headers:{
                     //   'Authorization':`Token ${token}`
@@ -61,7 +62,7 @@
                   }
 
                 ).then(res => {
-                    this.notice = res.data
+                    this.notice = res.data.data
                     // this.id=res.data.id
                     // console.log(res.data.id)
                     
@@ -72,13 +73,17 @@
 
                 });
 
-          axios.get(`${API_URL}/tip/category`)
-            .then(({ data }) => {
-                this.categorys = data;
+          axios.get(`${API_URL}/category/all`)
+              .then((res) => {
+                console.log(res)
+                console.log(res.data);
+                console.log(res.data.data);
+                this.categorys = res.data.data;
+                console.log(this.categorys);
             })
             .catch((err) => {
-                alert("정보를 받아올때 에러가 발생했습니다.");
-                console.log(err);
+                  alert("정보를 받아올때 에러가 발생했습니다.");
+                  console.log(err);
             });
         
         },

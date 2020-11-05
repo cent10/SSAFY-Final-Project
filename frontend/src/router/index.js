@@ -7,13 +7,12 @@ import TipDetail from "@/components/TipDetail.vue"
 import TipUpdate from "@/components/TipUpdate.vue"
 import TipWrite from "@/components/TipWrite.vue"
 
+import TotalResult from "@/components/TotalResult.vue"
+
 import NoticeList from "@/components/NoticeList.vue"
 import NoticeDetail from "@/components/NoticeDetail.vue"
 import NoticeWrite from "@/components/NoticeWrite.vue"
 import NoticeUpdate from "@/components/NoticeUpdate.vue"
-
-
-
 
 
 Vue.use(VueRouter)
@@ -27,7 +26,8 @@ const routes = [
   {
     path: '/tiplist',
     name: 'TipList',
-    component: TipList
+    component: TipList,
+    props: true
   },
   {
     path: '/tipdetail/:id',
@@ -43,6 +43,12 @@ const routes = [
     path: '/tip/create/',
     name: 'TipWrite',
     component: TipWrite
+  },
+  {
+    path: '/totalresult/:word',
+    name: 'TotalResult',
+    component: TotalResult,
+    props: true
   },
   {
     path: '/noticelist',

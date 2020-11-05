@@ -16,6 +16,7 @@
         :img-src="equip"
         text-variant="white"
         title="장비 대여 업체 찾기"
+        class="yol-card"
       >
       </b-card>
       <b-card
@@ -23,6 +24,7 @@
         :img-src="tip"
         text-variant="white"
         title="팁"
+        class="yol-card"
         @click="tiplist()"
       >
       </b-card>
@@ -68,8 +70,8 @@ export default {
 .yol-card {
   width: 100%;
   height: 100%;
-  background-color: rgb(1, 1, 1, 0.6);
+  cursor: pointer;
 }
-.yol-title {
-}
+/* .yol-title {
+} */
 </style>
