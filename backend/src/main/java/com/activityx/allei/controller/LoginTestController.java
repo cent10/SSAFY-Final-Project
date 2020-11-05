@@ -30,6 +30,8 @@ public class LoginTestController {
 	@GetMapping(value = "/login")
 	public HashMap<String, Object> login(@RequestParam("code") String code) {
 		String access_Token = kakao.getAccessToken(code);
+		int expires_in = kakao.checkTime(access_Token);
+		System.out.println("expires_in : " + expires_in);
 		HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
 		HashMap<String, Object> result = new HashMap<>();
 		// name ukey access_token
@@ -39,8 +41,10 @@ public class LoginTestController {
 		User user = service.findByUkey(ukey);
 		if (user == null) {
 			result.put("name", null);
+			result.put("id", null);
 		} else {
 			result.put("name", user.getName());
+			result.put("id", user.getId());
 		}
 		System.out.println("login Controller : " + userInfo);
 
