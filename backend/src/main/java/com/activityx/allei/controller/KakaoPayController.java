@@ -21,7 +21,7 @@ import com.activityx.allei.dto.BasicResponse;
 import com.activityx.allei.dto.KakaoPayApprovalDto;
 import com.activityx.allei.dto.KakaoPayReadyDto;
 import com.activityx.allei.dto.SampleDto;
-import com.activityx.allei.service.KakaoServiceImpl;
+import com.activityx.allei.service.KakaoPayServiceImpl;
 import com.activityx.allei.service.SampleService;
 
 import io.swagger.annotations.ApiOperation;
@@ -35,7 +35,7 @@ public class KakaoPayController {
 	private static final Logger logger = LoggerFactory.getLogger(KakaoPayController.class);
 	
 	@Autowired
-	KakaoServiceImpl service;
+	KakaoPayServiceImpl service;
 	
 	@ApiOperation(value = "카카오 페이로 결제", response = BasicResponse.class)
 	@GetMapping("kakao")
