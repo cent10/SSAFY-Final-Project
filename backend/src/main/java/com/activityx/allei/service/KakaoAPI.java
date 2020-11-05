@@ -144,7 +144,7 @@ public class KakaoAPI {
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=c917624215999ace922acc8e48ce073e");
-			sb.append("&redirect_uri=http://k3a210.p.ssafy.io//login");
+			sb.append("&redirect_uri=http://k3a210.p.ssafy.io/api/login");
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
 			bw.flush();
@@ -188,40 +188,4 @@ public class KakaoAPI {
 		return access_Token;
 	}
 
-	private String requestToServer(String apiURL, String params) throws IOException {
-		URL url = new URL(apiURL);
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestMethod("POST");
-		con.setDoOutput(true);
-
-		OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
-		wr.write(params);
-		wr.flush();
-		wr.close();
-
-		int responseCode = con.getResponseCode();
-		BufferedReader br;
-
-		System.out.println("\nSending 'POST' request to URL : " + apiURL);
-		System.out.println("Post parameters : " + params);
-		System.out.println("Response Code : " + responseCode);
-		System.out.println("responseCode = " + responseCode);
-		if (responseCode == 200) { // 정상 호출
-			br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		} else { // 에러 발생
-			br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-		}
-		String inputLine;
-		StringBuffer res = new StringBuffer();
-		while ((inputLine = br.readLine()) != null) {
-			res.append(inputLine);
-		}
-		br.close();
-		if (responseCode == 200) {
-			return res.toString();
-		} else {
-			return null;
-		}
-
-	}
 }
