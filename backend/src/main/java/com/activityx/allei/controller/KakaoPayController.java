@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.activityx.allei.dto.BasicResponse;
+import com.activityx.allei.dto.KakaoPayApprovalDto;
+import com.activityx.allei.dto.KakaoPayReadyDto;
 import com.activityx.allei.dto.SampleDto;
+import com.activityx.allei.service.KakaoServiceImpl;
 import com.activityx.allei.service.SampleService;
 
 import io.swagger.annotations.ApiOperation;
@@ -31,16 +34,39 @@ public class KakaoPayController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(KakaoPayController.class);
 	
-	@ApiOperation(value = "샘플", response = BasicResponse.class)
+	@Autowired
+	KakaoServiceImpl service;
+	
+	@ApiOperation(value = "카카오 페이로 결제", response = BasicResponse.class)
 	@GetMapping("kakao")
 	public ResponseEntity<BasicResponse> kakaoPay() {
-		logger.debug("Rest Server test : login - 호츌");
+		logger.debug("KakaoPay test : kakaoPayReady - 호츌");
 		final BasicResponse result = new BasicResponse();
-		boolean sample = true;
-		if(sample){
+		KakaoPayReadyDto data = service.kakaoPayReady();
+		if(data != null) {
 			result.status = true;
-		}else{
+			result.data = data;
+		}
+		else {
 			result.status = false;
+			result.msg = "결제 요청 실패";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "카카오 페이 결제 성공", response = BasicResponse.class)
+	@GetMapping("kakao/success")
+	public ResponseEntity<BasicResponse> kakaoPaySuccess(@RequestParam String pg_token) {
+		logger.debug("KakaoPay test : kakaoPayApproval - 호츌");
+		final BasicResponse result = new BasicResponse();
+		KakaoPayApprovalDto data = service.kakaoPayApproval(pg_token);
+		if(data != null) {
+			result.status = true;
+			result.data = data;
+		}
+		else {
+			result.status = false;
+			result.msg = "결제 정보 로딩 실패";
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
