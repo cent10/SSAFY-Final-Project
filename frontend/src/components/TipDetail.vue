@@ -58,7 +58,7 @@
         </b-list-group-item>
       </b-list-group>
 
-    <b-modal ref="mdAddCmt" hide-footer title="댓글 작성">
+    <b-modal ref="mdAddCmt" hide-footer title="댓글 작성" >
       <b-form @submit="addCmt">
         <b-form-group label="작성자" label-for="f-a-c-content">
           <b-form-textarea
@@ -77,14 +77,15 @@
             id="f-a-c-content"
             v-model="replycontent"
             placeholder="댓글을 입력해주세요"
-            :rows="10"
-            :max-rows="20"
+            :rows="1"
+            :max-rows="2"
           ></b-form-textarea>
         </b-form-group>
 
         <b-btn type="submit" variant="primary" class="float-right">댓글 쓰기</b-btn>
       </b-form>
     </b-modal>
+    
 
     <b-modal ref="mdModCmt" hide-footer title="댓글 수정하기">
       <b-form @submit="modCmt">
@@ -93,8 +94,8 @@
             id="f-m-c-ontent"
             v-model="commenter.content"
             placeholder="댓글을 입력해주세요"
-            :rows="10"
-            :max-rows="20"
+            :rows="1"
+            :max-rows="2"
           ></b-form-textarea>
         </b-form-group>
 
