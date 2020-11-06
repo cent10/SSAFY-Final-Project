@@ -3,7 +3,9 @@
     <b-container>
       <b-row align-h="center">
         <b-col>
-          <div class="leisure-logo"></div>
+          <div class="leisure-logo">
+            <b-img :src="shop.img" class="logo" />
+          </div>
         </b-col>
         <b-col>
           <table>
@@ -52,7 +54,11 @@
       </b-row>
       <b-row>
         <b-col>
-          <div class="leisure-desc"></div>
+          <div :class="{ 'leisure-desc' : !isShowDesc, 'leisure-desc-show' : isShowDesc }">
+            <b-img :src="shop.desc" class="desc" />
+          </div>
+          <b-button v-if="!isShowDesc" @click="toggleShowDesc">자세한 설명 보기</b-button>
+          <b-button v-else @click="toggleShowDesc">자세한 설명 숨기기</b-button>
         </b-col>
       </b-row>
       <b-row v-if="products !== null && products.length > 0">
@@ -72,9 +78,11 @@
                     설명: {{product.description}}
                   </td>
                   <td>
-                    <b-form-input type="number"/>개
-                    <b-btn variant="info btn-sm ml-1 mt-1 mb-1">+</b-btn>
-                    <b-btn variant="warning btn-sm mr-1 mt-1 mb-1">-</b-btn>
+                    <div class="product-count">
+                      <b-form-input type="number" v-model="product.buyNum" disabled />개
+                      <b-btn variant="info btn-sm ml-1 mt-1 mb-1" @click="upBuyNum(i)">+</b-btn>
+                      <b-btn variant="warning btn-sm mr-1 mt-1 mb-1" @click="downBuyNum(i)">-</b-btn>
+                    </div>
                   </td>
                   <td>
                     일일판매수량: {{product.num}}
@@ -115,6 +123,7 @@ export default {
         rate: 0,
       },
       products: [],
+      isShowDesc: false,
     }
   },
   created() {
@@ -143,6 +152,7 @@ export default {
       url: `${API_URL}/shops/` + this.$route.params.id + `/products`,
     }).then(({data})=>{
       this.products = data.data;
+      this.products.map((p) => {p.buyNum = 0});
     }).catch((err) => {
         console.log(err);
         alert("상품 정보를 받아올때 에러가 발생했습니다.");
@@ -151,25 +161,60 @@ export default {
   methods: {
     moveSearchPage(){
       this.$router.push({name: "Home"}); // 나중에 레저검색 페이지로 이동하도록 변경
+    },
+    upBuyNum(i){
+      const tmp = Object.assign({}, this.products[i]);
+      tmp.buyNum++;
+      if(tmp.buyNum > tmp.num) return;
+      this.$set(this.products, i, tmp);
+    },
+    downBuyNum(i){
+      const tmp = Object.assign({}, this.products[i]);
+      tmp.buyNum--;
+      if(tmp.buyNum < 0) return;
+      this.$set(this.products, i, tmp);
+    },
+    toggleShowDesc(){
+      this.isShowDesc = !this.isShowDesc;
+      window.scrollTo(0, 0);
     }
-  }
+  },
 };
 </script>
 
 <style scoped>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 li {
   list-style-type: none;
+}
+.product-count {
+  display: flex;
 }
 .leisure-detail {
   padding-top: 100px;
 }
+.logo {
+  width: 100%;
+  height: 100%;
+}
 .leisure-logo {
   width: 100px;
   height: 100px;
-  background-color: black;
+  background-color: gray;
 }
 .leisure-desc {
-  height: 800px;
+  max-height: 400px;
   background-color: gray;
+  overflow: hidden;
+}
+.leisure-desc-show {
+  background-color: gray;
+}
+.desc {
+  width: 100%;
 }
 </style>
