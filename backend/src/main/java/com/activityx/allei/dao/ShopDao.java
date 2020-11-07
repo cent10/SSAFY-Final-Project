@@ -43,5 +43,5 @@ public interface ShopDao {
 	public int delete(int id);
 	
 	// 업체 평점 조회
-	public float readRate(int shop);
+	public Float readRate(int shop);
 }
