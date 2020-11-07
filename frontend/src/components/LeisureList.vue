@@ -13,180 +13,38 @@
           </b-col>
           <b-col>
             <h5>지역</h5>
-            <b-form-select />
+            <b-form-select v-model="selectedRegion">
+              <b-form-select-option v-for="(region,id) in regions" :key="id" :value="region">{{region}}</b-form-select-option>
+            </b-form-select>
           </b-col>
           <b-col>
             <h5>카테고리</h5>
-            <b-form-select>
-              <b-form-select-option value="null">카테고리</b-form-select-option>
+            <b-form-select v-model="selectedCategory">
               <b-form-select-option v-for="(onecategory,id) in categorys" :key="id" :value="onecategory.category">{{onecategory.category}}</b-form-select-option>
             </b-form-select>
           </b-col>
         </b-row>
       </b-container>
     </b-card>
-
-    <b-form-select />
+    <div class="order-condition">
+      <b-form-select v-model="selectedCondtion">
+        <b-form-select-option v-for="(condition,id) in conditions" :key="id" :value="condition">{{condition}}</b-form-select-option>
+      </b-form-select>
+    </div>
     <b-card-group deck>
-      <b-card
-        title="Title"
-        img-src="https://picsum.photos/300/300/?image=41"
-        img-alt="Image"
-        img-top
-      >
-        <b-card-text>
-          This is a wider card with supporting text below as a natural lead-in
-          to additional content. This content is a little bit longer.
-        </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-
-      <b-card
-        title="Title"
-        img-src="https://picsum.photos/300/300/?image=41"
-        img-alt="Image"
-        img-top
-      >
-        <b-card-text>
-          This is a wider card with supporting text below as a natural lead-in
-          to additional content. This content is a little bit longer.
-        </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-
-      <b-card
-        title="Title"
-        img-src="https://picsum.photos/300/300/?image=41"
-        img-alt="Image"
-        img-top
-      >
-        <b-card-text>
-          This card has supporting text below as a natural lead-in to additional
-          content.
-        </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-
-      <b-card
-        title="Title"
-        img-src="https://picsum.photos/300/300/?image=41"
-        img-alt="Image"
-        img-top
-      >
-        <b-card-text>
-          This is a wider card with supporting text below as a natural lead-in
-          to additional content. This card has even longer content than the
-          first to show that equal height action.
-        </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-
-      <b-card
-        title="Title"
-        img-src="https://picsum.photos/300/300/?image=41"
-        img-alt="Image"
-        img-top
-      >
-        <b-card-text>
-          This is a wider card with supporting text below as a natural lead-in
-          to additional content. This content is a little bit longer.
-        </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-
-      <b-card
-        title="Title"
-        img-src="https://picsum.photos/300/300/?image=41"
-        img-alt="Image"
-        img-top
-      >
-        <b-card-text>
-          This is a wider card with supporting text below as a natural lead-in
-          to additional content. This content is a little bit longer.
-        </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-      <b-card
-        title="Title"
-        img-src="https://picsum.photos/300/300/?image=41"
-        img-alt="Image"
-        img-top
-      >
-        <b-card-text>
-          This is a wider card with supporting text below as a natural lead-in
-          to additional content. This content is a little bit longer.
-        </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-      <b-card
-        title="Title"
-        img-src="https://picsum.photos/300/300/?image=41"
-        img-alt="Image"
-        img-top
-      >
-        <b-card-text>
-          This is a wider card with supporting text below as a natural lead-in
-          to additional content. This content is a little bit longer.
-        </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-      <b-card
-        title="Title"
-        img-src="https://picsum.photos/300/300/?image=41"
-        img-alt="Image"
-        img-top
-      >
-        <b-card-text>
-          This is a wider card with supporting text below as a natural lead-in
-          to additional content. This content is a little bit longer.
-        </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-      <b-card
-        title="Title"
-        img-src="https://picsum.photos/300/300/?image=41"
-        img-alt="Image"
-        img-top
-      >
-        <b-card-text>
-          This is a wider card with supporting text below as a natural lead-in
-          to additional content. This content is a little bit longer.
-        </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-      <b-card
-        title="Title"
-        img-src="https://picsum.photos/300/300/?image=41"
-        img-alt="Image"
-        img-top
-      >
-        <b-card-text>
-          This is a wider card with supporting text below as a natural lead-in
-          to additional content. This content is a little bit longer.
-        </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
+      <b-card>
+        <div class="post-card">
+          <span class="post-tag">지역</span>
+          <div class="logo">
+            <!-- <img v-bind:src="leisure.img"> -->
+          </div>
+          <div class="post-info">
+            <div class="post-text">
+              <h5>이름</h5>
+              <p class="post-desc">설명</p>
+            </div>
+          </div>
+        </div>
       </b-card>
     </b-card-group>
   </div>
@@ -201,7 +59,39 @@ export default {
   name: "LeisureList",
   data() {
     return {
-      categorys: []
+
+      regions: [
+        "서울",
+        "부산",
+        "대구",
+        "인천",
+        "광주",
+        "대전",
+        "울산",
+        "경기",
+        "강원",
+        "충북",
+        "충남",
+        "전북",
+        "전남",
+        "경북",
+        "경남",
+        "제주",
+        "세종",
+      ],
+      selectedRegion: null,
+
+      categorys: [],
+      selectedCategory: null,
+
+      conditions: [
+        "가격낮은순",
+        "평점높은순",
+      ],
+      selectedCondtion: null,
+
+      leisures: [
+      ],
     };
   },
   components: {},
@@ -217,11 +107,33 @@ export default {
         alert("카테고리 정보를 받아올때 에러가 발생했습니다.");
         console.log(err);
       });
+
+    axios({
+      method: "GET",
+      url: `${API_URL}/shops/detailsearch/leisureshop`,
+      params: {
+        num: 0,
+
+      }
+    }).then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        alert("업체 정보를 받아올때 에러가 발생했습니다.");
+        console.log(err);
+      });
+
+    
   },
 };
 </script>
 
 <style scoped>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 .leisure-list {
   padding: 100px;
 }
@@ -234,6 +146,12 @@ export default {
 .tilde {
   padding: 5px;
 }
+.order-condition{
+  display: flex;
+  margin-top: 5%;
+  margin-left: 80%;
+  width: 20%;
+}
 .condition {
   padding-top: auto;
   padding-left: 5%;
@@ -245,6 +163,55 @@ export default {
 .card-deck .card {
   margin-bottom: 3%;
   flex: none;
-  max-width: calc(25% - 30px);
+  width: calc(25% - 30px);
+  height: 400px;
 }
+.post-card {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    position: relative;
+    font-family: 'roboto', Sans-Serif;
+    text-align: center;
+    overflow: hidden;
+  }
+  .post-tag {
+    position: absolute;
+    right: -6px;
+    top: 15px; 
+    background-color: #FFD95B;
+    font-size: 10px;
+    padding: 7px;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.21);
+    z-index: 99;
+  }
+  .logo {
+    height: 50%;
+    width: 100%;
+    background-color: darkgray;
+    display: inline-block;
+    position: relative;
+  } 
+  .logo img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .post-info{
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    margin-left: 5px;
+  }
+  .post-text {
+      text-align: left;
+      margin-left: 15px;
+      margin-right: 15px;
+  }
+  .post-desc {
+      margin: 4px 0;
+      font-size: 12px;
+  }
 </style>

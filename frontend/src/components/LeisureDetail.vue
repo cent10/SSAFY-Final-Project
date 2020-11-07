@@ -153,7 +153,7 @@ export default {
       url: `${API_URL}/shops/` + this.$route.params.id + `/products`,
     }).then(({data})=>{
       this.products = data.data;
-      this.products.map((p) => {p.buyNum = 0; p.checked = false});
+      this.products.map((p) => {p.buyNum = 0;});
     }).catch((err) => {
         console.log(err);
         alert("상품 정보를 받아올때 에러가 발생했습니다.");
