@@ -6,23 +6,28 @@
           <b-col>
             <h5>가격 범위</h5>
             <div class="price">
-              <b-form-input id="min-price" type="number" />
-              <div class="tilde">~</div>
-              <b-form-input id="max-price" type="number" />
+              <b-form-input type="number" v-model="totalCondition.minPrice"/>
+              <div class="price-character">원</div>
+              <div class="price-character">~</div>
+              <b-form-input type="number" v-model="totalCondition.maxPrice"/>
+              <div class="price-character">원</div>
             </div>
           </b-col>
           <b-col>
             <h5>지역</h5>
-            <b-form-select v-model="selectedRegion">
+            <b-form-select v-model="totalCondition.selectedRegion">
               <b-form-select-option v-for="(region,id) in regions" :key="id" :value="region">{{region}}</b-form-select-option>
             </b-form-select>
           </b-col>
           <b-col>
             <h5>카테고리</h5>
-            <b-form-select v-model="selectedCategory">
+            <b-form-select v-model="totalCondition.selectedCategory">
               <b-form-select-option v-for="(onecategory,id) in categorys" :key="id" :value="onecategory.category">{{onecategory.category}}</b-form-select-option>
             </b-form-select>
           </b-col>
+        </b-row>
+        <b-row>
+          <b-button @click="search()">검색</b-button>
         </b-row>
       </b-container>
     </b-card>
@@ -59,7 +64,52 @@ export default {
   name: "LeisureList",
   data() {
     return {
-
+      getList: (con) => {
+        console.log(this.requestCondition);
+      switch(con){
+        case "가격낮은순":
+          axios({
+            method: "GET",
+            url: `${API_URL}/shops/detailsearch/leisureshop/orderbyprice`,
+            params: this.requestCondition,
+          }).then((res) => {
+              this.leisures = res.data.data;
+            })
+            .catch((err) => {
+              alert("업체 정보를 받아올때 에러가 발생했습니다.");
+              console.log(err);
+            });
+          break;
+        case "평점높은순":
+          axios({
+            method: "GET",
+            url: `${API_URL}/shops/detailsearch/leisureshop/orderbyrate`,
+            params: this.requestCondition,
+          }).then((res) => {
+              this.leisures = res.data.data;
+            })
+            .catch((err) => {
+              alert("업체 정보를 받아올때 에러가 발생했습니다.");
+              console.log(err);
+            });
+          break;
+        default :
+          axios({
+            method: "GET",
+            url: `${API_URL}/shops/detailsearch/leisureshop`,
+            params: this.requestCondition,
+          }).then((res) => {
+              this.leisures = res.data.data;
+            })
+            .catch((err) => {
+              alert("업체 정보를 받아올때 에러가 발생했습니다.");
+              console.log(err);
+            });
+          break;
+      }
+      },
+      leisures: [
+      ],
       regions: [
         "서울",
         "부산",
@@ -79,22 +129,27 @@ export default {
         "제주",
         "세종",
       ],
-      selectedRegion: null,
-
-      categorys: [],
-      selectedCategory: null,
-
+      categorys: [
+      ],
       conditions: [
         "가격낮은순",
         "평점높은순",
       ],
+
       selectedCondtion: null,
 
-      leisures: [
-      ],
+      totalCondition: {
+        minPrice: 0,
+        maxPrice: 99999999,
+        selectedRegion: null,
+        selectedCategory: null,
+      },
+
+      requestCondition: {
+        num: 0,
+      },
     };
   },
-  components: {},
   created() {
     window.scrollTo(0, 0);
 
@@ -122,8 +177,25 @@ export default {
         console.log(err);
       });
 
-    
   },
+  watch: {
+    selectedCondtion: function(to) {
+      this.getList(to);
+    },
+  },
+  methods: {
+    search(){
+      this.requestCondition.minPrice = this.totalCondition.minPrice;
+      this.requestCondition.maxPrice = this.totalCondition.maxPrice;
+      if(this.totalCondition.selectedRegion !== null)
+        this.requestCondition.region = this.totalCondition.selectedRegion;
+      if(this.totalCondition.selectedCategory !== null)
+        this.requestCondition.category = this.totalCondition.selectedCategory;
+
+      this.getList(this.totalCondition);
+      
+    },
+  }
 };
 </script>
 
@@ -142,7 +214,7 @@ input::-webkit-inner-spin-button {
 .price {
   display: flex;
 }
-.tilde {
+.price-character {
   padding: 5px;
 }
 .order-condition{
