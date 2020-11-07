@@ -46,7 +46,7 @@ public class ShopServiceImpl implements ShopService {
 		Map<String, Object> map = new HashMap<>();
 		ShopDto shopDto = shopDao.read(id);
 		String category = categoryDao.readName(id);
-		float rate = shopDao.readRate(id);
+		Float rate = shopDao.readRate(id);
 		map.put("shop", shopDto);
 		map.put("category", category);
 		map.put("rate", rate);
@@ -84,7 +84,7 @@ public class ShopServiceImpl implements ShopService {
 		List<ShopBean> shopBeanList = new ArrayList<>();
 		for(ShopDto s : shopDtoList) {
 			ShopBean shopBean = new ShopBean(s.getId(), s.getAdmin(), s.getName(), s.getAddress(),
-					s.getPhone(), s.isClassification(), s.getNumber(), s.getDescription(), s.getImg(),
+					s.getPhone(), s.isClassification(), s.getNumber(), s.getDescription(), s.getImgDesc(), s.getImg(),
 					s.getRegion(), shopDao.readRate(s.getId()), productDao.readProductMinPrice(s.getId()));
 			shopBeanList.add(shopBean);
 		}
@@ -106,7 +106,7 @@ public class ShopServiceImpl implements ShopService {
 		List<ShopBean> shopBeanList = new ArrayList<>();
 		for(ShopDto s : shopDtoList) {
 			ShopBean shopBean = new ShopBean(s.getId(), s.getAdmin(), s.getName(), s.getAddress(),
-					s.getPhone(), s.isClassification(), s.getNumber(), s.getDescription(), s.getImg(),
+					s.getPhone(), s.isClassification(), s.getNumber(), s.getDescription(), s.getImgDesc(), s.getImg(),
 					s.getRegion(), shopDao.readRate(s.getId()), productDao.readProductMinPrice(s.getId()));
 			shopBeanList.add(shopBean);
 		}
@@ -128,7 +128,7 @@ public class ShopServiceImpl implements ShopService {
 		List<ShopBean> shopBeanList = new ArrayList<>();
 		for(ShopDto s : shopDtoList) {
 			ShopBean shopBean = new ShopBean(s.getId(), s.getAdmin(), s.getName(), s.getAddress(),
-					s.getPhone(), s.isClassification(), s.getNumber(), s.getDescription(), s.getImg(),
+					s.getPhone(), s.isClassification(), s.getNumber(), s.getDescription(), s.getImgDesc(), s.getImg(),
 					s.getRegion(), shopDao.readRate(s.getId()), productDao.readProductMinPrice(s.getId()));
 			shopBeanList.add(shopBean);
 		}
@@ -157,7 +157,7 @@ public class ShopServiceImpl implements ShopService {
 		List<ShopBean> shopBeanList = new ArrayList<>();
 		for(ShopDto s : shopDtoList) {
 			ShopBean shopBean = new ShopBean(s.getId(), s.getAdmin(), s.getName(), s.getAddress(),
-					s.getPhone(), s.isClassification(), s.getNumber(), s.getDescription(), s.getImg(),
+					s.getPhone(), s.isClassification(), s.getNumber(), s.getDescription(), s.getImgDesc(), s.getImg(),
 					s.getRegion(), shopDao.readRate(s.getId()), productDao.readProductMinPrice(s.getId()));
 			shopBeanList.add(shopBean);
 		}
@@ -186,7 +186,7 @@ public class ShopServiceImpl implements ShopService {
 		List<ShopBean> shopBeanList = new ArrayList<>();
 		for(ShopDto s : shopDtoList) {
 			ShopBean shopBean = new ShopBean(s.getId(), s.getAdmin(), s.getName(), s.getAddress(),
-					s.getPhone(), s.isClassification(), s.getNumber(), s.getDescription(), s.getImg(),
+					s.getPhone(), s.isClassification(), s.getNumber(), s.getDescription(), s.getImgDesc(), s.getImg(),
 					s.getRegion(), shopDao.readRate(s.getId()), productDao.readProductMinPrice(s.getId()));
 			shopBeanList.add(shopBean);
 		}
@@ -215,7 +215,7 @@ public class ShopServiceImpl implements ShopService {
 		List<ShopBean> shopBeanList = new ArrayList<>();
 		for(ShopDto s : shopDtoList) {
 			ShopBean shopBean = new ShopBean(s.getId(), s.getAdmin(), s.getName(), s.getAddress(),
-					s.getPhone(), s.isClassification(), s.getNumber(), s.getDescription(), s.getImg(),
+					s.getPhone(), s.isClassification(), s.getNumber(), s.getDescription(), s.getImgDesc(), s.getImg(),
 					s.getRegion(), shopDao.readRate(s.getId()), productDao.readProductMinPrice(s.getId()));
 			shopBeanList.add(shopBean);
 		}

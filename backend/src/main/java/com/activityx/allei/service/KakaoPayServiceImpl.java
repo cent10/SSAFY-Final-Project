@@ -16,7 +16,7 @@ import com.activityx.allei.dto.KakaoPayApprovalDto;
 import com.activityx.allei.dto.KakaoPayReadyDto;
 
 @Service
-public class KakaoServiceImpl implements KakaoService {
+public class KakaoPayServiceImpl implements KakaoPayService {
 
 	private static final String HOST = "https://kapi.kakao.com";
 	
