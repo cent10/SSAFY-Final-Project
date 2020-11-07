@@ -65,7 +65,7 @@ export default {
   data() {
     return {
       getList: (con) => {
-        console.log(this.requestCondition);
+        console.log(con);
       switch(con){
         case "가격낮은순":
           axios({
@@ -192,8 +192,8 @@ export default {
       if(this.totalCondition.selectedCategory !== null)
         this.requestCondition.category = this.totalCondition.selectedCategory;
 
-      this.getList(this.totalCondition);
-      
+      this.getList(this.selectedCondtion);
+
     },
   }
 };
