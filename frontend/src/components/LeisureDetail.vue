@@ -1,6 +1,6 @@
 <template>
   <div class="leisure-detail">
-    <b-container>
+    <b-container v-if="!isPurchasing">
       <b-row align-h="center" align-v="center">
         <b-col align-self="center">
           <div class="leisure-logo">
@@ -78,6 +78,9 @@
                     설명: {{product.description}}
                   </td>
                   <td>
+                    {{product.price}}원
+                  </td>
+                  <td>
                     <div class="product-count">
                       <b-form-input type="number" v-model="product.buyNum" disabled />개
                       <b-btn variant="info btn-sm ml-1 mt-1 mb-1" @click="upBuyNum(i)">+</b-btn>
@@ -99,11 +102,14 @@
         등록된 상품이 없습니다.
       </b-row>
     </b-container>
+    <Purchase v-else :pl="purchasingList" v-model="isPurchasing"/>
   </div>
 </template>
 
 <script>
 const API_URL = process.env.VUE_APP_SERVER_URL;
+
+import Purchase from "./Purchase.vue";
 
 import axios from 'axios';
 
@@ -125,7 +131,12 @@ export default {
       products: [],
       isShowDesc: false,
       checkedProducts: [],
+      isPurchasing: false,
+      purchasingList: [],
     }
+  },
+  components: {
+    Purchase,
   },
   created() {
     axios({
@@ -180,7 +191,7 @@ export default {
       window.scrollTo(0, 0);
     },
     purchase(){
-      const purchasingList = [];
+      const list = [];
       const purchasingIdx = this.checkedProducts;
       const removeIdx = [];
 
@@ -191,7 +202,7 @@ export default {
           if(this.products[pi].buyNum === 0){
             removeIdx.push(i);
           } else {
-            purchasingList.push(this.products[pi]);
+            list.push(this.products[pi]);
           }
         });
 
@@ -199,10 +210,11 @@ export default {
           purchasingIdx.splice(i, 1);
         });
 
-        if(purchasingList.length === 0)
+        if(list.length === 0)
           alert("상품 개수를 확인해주세요.");
         else{
-          console.log(purchasingList)
+          this.purchasingList = list;
+          this.isPurchasing = true;
         }
       }
     }
