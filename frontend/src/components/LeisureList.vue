@@ -32,16 +32,16 @@
       </b-form-select>
     </div>
     <b-card-group deck>
-      <b-card>
+      <b-card v-for="(leisure, i) in leisures" :key="leisure.id" :index="i">
         <div class="post-card">
-          <span class="post-tag">지역</span>
+          <span class="post-tag">{{leisure.region}}</span>
           <div class="logo">
-            <!-- <img v-bind:src="leisure.img"> -->
+            <img v-bind:src="leisure.img">
           </div>
           <div class="post-info">
             <div class="post-text">
-              <h5>이름</h5>
-              <p class="post-desc">설명</p>
+              <h5>{{leisure.name}}</h5>
+              <p class="post-desc">{{leisure.description}}</p>
             </div>
           </div>
         </div>
@@ -113,10 +113,9 @@ export default {
       url: `${API_URL}/shops/detailsearch/leisureshop`,
       params: {
         num: 0,
-
       }
     }).then((res) => {
-        console.log(res);
+        this.leisures = res.data.data;
       })
       .catch((err) => {
         alert("업체 정보를 받아올때 에러가 발생했습니다.");
