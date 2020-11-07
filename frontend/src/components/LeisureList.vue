@@ -36,8 +36,8 @@
         <b-form-select-option v-for="(condition,id) in conditions" :key="id" :value="condition">{{condition}}</b-form-select-option>
       </b-form-select>
     </div>
-    <b-card-group deck>
-      <b-card v-for="(leisure, i) in leisures" :key="leisure.id" :index="i">
+    <b-card-group deck v-if="leisures !== null && leisures.length > 0">
+      <b-card v-for="(leisure, i) in leisures" :key="leisure.id" :index="i" @click="viewLeisure(i)">
         <div class="post-card">
           <span class="post-tag">{{leisure.region}}</span>
           <div class="logo">
@@ -52,6 +52,9 @@
         </div>
       </b-card>
     </b-card-group>
+    <div v-else>
+      검색결과 없음
+    </div>
   </div>
 </template>
 
@@ -195,6 +198,9 @@ export default {
       this.getList(this.selectedCondtion);
 
     },
+    viewLeisure(i) {
+      this.$router.push({ path: `/leisuredetail/${this.leisures[i].id}`});
+    }
   }
 };
 </script>

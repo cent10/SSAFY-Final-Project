@@ -161,7 +161,7 @@ export default {
   },
   methods: {
     moveSearchPage(){
-      this.$router.push({name: "Home"}); // 나중에 레저검색 페이지로 이동하도록 변경
+      this.$router.push({name: "LeisureList"});
     },
     upBuyNum(i){
       const tmp = Object.assign({}, this.products[i]);
