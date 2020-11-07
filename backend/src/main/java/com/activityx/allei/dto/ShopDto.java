@@ -8,7 +8,8 @@ public class ShopDto {
 	private String phone;	// 연락처
 	private boolean classification;	// 구분 (0:레저, 1:장비)
 	private String number;	// 사업자등록번호
-	private String description;	// 설명
+	private String description;	// 간단설명
+	private String imgDesc; // 상세설명(이미지 포함)
 	private String img;	// 이미지
 	private String region;	// 지역
 	
@@ -16,7 +17,7 @@ public class ShopDto {
 		super();
 	}
 	public ShopDto(int id, int admin, String name, String address, String phone, boolean classification, String number,
-			String description, String img, String region) {
+			String description, String imgDesc, String img, String region) {
 		super();
 		this.id = id;
 		this.admin = admin;
@@ -26,6 +27,7 @@ public class ShopDto {
 		this.classification = classification;
 		this.number = number;
 		this.description = description;
+		this.imgDesc = imgDesc;
 		this.img = img;
 		this.region = region;
 	}
@@ -77,6 +79,12 @@ public class ShopDto {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getImgDesc() {
+		return imgDesc;
+	}
+	public void setImgDesc(String imgDesc) {
+		this.imgDesc = imgDesc;
 	}
 	public String getImg() {
 		return img;
