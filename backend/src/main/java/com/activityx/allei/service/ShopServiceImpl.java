@@ -46,7 +46,7 @@ public class ShopServiceImpl implements ShopService {
 		Map<String, Object> map = new HashMap<>();
 		ShopDto shopDto = shopDao.read(id);
 		String category = categoryDao.readName(id);
-		float rate = shopDao.readRate(id);
+		Float rate = shopDao.readRate(id);
 		map.put("shop", shopDto);
 		map.put("category", category);
 		map.put("rate", rate);

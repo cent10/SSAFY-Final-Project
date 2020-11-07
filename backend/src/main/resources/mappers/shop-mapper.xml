@@ -87,7 +87,7 @@
 	</delete>
 	
 	<!-- 업체 평점 조회 -->
-	<select id="readRate" resultType="float">
+	<select id="readRate" resultType="Float">
 		SELECT AVG(rate)
 		FROM reservation, review
 		WHERE reservation.id = review.reservation AND reservation.shop = #{shop}

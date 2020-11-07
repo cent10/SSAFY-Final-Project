@@ -43,7 +43,7 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "업체 등록", response = BasicResponse.class)
 	@PostMapping("")
-	private ResponseEntity<BasicResponse> createShop(@RequestParam(value = "categoryName (카테고리 이름)") String categoryName, @RequestBody ShopDto shopDto) {
+	private ResponseEntity<BasicResponse> createShop(@RequestParam(value = "categoryName") String categoryName, @RequestBody ShopDto shopDto) {
 		logger.debug("업체 등록");
 		final BasicResponse result = new BasicResponse();
 		if (shopService.create(shopDto, categoryName)) {
@@ -121,11 +121,11 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "레저 서비스 업체 상세 검색 ((num*12)번부터 12개)", response = BasicResponse.class)
 	@GetMapping("/detailsearch/leisureshop")
-	private ResponseEntity<BasicResponse> detailSearchLeisureShop(@RequestParam(value = "num (번호 (0부터 시작))") int num,
-															 @RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
-															 @RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
-															 @RequestParam(value = "region (지역))", defaultValue = "") String region, 
-															 @RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+	private ResponseEntity<BasicResponse> detailSearchLeisureShop(@RequestParam(value = "num") int num, //번호 0부터 시작
+																@RequestParam(value = "minPrice", defaultValue = "0") int minPrice, //최저금액
+																@RequestParam(value = "maxPrice", defaultValue = "99999999") int maxPrice, //최고금액 
+																@RequestParam(value = "region", defaultValue = "") String region, //지역
+																@RequestParam(value = "category", defaultValue = "") String category) { //카테고리
 		logger.debug("레저 서비스 업체 상세 검색");
 		final BasicResponse result = new BasicResponse();
 		List<ShopBean> shopList = shopService.detailSearchLeisureShop(num, minPrice, maxPrice, region, category);
@@ -141,11 +141,11 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "장비 대여 업체 상세 검색 ((num*12)번부터 12개)", response = BasicResponse.class)
 	@GetMapping("/detailsearch/rentalshop")
-	private ResponseEntity<BasicResponse> detailSearchRentalShop(@RequestParam(value = "num (번호 (0부터 시작))") int num,
-			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
-			@RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
-			@RequestParam(value = "region (지역))", defaultValue = "") String region, 
-			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+	private ResponseEntity<BasicResponse> detailSearchRentalShop(@RequestParam(value = "num") int num,	//번호 0부터 시작
+																@RequestParam(value = "minPrice", defaultValue = "0") int minPrice, //최저금액 
+																@RequestParam(value = "maxPrice", defaultValue = "99999999") int maxPrice, //최고금액
+																@RequestParam(value = "region", defaultValue = "") String region, //지역
+																@RequestParam(value = "category", defaultValue = "") String category) { // 카테고리
 		logger.debug("장비 대여 업체 상세 검색");
 		final BasicResponse result = new BasicResponse();
 		List<ShopBean> shopList = shopService.detailSearchRentalShop(num, minPrice, maxPrice, region, category);
@@ -161,11 +161,11 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "레저 서비스 업체 상세 검색 (가격 낮은 순) ((num*12)번부터 12개)", response = BasicResponse.class)
 	@GetMapping("/detailsearch/leisureshop/orderbyprice")
-	private ResponseEntity<BasicResponse> detailSearchLeisureShopOrderByPrice(@RequestParam(value = "num (번호 (0부터 시작))") int num,
-			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
-			@RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
-			@RequestParam(value = "region (지역))", defaultValue = "") String region, 
-			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+	private ResponseEntity<BasicResponse> detailSearchLeisureShopOrderByPrice(@RequestParam(value = "num") int num, //번호 0부터 시작
+																			@RequestParam(value = "minPrice", defaultValue = "0") int minPrice, //최저금액
+																			@RequestParam(value = "maxPrice", defaultValue = "99999999") int maxPrice, //최고금액
+																			@RequestParam(value = "region", defaultValue = "") String region, //지역
+																			@RequestParam(value = "category", defaultValue = "") String category) { //카테고리
 		logger.debug("레저 서비스 업체 상세 검색 (가격 낮은 순)");
 		final BasicResponse result = new BasicResponse();
 		List<ShopBean> shopList = shopService.detailSearchLeisureShopOrderByPrice(num, minPrice, maxPrice, region, category);
@@ -181,11 +181,11 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "장비 대여 업체 상세 검색 (가격 낮은 순) ((num*12)번부터 12개)", response = BasicResponse.class)
 	@GetMapping("/detailsearch/rentalshop/orderbyprice")
-	private ResponseEntity<BasicResponse> detailSearchRentalShopOrderByPrice(@RequestParam(value = "num (번호 (0부터 시작))") int num,
-			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
-			@RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
-			@RequestParam(value = "region (지역))", defaultValue = "") String region, 
-			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+	private ResponseEntity<BasicResponse> detailSearchRentalShopOrderByPrice(@RequestParam(value = "num") int num, //번호 0부터 시작
+																			@RequestParam(value = "minPrice", defaultValue = "0") int minPrice, //최저금액
+																			@RequestParam(value = "maxPrice", defaultValue = "99999999") int maxPrice, //최고금액
+																			@RequestParam(value = "region", defaultValue = "") String region, //지역
+																			@RequestParam(value = "category", defaultValue = "") String category) { //카테고리
 		logger.debug("장비 대여 업체 상세 검색 (가격 낮은 순)");
 		final BasicResponse result = new BasicResponse();
 		List<ShopBean> shopList = shopService.detailSearchRentalShopOrderByPrice(num, minPrice, maxPrice, region, category);
@@ -201,11 +201,11 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "레저 서비스 업체 상세 검색 (평점 높은 순) ((num*12)번부터 12개)", response = BasicResponse.class)
 	@GetMapping("/detailsearch/leisureshop/orderbyrate")
-	private ResponseEntity<BasicResponse> detailSearchLeisureShopOrderByRate(@RequestParam(value = "num (번호 (0부터 시작))") int num,
-			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
-			@RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
-			@RequestParam(value = "region (지역))", defaultValue = "") String region, 
-			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+	private ResponseEntity<BasicResponse> detailSearchLeisureShopOrderByRate(@RequestParam(value = "num") int num, //번호 0부터 시작
+																			@RequestParam(value = "minPrice", defaultValue = "0") int minPrice, //최저금액
+																			@RequestParam(value = "maxPrice", defaultValue = "99999999") int maxPrice, //최고금액
+																			@RequestParam(value = "region", defaultValue = "") String region, //지역
+																			@RequestParam(value = "category", defaultValue = "") String category) { //카테고리
 		logger.debug("레저 서비스 업체 상세 검색 (평점 높은 순)");
 		final BasicResponse result = new BasicResponse();
 		List<ShopBean> shopList = shopService.detailSearchLeisureShopOrderByRate(num, minPrice, maxPrice, region, category);
@@ -221,11 +221,11 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "장비 대여 업체 상세 검색 (평점 높은 순) ((num*12)번부터 12개)", response = BasicResponse.class)
 	@GetMapping("/detailsearch/rentalshop/orderbyrate")
-	private ResponseEntity<BasicResponse> detailSearchRentalShopOrderByRate(@RequestParam(value = "num (번호 (0부터 시작))") int num,
-			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
-			@RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
-			@RequestParam(value = "region (지역))", defaultValue = "") String region, 
-			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+	private ResponseEntity<BasicResponse> detailSearchRentalShopOrderByRate(@RequestParam(value = "num") int num, //번호 0부터 시작
+																			@RequestParam(value = "minPrice", defaultValue = "0") int minPrice, //최저금액
+																			@RequestParam(value = "maxPrice", defaultValue = "99999999") int maxPrice, //최고금액
+																			@RequestParam(value = "region", defaultValue = "") String region, //지역
+																			@RequestParam(value = "category", defaultValue = "") String category) { //카테고리
 		logger.debug("장비 대여 업체 상세 검색 (평점 높은 순)");
 		final BasicResponse result = new BasicResponse();
 		List<ShopBean> shopList = shopService.detailSearchRentalShopOrderByRate(num, minPrice, maxPrice, region, category);
