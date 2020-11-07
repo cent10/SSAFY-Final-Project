@@ -1,8 +1,8 @@
 <template>
   <div class="leisure-detail">
     <b-container>
-      <b-row align-h="center">
-        <b-col>
+      <b-row align-h="center" align-v="center">
+        <b-col align-self="center">
           <div class="leisure-logo">
             <b-img :src="shop.img" class="logo" />
           </div>
@@ -69,7 +69,7 @@
               <table>
                 <tr>
                   <td>
-                    <b-form-checkbox/>
+                    <b-form-checkbox :value="i" v-model="checkedProducts"/>
                   </td>
                   <td>
                     {{product.name}}
@@ -91,7 +91,7 @@
               </table>
             </b-list-group-item>
           </b-list-group>
-          <b-button>결제하기</b-button>
+          <b-button @click="purchase">결제하기</b-button>
           <b-button @click="moveSearchPage">목록으로</b-button>
         </b-col>
       </b-row>
@@ -124,6 +124,7 @@ export default {
       },
       products: [],
       isShowDesc: false,
+      checkedProducts: [],
     }
   },
   created() {
@@ -152,7 +153,7 @@ export default {
       url: `${API_URL}/shops/` + this.$route.params.id + `/products`,
     }).then(({data})=>{
       this.products = data.data;
-      this.products.map((p) => {p.buyNum = 0});
+      this.products.map((p) => {p.buyNum = 0; p.checked = false});
     }).catch((err) => {
         console.log(err);
         alert("상품 정보를 받아올때 에러가 발생했습니다.");
@@ -177,6 +178,33 @@ export default {
     toggleShowDesc(){
       this.isShowDesc = !this.isShowDesc;
       window.scrollTo(0, 0);
+    },
+    purchase(){
+      const purchasingList = [];
+      const purchasingIdx = this.checkedProducts;
+      const removeIdx = [];
+
+      if(purchasingIdx.length === 0) {
+        alert("상품을 선택해주세요.");
+      } else {
+        purchasingIdx.map((pi, i) => {
+          if(this.products[pi].buyNum === 0){
+            removeIdx.push(i);
+          } else {
+            purchasingList.push(this.products[pi]);
+          }
+        });
+
+        removeIdx.map((i) => {
+          purchasingIdx.splice(i, 1);
+        });
+
+        if(purchasingList.length === 0)
+          alert("상품 개수를 확인해주세요.");
+        else{
+          console.log(purchasingList)
+        }
+      }
     }
   },
 };
@@ -202,9 +230,10 @@ li {
   height: 100%;
 }
 .leisure-logo {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   background-color: gray;
+  margin: 2% auto;
 }
 .leisure-desc {
   max-height: 400px;
