@@ -5,8 +5,8 @@
         <h3> 레저 / 액티비티 </h3>
     </b-row>
     <b-row>
-      <carousel-3d v-if="leisures.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" >
-        <slide v-for="(leisure, i) in leisures" :key="i" :index="i">
+      <carousel-3d v-if="leisures.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" ref="leisureSlides" :on-main-slide-click="viewLeisure">
+        <slide v-for="(leisure, i) in leisures" :key="leisure.i" :index="i">
         <div class="post-card">
           <span class="post-tag">{{leisure.region}}</span>
           <div class="logo">
@@ -33,8 +33,8 @@
         <h3> 장비 대여 </h3>
     </b-row>
     <b-row>
-      <carousel-3d v-if="equips.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" >
-        <slide v-for="(equip, i) in equips" :key="i" :index="i">
+      <carousel-3d v-if="equips.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" ref="equipSlides" :on-main-slide-click="viewEquip">
+        <slide v-for="(equip, i) in equips" :key="equip.i" :index="i">
         <div class="post-card">
           <span class="post-tag">카테고리</span>
           <div class="logo">
@@ -61,9 +61,9 @@
       <h3> 정보 공유 </h3>
     </b-row>
     <b-row>
-      <carousel-3d v-if="tips.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" :count="tips.length">
+      <carousel-3d v-if="tips.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" :count="tips.length"  ref="tipSlides" :on-main-slide-click="viewtip">
         <slide v-for="(tip, i) in tips" :key="tip.id" :index="i">
-        <div class="post-card" @click="viewTip(tip.id)">
+        <div class="post-card">
           <span class="post-tag">{{tip.category}}</span>
           <div class="post-tip">
             <div class="post-text">
@@ -117,10 +117,15 @@ export default {
     Slide
   },
   methods: {
-    viewTip(id) {
-      console.log(id);
-      this.$router.push({ path: `/tipdetail/`+id});
-    }
+    viewLeisure() {
+      this.$router.push({ path: `/leisuredetail/${this.leisures[this.$refs.leisureSlides.currentIndex].id}`});
+    },
+    viewEquip() {
+      this.$router.push({ path: `/leisuredetail/${this.equips[this.$refs.equipSlides.currentIndex].id}`}); // equip 상세페이지로 바꾸기
+    },
+    viewTip() {
+      this.$router.push({ path: `/tipdetail/${this.tips[this.$refs.tipSlides.currentIndex].id}`});
+    },
   },
   created () {
     axios({
@@ -160,11 +165,13 @@ export default {
     background-color: #F2F2F5;
     border-style: none;
   }
+  .yol-slide {
+    /* height: 320px; */
+  }
   .post-card {
     background-color: white;
-    margin: 40px 0px;
     max-width: 300px;
-    height: 320px;
+    height: 100%;
     border-radius: 5px;
     position: relative;
     font-family: 'roboto', Sans-Serif;
