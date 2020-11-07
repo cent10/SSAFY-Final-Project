@@ -164,7 +164,7 @@ export default {
       url: `${API_URL}/shops/` + this.$route.params.id + `/products`,
     }).then(({data})=>{
       this.products = data.data;
-      this.products.map((p) => {p.buyNum = 0; p.checked = false});
+      this.products.map((p) => {p.buyNum = 0;});
     }).catch((err) => {
         console.log(err);
         alert("상품 정보를 받아올때 에러가 발생했습니다.");
@@ -172,7 +172,7 @@ export default {
   },
   methods: {
     moveSearchPage(){
-      this.$router.push({name: "Home"}); // 나중에 레저검색 페이지로 이동하도록 변경
+      this.$router.push({name: "LeisureList"});
     },
     upBuyNum(i){
       const tmp = Object.assign({}, this.products[i]);

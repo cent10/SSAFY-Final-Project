@@ -16,6 +16,7 @@ import NoticeUpdate from "@/components/NoticeUpdate.vue";
 
 import Login from "@/components/Login.vue";
 
+import LeisureList from "@/components/LeisureList.vue";
 import LeisureDetail from "@/components/LeisureDetail.vue";
 
 Vue.use(VueRouter);
@@ -82,6 +83,12 @@ const routes = [
     path: "/LeisureDetail/:id",
     name: "LeisureDetail",
     component: LeisureDetail,
+  },
+  {
+    path: "/leisurelist",
+    name: "LeisureList",
+    component: LeisureList,
+    props: true,
   },
 ];
 

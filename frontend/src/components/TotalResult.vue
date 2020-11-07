@@ -6,7 +6,7 @@
     </b-row>
     <b-row>
       <carousel-3d v-if="leisures.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" ref="leisureSlides" :on-main-slide-click="viewLeisure">
-        <slide v-for="(leisure, i) in leisures" :key="leisure.i" :index="i">
+        <slide v-for="(leisure, i) in leisures" :key="leisure.id" :index="i">
         <div class="post-card">
           <span class="post-tag">{{leisure.region}}</span>
           <div class="logo">
@@ -34,7 +34,7 @@
     </b-row>
     <b-row>
       <carousel-3d v-if="equips.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" ref="equipSlides" :on-main-slide-click="viewEquip">
-        <slide v-for="(equip, i) in equips" :key="equip.i" :index="i">
+        <slide v-for="(equip, i) in equips" :key="equip.id" :index="i">
         <div class="post-card">
           <span class="post-tag">카테고리</span>
           <div class="logo">
@@ -164,9 +164,6 @@ export default {
   .carousel-3d-slide {
     background-color: #F2F2F5;
     border-style: none;
-  }
-  .yol-slide {
-    /* height: 320px; */
   }
   .post-card {
     background-color: white;
