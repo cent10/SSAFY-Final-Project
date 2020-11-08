@@ -96,7 +96,7 @@ li {
 }
 .yol-carousel {
   z-index: -99;
-  filter: brightness(80%);
+  filter: brightness(65%);
 }
 .search-jumbotron {
   z-index: 1;

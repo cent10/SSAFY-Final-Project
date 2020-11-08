@@ -107,7 +107,7 @@ export default {
 }
 .card-img {
   border-radius: 30px;
-  filter: brightness(50%);
+  filter: brightness(60%);
 }
 .card-title {
   margin-top: calc(50% - 1em);
