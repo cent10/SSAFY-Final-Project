@@ -26,7 +26,7 @@ gantt
 	공지사항						:notice, 2020-11-02, 1w
 
     section 테스트
-    QA 테스트          	:after notice, 4d
+    QA 테스트          	:after notice, 1w
     
     section 기타
     UCC제작 : 2020-11-16, 5d
