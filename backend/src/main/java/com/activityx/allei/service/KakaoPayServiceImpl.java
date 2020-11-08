@@ -13,6 +13,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.activityx.allei.dto.KakaoPayApprovalDto;
+import com.activityx.allei.dto.KakaoPayBean;
 import com.activityx.allei.dto.KakaoPayReadyDto;
 
 @Service
@@ -23,7 +24,7 @@ public class KakaoPayServiceImpl implements KakaoPayService {
 	private KakaoPayReadyDto kakaoPayReadyDto;
 	private KakaoPayApprovalDto kakaoPayApprovalDto;
     
-	public KakaoPayReadyDto kakaoPayReady() {
+	public KakaoPayReadyDto kakaoPayReady(KakaoPayBean bean) {
  
         RestTemplate restTemplate = new RestTemplate();
  
@@ -36,12 +37,12 @@ public class KakaoPayServiceImpl implements KakaoPayService {
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
-        params.add("partner_order_id", "1001");		//주문번호
-        params.add("partner_user_id", "gorany");	//업체번호
-        params.add("item_name", "갤럭시S9");			//상품명
-        params.add("quantity", "1");				//수량
-        params.add("total_amount", "2100");			//결제 가격
-        params.add("tax_free_amount", "100");		//비과세
+        params.add("partner_order_id", ""+bean.getId());	//주문번호
+        params.add("partner_user_id", ""+bean.getShop());	//업체번호
+        params.add("item_name", bean.getName());			//상품명
+        params.add("quantity", ""+bean.getQuantity());		//수량
+        params.add("total_amount", ""+bean.getAmount());	//결제 가격
+        params.add("tax_free_amount", "100");				//비과세
         params.add("approval_url", "http://localhost:8080/pay/kakao/success");
         params.add("cancel_url", "http://localhost:8080/pay/kakao/cancel");
         params.add("fail_url", "http://localhost:8080/pay/kakao/fail");
@@ -65,7 +66,7 @@ public class KakaoPayServiceImpl implements KakaoPayService {
     }
 
 	@Override
-	public KakaoPayApprovalDto kakaoPayApproval(String pg_token) {
+	public KakaoPayApprovalDto kakaoPayApproval(String pg_token, KakaoPayBean bean) {
 		
 		RestTemplate restTemplate = new RestTemplate();
 	
@@ -79,10 +80,10 @@ public class KakaoPayServiceImpl implements KakaoPayService {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("cid", "TC0ONETIME");
 		params.add("tid", kakaoPayReadyDto.getTid());
-		params.add("partner_order_id", "1001");
-		params.add("partner_user_id", "gorany");
+		params.add("partner_order_id", ""+bean.getId());
+		params.add("partner_user_id", ""+bean.getShop());
 		params.add("pg_token", pg_token);
-		params.add("total_amount", "2100");
+		params.add("total_amount", ""+bean.getAmount());
 		
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 		
