@@ -6,14 +6,14 @@
       background="#ababab"
       class="yol-carousel"
     >
-      <b-carousel-slide :img-src="bg2" />
-      <b-carousel-slide :img-src="bg3" />
-      <b-carousel-slide :img-src="bg4" />
-      <b-carousel-slide :img-src="bg5" />
-      <b-carousel-slide :img-src="bg1" />
-      <b-carousel-slide :img-src="bg6" />
-      <b-carousel-slide :img-src="bg7" />
-      <b-carousel-slide :img-src="bg8" />
+      <b-carousel-slide :img-src="bgs[0]" />
+      <b-carousel-slide :img-src="bgs[1]" />
+      <b-carousel-slide :img-src="bgs[2]" />
+      <b-carousel-slide :img-src="bgs[3]" />
+      <b-carousel-slide :img-src="bgs[4]" />
+      <b-carousel-slide :img-src="bgs[5]" />
+      <b-carousel-slide :img-src="bgs[6]" />
+      <b-carousel-slide :img-src="bgs[7]" />
     </b-carousel>
     <div class="search-jumbotron">
       <b-jumbotron
@@ -58,16 +58,24 @@ export default {
   data: function () {
     return {
       slide: 0,
-      bg1: bg1,
-      bg2: bg2,
-      bg3: bg3,
-      bg4: bg4,
-      bg5: bg5,
-      bg6: bg6,
-      bg7: bg7,
-      bg8: bg8,
+      bgs: [
+        bg1,
+        bg2,
+        bg3,
+        bg4,
+        bg5,
+        bg6,
+        bg7,
+        bg8,
+      ],
       word: "",
     };
+  },
+  created() {
+    for (let i = this.bgs.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.bgs[i], this.bgs[j]] = [this.bgs[j], this.bgs[i]];
+    }
   },
   methods: {
     search: function () {
