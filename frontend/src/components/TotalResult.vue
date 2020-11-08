@@ -5,12 +5,12 @@
         <h3> 레저 / 액티비티 </h3>
     </b-row>
     <b-row>
-      <carousel-3d v-if="leisures.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" >
-        <slide v-for="(leisure, i) in leisures" :key="i" :index="i">
+      <carousel-3d v-if="leisures.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" ref="leisureSlides" :on-main-slide-click="viewLeisure">
+        <slide v-for="(leisure, i) in leisures" :key="leisure.id" :index="i">
         <div class="post-card">
-          <span class="post-tag">카테고리</span>
-          <div class="circle">
-            <!-- <img v-bind:src="slide.logo"> -->
+          <span class="post-tag">{{leisure.region}}</span>
+          <div class="logo">
+            <img v-bind:src="leisure.img">
           </div>
           <div class="post-info">
             <div class="post-text">
@@ -33,12 +33,12 @@
         <h3> 장비 대여 </h3>
     </b-row>
     <b-row>
-      <carousel-3d v-if="equips.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" >
-        <slide v-for="(equip, i) in equips" :key="i" :index="i">
+      <carousel-3d v-if="equips.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" ref="equipSlides" :on-main-slide-click="viewEquip">
+        <slide v-for="(equip, i) in equips" :key="equip.id" :index="i">
         <div class="post-card">
           <span class="post-tag">카테고리</span>
-          <div class="circle">
-            <!-- <img v-bind:src="slide.mainSrc"> -->
+          <div class="logo">
+            <img v-bind:src="equip.img">
           </div>
           <div class="post-info">
             <div class="post-text">
@@ -61,9 +61,9 @@
       <h3> 정보 공유 </h3>
     </b-row>
     <b-row>
-      <carousel-3d v-if="tips.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" :count="tips.length">
+      <carousel-3d v-if="tips.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" :count="tips.length"  ref="tipSlides" :on-main-slide-click="viewtip">
         <slide v-for="(tip, i) in tips" :key="tip.id" :index="i">
-        <div class="post-card" @click="viewTip(tip.id)">
+        <div class="post-card">
           <span class="post-tag">{{tip.category}}</span>
           <div class="post-tip">
             <div class="post-text">
@@ -106,33 +106,8 @@ export default {
     return {
       empty,
       leisures: [
-        {
-          name: '업체명1',
-          description: '설명설명설명설명설명설명1',
-          // logo: ''
-        },
-        {
-          name: '업체명2',
-          description: '설명설명설명설명설명설명2',
-          // logo: ''
-        },
       ],
       equips: [
-        {
-          name: '업체명1',
-          description: '설명설명설명설명설명설명1',
-          // logo: ''
-        },
-        {
-          name: '업체명2',
-          description: '설명설명설명설명설명설명2',
-          // logo: ''
-        },
-        {
-          name: '업체명3',
-          description: '설명설명설명설명설명설명3',
-          // logo: ''
-        },
       ],
       tips: [],
     };
@@ -142,10 +117,15 @@ export default {
     Slide
   },
   methods: {
-    viewTip(id) {
-      console.log(id);
-      this.$router.push({ path: `/tipdetail/`+id});
-    }
+    viewLeisure() {
+      this.$router.push({ path: `/leisuredetail/${this.leisures[this.$refs.leisureSlides.currentIndex].id}`});
+    },
+    viewEquip() {
+      this.$router.push({ path: `/leisuredetail/${this.equips[this.$refs.equipSlides.currentIndex].id}`}); // equip 상세페이지로 바꾸기
+    },
+    viewTip() {
+      this.$router.push({ path: `/tipdetail/${this.tips[this.$refs.tipSlides.currentIndex].id}`});
+    },
   },
   created () {
     axios({
@@ -153,7 +133,8 @@ export default {
         url: `${API_URL}/shops/search/`+this.word,
       })
         .then((res) => {
-          console.log(res.data.data);
+          this.equips = res.data.data.rentalShops;
+          this.leisures = res.data.data.leisureShops;
         })
         .catch((err) => {
           console.log(err);
@@ -186,9 +167,8 @@ export default {
   }
   .post-card {
     background-color: white;
-    margin: 40px 0px;
     max-width: 300px;
-    height: 320px;
+    height: 100%;
     border-radius: 5px;
     position: relative;
     font-family: 'roboto', Sans-Serif;
@@ -207,14 +187,14 @@ export default {
     box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.21);
     z-index: 99;
   }
-  .circle {
+  .logo {
     height: 50%;
     width: 100%;
     background-color: darkgray;
     display: inline-block;
     position: relative;
   } 
-  .circle img {
+  .logo img {
     max-width: 100%;
     max-height: 100%;
   }

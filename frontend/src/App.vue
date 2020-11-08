@@ -10,7 +10,7 @@
       header-border-variant="white"
       content-class
       hide-footer>
-      <a href="https://kauth.kakao.com/oauth/authorize?client_id=c917624215999ace922acc8e48ce073e&redirect_uri=http://localhost:8080/login&response_type=code">
+      <a :href="loginLink">
         <b-img id="kakao" center :src="kakao"/>
       </a>
     </b-modal>
@@ -20,6 +20,9 @@
 </template>
 
 <script>
+const KAKAO_APP_KEY = process.env.VUE_APP_KAKAO_APP_KEY;
+const LOGIN_REDIRECT_URI = process.env.VUE_APP_LOGIN_REDIRECT_URI;
+
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 import kakao from './assets/kakao.png';
@@ -33,6 +36,7 @@ export default {
   data() {
     return {
       kakao: kakao,
+      loginLink: `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_APP_KEY}&redirect_uri=${LOGIN_REDIRECT_URI}&response_type=code`,
     };
   },
   methods: {

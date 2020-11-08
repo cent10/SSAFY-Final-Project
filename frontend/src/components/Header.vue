@@ -68,7 +68,6 @@ export default {
   },
   watch: {
     "$route.path"(to) {
-      console.log(to);
       if (to === "/") this.isMain = true;
       else this.isMain = false;
     },
