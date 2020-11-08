@@ -37,10 +37,10 @@ public class ReservationController {
 	
 	@ApiOperation(value = "예약하기", response = BasicResponse.class)
 	@PostMapping("")
-	private ResponseEntity<BasicResponse> createReservation(@RequestParam(value = "product (상품 아이디)") int product,
-															@RequestParam(value = "num (예약 수량)") int num,
-															@RequestParam(value = "start (시작날짜) (yyyy-MM-dd)") String start,
-															@RequestParam(value = "end (끝날짜) (yyyy-MM-dd)") String end,
+	private ResponseEntity<BasicResponse> createReservation(@RequestParam(value = "product") int product, // 상품아이디
+															@RequestParam(value = "num") int num, // 예약 수량
+															@RequestParam(value = "start") String start, // 시작날짜
+															@RequestParam(value = "end") String end, //끝날짜
 															@RequestBody ReservationDto reservationDto) {
 		logger.debug("예약하기");
 		final BasicResponse result = new BasicResponse();
@@ -95,6 +95,22 @@ public class ReservationController {
 		} else {
 			result.status = false;
 			result.msg = "예약취소가 실패했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "초근 예약번호 조회", response = BasicResponse.class)
+	@GetMapping("lastid")
+	private ResponseEntity<BasicResponse> getLastReservationId() {
+		logger.debug("최근 예약번호 조회");
+		final BasicResponse result = new BasicResponse();
+		Integer data = reservationService.getLastReservationId();
+		if (data != null) {
+			result.status = true;
+			result.data = data;
+		} else {
+			result.status = false;
+			result.msg = "조회 실패 했습니다.";
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}

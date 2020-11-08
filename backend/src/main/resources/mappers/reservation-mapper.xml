@@ -40,5 +40,11 @@
 		DELETE FROM reservation
 		WHERE id=#{id}
 	</delete>
+	
+	<!-- 최근 예약번호 확인 -->
+	<select id="getLastReservationId" resultType="Integer">
+		SELECT MAX(id)
+		FROM reservation
+	</select>
 
 </mapper>
