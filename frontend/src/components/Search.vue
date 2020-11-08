@@ -9,6 +9,7 @@
         text-variant="white"
         title="레저/액티비티 업체 찾기"
         class="yol-card"
+        @click="leisurelist()"
       >
       </b-card>
       <b-card
@@ -52,6 +53,9 @@ export default {
   methods: {
     moveTab(name) {
       this.$router.push({ name: name });
+    },
+    leisurelist(){
+      this.$router.push({ path: "/leisurelist" });
     },
     tiplist(){
       this.$router.push({ path: "/tiplist/" });
