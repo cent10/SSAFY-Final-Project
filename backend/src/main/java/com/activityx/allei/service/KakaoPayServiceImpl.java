@@ -43,9 +43,10 @@ public class KakaoPayServiceImpl implements KakaoPayService {
         params.add("quantity", ""+bean.getQuantity());		//수량
         params.add("total_amount", ""+bean.getAmount());	//결제 가격
         params.add("tax_free_amount", "100");				//비과세
-        params.add("approval_url", "http://localhost:8080/pay/kakao/success");
-        params.add("cancel_url", "http://localhost:8080/pay/kakao/cancel");
-        params.add("fail_url", "http://localhost:8080/pay/kakao/fail");
+//        params.add("approval_url", "http://localhost:8080/pay/kakao/success");
+        params.add("approval_url", "http://k3a210.p.ssafy.io/kakaopay/success");
+        params.add("cancel_url", "http://k3a210.p.ssafy.io/kakaopay/cancel");
+        params.add("fail_url", "http://k3a210.p.ssafy.io/kakaopay/fail");
  
          HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
  

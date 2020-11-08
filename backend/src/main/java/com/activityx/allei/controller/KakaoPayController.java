@@ -39,8 +39,8 @@ public class KakaoPayController {
 	KakaoPayServiceImpl service;
 	
 	@ApiOperation(value = "카카오 페이로 결제", response = BasicResponse.class)
-	@GetMapping("kakao")
-	public ResponseEntity<BasicResponse> kakaoPay(@RequestParam KakaoPayBean bean) {
+	@PostMapping("kakao")
+	public ResponseEntity<BasicResponse> kakaoPay(@RequestBody KakaoPayBean bean) {
 		logger.debug("KakaoPay test : kakaoPayReady - 호츌");
 		final BasicResponse result = new BasicResponse();
 		KakaoPayReadyDto data = service.kakaoPayReady(bean);
@@ -56,7 +56,7 @@ public class KakaoPayController {
 	}
 	
 	@ApiOperation(value = "카카오 페이 결제 성공", response = BasicResponse.class)
-	@GetMapping("kakao/success")
+	@PostMapping("kakao/success")
 	public ResponseEntity<BasicResponse> kakaoPaySuccess(@RequestParam String pg_token, @RequestBody KakaoPayBean bean) {
 		logger.debug("KakaoPay test : kakaoPayApproval - 호츌");
 		final BasicResponse result = new BasicResponse();
