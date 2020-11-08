@@ -22,8 +22,8 @@ gantt
 	후기 작성					 :active, 2020-10-26, 3w
 	예약 현황 조회				:crit, 2020-11-02, 3w
 	메인 페이지					:crit, active, 2020-10-26, 2w
-	결제							:crit, active, 2020-11-02, 3w
-	공지사항						:notice, active, 2020-11-02, 2w
+	결제							:crit, 2020-11-02, 3w
+	공지사항						:notice, 2020-11-02, 2w
 
     section 테스트
     QA 테스트          	:after notice, 4d
