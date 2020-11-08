@@ -1,7 +1,7 @@
 <template>
   <div class="leisure-list">
     <b-card bg-variant="light">
-      <b-container fluid class="condition-card">
+      <b-container fluid>
         <b-row class="condition">
           <b-col>
             <h5>가격 범위</h5>
@@ -26,7 +26,7 @@
             </b-form-select>
           </b-col>
         </b-row>
-        <b-row>
+        <b-row class="search-button">
           <b-button @click="search()">검색</b-button>
         </b-row>
       </b-container>
@@ -248,9 +248,6 @@ input::-webkit-inner-spin-button {
 .leisure-list {
   padding: 100px;
 }
-.condition-card {
-  min-height: 200px;
-}
 .price {
   display: flex;
 }
@@ -264,9 +261,13 @@ input::-webkit-inner-spin-button {
   width: 20%;
 }
 .condition {
-  padding-top: auto;
   padding-left: 5%;
   padding-right: 5%;
+}
+.search-button{
+  padding: 2% 0;
+  margin-right: 5%;
+  justify-content: flex-end;
 }
 .card-deck {
   padding: 3%;
@@ -276,6 +277,10 @@ input::-webkit-inner-spin-button {
   flex: none;
   width: calc(25% - 30px);
   height: 400px;
+  cursor: pointer;
+}
+.card-deck .card:hover {
+    opacity:0.5;
 }
 .post-card {
     background-color: white;
