@@ -55,61 +55,69 @@
     <div v-else>
       검색결과 없음
     </div>
+      <infinite-loading @infinite="infiniteHandler" ref="infiniteLoading" spinner="spiral">
+        <div slot="no-more"></div>
+        <div slot="no-results"></div>
+      </infinite-loading>
   </div>
 </template>
 
 <script>
 const API_URL = process.env.VUE_APP_SERVER_URL;
 
+import InfiniteLoading from 'vue-infinite-loading';
 import axios from 'axios';
 
 export default {
   name: "LeisureList",
+  components: {
+    InfiniteLoading
+  },
   data() {
     return {
-      getList: (con) => {
-        console.log(con);
-      switch(con){
-        case "가격낮은순":
-          axios({
-            method: "GET",
-            url: `${API_URL}/shops/detailsearch/leisureshop/orderbyprice`,
-            params: this.requestCondition,
-          }).then((res) => {
-              this.leisures = res.data.data;
-            })
-            .catch((err) => {
-              alert("업체 정보를 받아올때 에러가 발생했습니다.");
-              console.log(err);
-            });
-          break;
-        case "평점높은순":
-          axios({
-            method: "GET",
-            url: `${API_URL}/shops/detailsearch/leisureshop/orderbyrate`,
-            params: this.requestCondition,
-          }).then((res) => {
-              this.leisures = res.data.data;
-            })
-            .catch((err) => {
-              alert("업체 정보를 받아올때 에러가 발생했습니다.");
-              console.log(err);
-            });
-          break;
-        default :
-          axios({
-            method: "GET",
-            url: `${API_URL}/shops/detailsearch/leisureshop`,
-            params: this.requestCondition,
-          }).then((res) => {
-              this.leisures = res.data.data;
-            })
-            .catch((err) => {
-              alert("업체 정보를 받아올때 에러가 발생했습니다.");
-              console.log(err);
-            });
-          break;
-      }
+      getList: (con, num) => {
+        this.requestCondition.num = num;
+        switch(con){
+          case "가격낮은순":
+            axios({
+              method: "GET",
+              url: `${API_URL}/shops/detailsearch/leisureshop/orderbyprice`,
+              params: this.requestCondition,
+            }).then((res) => {
+                this.leisures = res.data.data;
+              })
+              .catch((err) => {
+                alert("업체 정보를 받아올때 에러가 발생했습니다.");
+                console.log(err);
+              });
+            break;
+          case "평점높은순":
+            axios({
+              method: "GET",
+              url: `${API_URL}/shops/detailsearch/leisureshop/orderbyrate`,
+              params: this.requestCondition,
+            }).then((res) => {
+                this.leisures = res.data.data;
+              })
+              .catch((err) => {
+                alert("업체 정보를 받아올때 에러가 발생했습니다.");
+                console.log(err);
+              });
+            break;
+          default :
+            axios({
+              method: "GET",
+              url: `${API_URL}/shops/detailsearch/leisureshop`,
+              params: this.requestCondition,
+            }).then((res) => {
+                this.leisures = res.data.data;
+              })
+              .catch((err) => {
+                alert("업체 정보를 받아올때 에러가 발생했습니다.");
+                console.log(err);
+              });
+            break;
+        }
       },
       leisures: [
       ],
@@ -183,7 +191,9 @@ export default {
   },
   watch: {
     selectedCondtion: function(to) {
-      this.getList(to);
+      this.getList(to, 0);
+      window.scrollTo(0, 0);
+      this.$refs.infiniteLoading.stateChanger.reset()
     },
   },
   methods: {
@@ -195,11 +205,35 @@ export default {
       if(this.totalCondition.selectedCategory !== null)
         this.requestCondition.category = this.totalCondition.selectedCategory;
 
-      this.getList(this.selectedCondtion);
+      this.getList(this.selectedCondtion, 0);
 
+      window.scrollTo(0, 0);
+      this.$refs.infiniteLoading.stateChanger.reset()
     },
     viewLeisure(i) {
       this.$router.push({ path: `/leisuredetail/${this.leisures[i].id}`});
+    },
+    infiniteHandler($state) {
+      this.requestCondition.num += 1;
+      axios({
+      method: "GET",
+      url: `${API_URL}/shops/detailsearch/leisureshop`,
+      params: this.requestCondition,
+      }).then(res => {
+        setTimeout(() => {
+          if(res.data.status && res.data.data.length) {
+            this.leisures = this.leisures.concat(res.data.data)
+            $state.loaded()
+            if(res.data.data.length / 12 < 1) {
+              $state.complete()
+            }
+          } else {
+            $state.complete()
+          }
+        }, 1000)
+      }).catch(err => {
+        console.error(err);
+      })
     }
   }
 };
