@@ -49,13 +49,21 @@
                 {{shop.number}}
               </td>
             </tr>
+            <tr>
+              <td>
+                평점
+              </td>
+              <td>
+                <StarRating v-model="shop.rate" :max-stars="5"/>
+              </td>
+            </tr>
           </table>
         </b-col>
       </b-row>
       <b-row>
         <b-col>
           <div :class="{ 'leisure-desc' : !isShowDesc, 'leisure-desc-show' : isShowDesc }">
-            <b-img :src="shop.desc" class="desc" />
+            <b-img :src="shop.imgDesc" class="desc" />
           </div>
           <b-button v-if="!isShowDesc" @click="toggleShowDesc">자세한 설명 보기</b-button>
           <b-button v-else @click="toggleShowDesc">자세한 설명 숨기기</b-button>
@@ -69,10 +77,9 @@
               <table>
                 <tr>
                   <td>
-                    <b-form-checkbox :value="i" v-model="checkedProducts"/>
-                  </td>
-                  <td>
-                    {{product.name}}
+                    <b-form-checkbox :value="i" v-model="checkedProducts">
+                      {{product.name}}
+                    </b-form-checkbox>
                   </td>
                   <td>
                     설명: {{product.description}}
@@ -110,6 +117,7 @@
 const API_URL = process.env.VUE_APP_SERVER_URL;
 
 import Purchase from "./Purchase.vue";
+import StarRating from "./StarRating.vue";
 
 import axios from 'axios';
 
@@ -124,6 +132,7 @@ export default {
         phone: "",
         number: 0,
         description: "",
+        imgDesc: "",
         img: "",
         category: "",
         rate: 0,
@@ -137,6 +146,7 @@ export default {
   },
   components: {
     Purchase,
+    StarRating,
   },
   created() {
     axios({
@@ -144,7 +154,6 @@ export default {
       url: `${API_URL}/shops/` + this.$route.params.id,
     }).then(({data})=>{
       const shop = data.data.shop;
-
       this.shop.category = data.data.category;
       this.shop.rate = data.data.rate;
       this.shop.id = shop.id;
@@ -153,6 +162,7 @@ export default {
       this.shop.phone = shop.phone;
       this.shop.number = shop.number;
       this.shop.description = shop.description;
+      this.shop.imgDesc = shop.imgDesc;
       this.shop.img = shop.img;
     }).catch((err) => {
         console.log(err);

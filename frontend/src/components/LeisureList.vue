@@ -278,9 +278,10 @@ input::-webkit-inner-spin-button {
   width: calc(25% - 30px);
   height: 400px;
   cursor: pointer;
+  transition: all 0.5s;
 }
 .card-deck .card:hover {
-    opacity:0.5;
+    opacity:0.7;
 }
 .post-card {
     background-color: white;
