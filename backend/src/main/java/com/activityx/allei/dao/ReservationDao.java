@@ -27,4 +27,7 @@ public interface ReservationDao {
 	
 	// 예약정보 등록
 	public int deleteReservation(int id);
+	
+	// 최근 예약번호
+	public Integer getLastReservationId();
 }

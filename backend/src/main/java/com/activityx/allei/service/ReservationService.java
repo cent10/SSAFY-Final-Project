@@ -18,4 +18,7 @@ public interface ReservationService {
 	
 	// 예약정보 등록
 	boolean deleteReservation(int id);
+	
+	// 최근 예약번호
+	public Integer getLastReservationId();
 }

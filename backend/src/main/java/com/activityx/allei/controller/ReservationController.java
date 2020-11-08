@@ -98,4 +98,20 @@ public class ReservationController {
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "초근 예약번호 조회", response = BasicResponse.class)
+	@GetMapping("lastid")
+	private ResponseEntity<BasicResponse> getLastReservationId() {
+		logger.debug("최근 예약번호 조회");
+		final BasicResponse result = new BasicResponse();
+		Integer data = reservationService.getLastReservationId();
+		if (data != null) {
+			result.status = true;
+			result.data = data;
+		} else {
+			result.status = false;
+			result.msg = "조회 실패 했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 }

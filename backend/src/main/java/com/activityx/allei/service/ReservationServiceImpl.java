@@ -51,4 +51,9 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationDao.deleteReservation(id) == 1;
 	}
 	
+	@Override
+	public Integer getLastReservationId() {
+		return reservationDao.getLastReservationId();
+	}
+
 }
