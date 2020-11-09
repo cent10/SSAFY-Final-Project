@@ -22,7 +22,7 @@ public interface TipDao {
 	TipDto detailTip(int id);
 	
 	//전체 게시글 목록
-	ArrayList<TipDto> allTips(String keyword);
+	ArrayList<TipDto> allTips(int start, String keyword);
 	
 	//조회수 증가
 	int increaseHits(int id);
