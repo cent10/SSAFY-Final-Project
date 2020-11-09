@@ -36,6 +36,7 @@ public class TipServiceImpl implements TipService{
 
 	@Override
 	public ArrayList<TipDto> allTips(int page, String keyword) {
+		if(keyword == null) keyword = "";
 		int start = 12*page;
 		return dao.allTips(start, keyword);
 	}
@@ -47,6 +48,7 @@ public class TipServiceImpl implements TipService{
 	
 	@Override
 	public ArrayList<TipDto> getTipsHasKeyword(String keyword) {
+		if(keyword == null) keyword = "";
 		return dao.getTipsHasKeyword(keyword);
 	}
 
