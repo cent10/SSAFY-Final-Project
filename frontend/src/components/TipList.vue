@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tip-list">
     <h2>팁 게시판</h2>
     <hr />
     <div class="d-flex justify-content-between">
@@ -241,3 +241,10 @@ export default {
   filter: {},
 };
 </script>
+<style scoped>
+  .tip-list {
+    padding-top: 100px;
+    background-color: #F2F2F5;
+  }
+
+</style>

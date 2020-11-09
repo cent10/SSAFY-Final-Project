@@ -19,6 +19,9 @@ import Login from "@/components/Login.vue";
 import LeisureList from "@/components/LeisureList.vue";
 import LeisureDetail from "@/components/LeisureDetail.vue";
 
+import MyProfile from "@/components/MyProfile.vue";
+
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -89,6 +92,11 @@ const routes = [
     name: "LeisureList",
     component: LeisureList,
     props: true,
+  },
+  {
+    path: "/myprofile",
+    name: "MyProfile",
+    component: MyProfile
   },
 ];
 
