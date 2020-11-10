@@ -21,6 +21,8 @@ import LeisureDetail from "@/components/LeisureDetail.vue";
 
 import MyProfile from "@/components/MyProfile.vue";
 
+import UpdateUser from "@/components/UpdateUser.vue";
+
 
 Vue.use(VueRouter);
 
@@ -29,6 +31,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path: "/updateuser",
+    name: "UpdateUser",
+    component: UpdateUser,
   },
   {
     path: "/tiplist",

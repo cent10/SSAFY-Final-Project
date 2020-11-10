@@ -8,7 +8,7 @@
     </div>
     <h1>
     <div>
-      <b-button class="mybutton2 ml-2">정보 수정</b-button>
+      <b-button class="mybutton2 ml-2" @click="moveUpdateUser()">정보 수정</b-button>
     </div>
     </h1>
     <div>
@@ -151,6 +151,9 @@ export default {
   methods: {
     reviewlist(id){
       this.$router.push({ path: "/reviewlist/" + id });
+    },
+    moveUpdateUser(){
+      this.$router.push({ path: "/updateuser" });
     }
   }
 
