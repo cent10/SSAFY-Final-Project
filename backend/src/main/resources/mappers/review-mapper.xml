@@ -12,7 +12,7 @@
 	<select id="read" resultType="com.activityx.allei.dto.ReviewDto">
 		SELECT *
 		FROM review
-		WHERE id=#{id}
+		WHERE reservation=#{reservation}
 	</select>
 	
 	<!-- 후기 수정 -->
