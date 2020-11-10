@@ -22,7 +22,10 @@ import LeisureDetail from "@/components/LeisureDetail.vue";
 import KakaoSuccess from "@/components/KakaoSuccess.vue";
 import KakaoFail from "@/components/KakaoFail.vue";
 
+import UpdateUser from "@/components/UpdateUser.vue";
+
 import MyProfile from "@/components/MyProfile.vue";
+
 
 Vue.use(VueRouter);
 
@@ -31,6 +34,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path: "/updateuser",
+    name: "UpdateUser",
+    component: UpdateUser,
   },
   {
     path: "/tiplist",
