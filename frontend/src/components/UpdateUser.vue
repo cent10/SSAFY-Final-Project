@@ -53,7 +53,7 @@ export default {
         url: `${API_URL}/user/modify`,
         data: {
           id: this.$cookies.get("uid"),
-          name: this.this.name,
+          name: this.name,
           ukey: this.$cookies.get("yol_ukey"),
         },
         // headers:{
