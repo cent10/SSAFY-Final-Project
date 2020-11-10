@@ -9,7 +9,7 @@ import com.activityx.allei.dto.ReservationDto;
 public interface ReservationService {
 	
 	// 예약하기
-	boolean create(ReservationBean bean);
+	int create(ReservationBean bean);
 	
 	// 예약정보 조회
 	Map<String, Object> readReservation(int id);
