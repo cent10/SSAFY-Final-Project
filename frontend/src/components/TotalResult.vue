@@ -135,6 +135,7 @@ export default {
         .then((res) => {
           this.equips = res.data.data.rentalShops;
           this.leisures = res.data.data.leisureShops;
+          console.log(res)
         })
         .catch((err) => {
           console.log(err);
