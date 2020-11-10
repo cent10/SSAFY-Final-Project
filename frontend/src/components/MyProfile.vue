@@ -1,7 +1,7 @@
 <template>
   <div class="my-profile">
     <div>
-        <h1>님 개인정보</h1>
+        <h1>{{user.name}}님 환영합니다!!</h1>
     </div>
     <div>
 
@@ -23,7 +23,7 @@
                         
                         <div class="post-info">
                             <div class="post-text">
-                            <h5>{{leisure.name}}</h5>
+                            <h5>{{leisure.shop}}</h5>
                             <!-- <p class="post-desc">{{leisure.description}}</p> -->
                             <b-button @click="writereview(i)">후기 작성</b-button>
                             </div>
@@ -90,48 +90,89 @@ export default {
   data(){
       return{
           notices: [],
+          user: {},
+          leisures: {},
 
           outtext: "",
           empty,
-          leisures: [
-            {
-            name: '업체명1',
-            description: '설명설명설명설명설명설명1',
-            // logo: ''
-            },
-            {
-            name: '업체명2',
-            description: '설명설명설명설명설명설명2',
-            // logo: ''
-            },
-            {
-            name: '업체명2',
-            description: '설명설명설명설명설명설명2',
-            // logo: ''
-            },
-          ],
-          equips: [
-            {
-            name: '업체1',
-            description: '설명설명설명설명설명설명1',
-            // logo: ''
-            },
-            {
-            name: '업체2',
-            description: '설명설명설명설명설명설명2',
-            // logo: ''
-            },
-            {
-            name: '업체3',
-            description: '설명설명설명설명설명설명2',
-            // logo: ''
-            },
-          ]
+          // leisures: [
+          //   {
+          //   name: '업체명1',
+          //   description: '설명설명설명설명설명설명1',
+          //   // logo: ''
+          //   },
+          //   {
+          //   name: '업체명2',
+          //   description: '설명설명설명설명설명설명2',
+          //   // logo: ''
+          //   },
+          //   {
+          //   name: '업체명2',
+          //   description: '설명설명설명설명설명설명2',
+          //   // logo: ''
+          //   },
+          // ],
+          // equips: [
+          //   {
+          //   name: '업체1',
+          //   description: '설명설명설명설명설명설명1',
+          //   // logo: ''
+          //   },
+          //   {
+          //   name: '업체2',
+          //   description: '설명설명설명설명설명설명2',
+          //   // logo: ''
+          //   },
+          //   {
+          //   name: '업체3',
+          //   description: '설명설명설명설명설명설명2',
+          //   // logo: ''
+          //   },
+          // ]
       }
   },
   created(){
-      axios
-      .get(`${API_URL}/tip/all`)
+      const uid = this.$cookies.get("uid");
+      console.log(uid);
+
+      axios({
+        method:"GET",
+        url:`${API_URL}/user/findById/${uid}`,
+        })
+        .then(({ data }) => {
+            console.log(data.data);
+            this.user = data.data
+          })
+        .catch(err => {
+            console.log(err)
+            alert("정보를 받아올때 에러가 발생했습니다.");
+        });
+
+        axios({
+          method: "GET",
+          url: `${API_URL}/reservations`,
+          params: {
+            id: uid,
+          }
+          })
+          .then(({ data }) => {
+            console.log(data)
+            this.leisures = data.data;
+          })
+          .catch((err) => {
+            alert("정보를 받아올때 에러가 발생했습니다.");
+            console.log(err);
+        });
+
+
+
+      axios({
+      method: "GET",
+      url: `${API_URL}/tip/user/${uid}`,
+      params: {
+        page: 0,
+      }
+      })
       .then(({ data }) => {
         console.log(data)
         this.notices = data.data;
@@ -155,6 +196,14 @@ export default {
     moveUpdateUser(){
       this.$router.push({ path: "/updateuser" });
     }
+
+    moveDetail(id) {
+      axios.get(`${API_URL}/tip/increase/`+ id)
+      .catch((err) =>{
+        console.log(err)
+      })
+      this.$router.push({ path: "/tipdetail/" + id });
+    },
   }
 
 }
