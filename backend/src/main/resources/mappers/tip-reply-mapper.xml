@@ -9,6 +9,7 @@
 		select id, replier, tip, content, date
 		from tip_reply
 		where tip = #{tipId}
+		order by id desc
 	</select>
 	
 	<!-- 댓글 상세보기 -->
