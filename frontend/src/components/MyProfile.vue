@@ -23,7 +23,7 @@
                         
                         <div class="post-info">
                             <div class="post-text">
-                            <h5>{{leisure.name}}</h5>
+                            <h5>{{leisure.shop}}</h5>
                             <!-- <p class="post-desc">{{leisure.description}}</p> -->
                             <b-button @click="writereview(i)">후기 작성</b-button>
                             </div>
@@ -91,43 +91,44 @@ export default {
       return{
           notices: [],
           user: {},
+          leisures: {},
 
           outtext: "",
           empty,
-          leisures: [
-            {
-            name: '업체명1',
-            description: '설명설명설명설명설명설명1',
-            // logo: ''
-            },
-            {
-            name: '업체명2',
-            description: '설명설명설명설명설명설명2',
-            // logo: ''
-            },
-            {
-            name: '업체명2',
-            description: '설명설명설명설명설명설명2',
-            // logo: ''
-            },
-          ],
-          equips: [
-            {
-            name: '업체1',
-            description: '설명설명설명설명설명설명1',
-            // logo: ''
-            },
-            {
-            name: '업체2',
-            description: '설명설명설명설명설명설명2',
-            // logo: ''
-            },
-            {
-            name: '업체3',
-            description: '설명설명설명설명설명설명2',
-            // logo: ''
-            },
-          ]
+          // leisures: [
+          //   {
+          //   name: '업체명1',
+          //   description: '설명설명설명설명설명설명1',
+          //   // logo: ''
+          //   },
+          //   {
+          //   name: '업체명2',
+          //   description: '설명설명설명설명설명설명2',
+          //   // logo: ''
+          //   },
+          //   {
+          //   name: '업체명2',
+          //   description: '설명설명설명설명설명설명2',
+          //   // logo: ''
+          //   },
+          // ],
+          // equips: [
+          //   {
+          //   name: '업체1',
+          //   description: '설명설명설명설명설명설명1',
+          //   // logo: ''
+          //   },
+          //   {
+          //   name: '업체2',
+          //   description: '설명설명설명설명설명설명2',
+          //   // logo: ''
+          //   },
+          //   {
+          //   name: '업체3',
+          //   description: '설명설명설명설명설명설명2',
+          //   // logo: ''
+          //   },
+          // ]
       }
   },
   created(){
@@ -145,6 +146,22 @@ export default {
         .catch(err => {
             console.log(err)
             alert("정보를 받아올때 에러가 발생했습니다.");
+        });
+
+        axios({
+          method: "GET",
+          url: `${API_URL}/reservations`,
+          params: {
+            id: uid,
+          }
+          })
+          .then(({ data }) => {
+            console.log(data)
+            this.leisures = data.data;
+          })
+          .catch((err) => {
+            alert("정보를 받아올때 에러가 발생했습니다.");
+            console.log(err);
         });
 
 
