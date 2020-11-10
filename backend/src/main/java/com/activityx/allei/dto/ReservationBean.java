@@ -9,11 +9,11 @@ public class ReservationBean {
 	private int id;
 	private int user;
 	private int shop;
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+	@JsonFormat(pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date date;
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+	@JsonFormat(pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date start;
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+	@JsonFormat(pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date end;
 	private ArrayList<Integer> products;
 	private ArrayList<Integer> nums;
