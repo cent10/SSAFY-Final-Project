@@ -93,5 +93,12 @@
 		WHERE reservation.id = review.reservation AND reservation.shop = #{shop}
 		GROUP BY reservation.shop
 	</select>
+	
+	<!-- 업체 설명 이미지 URL 수정 -->
+	<update id="updateImgDesc">
+		UPDATE shop
+		SET imgDesc=#{imgDesc}
+		WHERE id=#{id}
+	</update>
 
 </mapper>
