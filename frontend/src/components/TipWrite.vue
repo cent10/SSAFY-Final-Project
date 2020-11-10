@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tip-write">
     <h1 class="mt-2 mb-3">팁 작성 페이지</h1>
     <div class="d-none d-md-block">
       <div class="form-group">
@@ -110,6 +110,10 @@ export default {
 </script>
 
 <style scoped>
+.tip-write {
+  padding-top: 100px;
+  background-color: #F2F2F5;
+}
 .mybutton1 {
   background-color: #084481;
   border: none;

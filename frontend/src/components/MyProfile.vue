@@ -1,7 +1,7 @@
 <template>
   <div class="my-profile">
     <div>
-        <h1>님 개인정보</h1>
+        <h1>{{user.name}}님 환영합니다!!</h1>
     </div>
     <div>
 
@@ -90,6 +90,7 @@ export default {
   data(){
       return{
           notices: [],
+          user: {},
 
           outtext: "",
           empty,
@@ -130,8 +131,31 @@ export default {
       }
   },
   created(){
-      axios
-      .get(`${API_URL}/tip/all`)
+      const uid = this.$cookies.get("uid");
+      console.log(uid);
+
+      axios({
+        method:"GET",
+        url:`${API_URL}/user/findById/${uid}`,
+        })
+        .then(({ data }) => {
+            console.log(data.data);
+            this.user = data.data
+          })
+        .catch(err => {
+            console.log(err)
+            alert("정보를 받아올때 에러가 발생했습니다.");
+        });
+
+
+
+      axios({
+      method: "GET",
+      url: `${API_URL}/tip/user/${uid}`,
+      params: {
+        page: 0,
+      }
+      })
       .then(({ data }) => {
         console.log(data)
         this.notices = data.data;
@@ -151,7 +175,14 @@ export default {
   methods: {
     reviewlist(id){
       this.$router.push({ path: "/reviewlist/" + id });
-    }
+    },
+    moveDetail(id) {
+      axios.get(`${API_URL}/tip/increase/`+ id)
+      .catch((err) =>{
+        console.log(err)
+      })
+      this.$router.push({ path: "/tipdetail/" + id });
+    },
   }
 
 }
