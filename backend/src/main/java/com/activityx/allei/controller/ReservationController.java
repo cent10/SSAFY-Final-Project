@@ -50,10 +50,10 @@ public class ReservationController {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "예약정보 조회", response = BasicResponse.class)
+	@ApiOperation(value = "예약 번호로 예약정보 조회", response = BasicResponse.class)
 	@GetMapping("/{id}")
 	private ResponseEntity<BasicResponse> readReservation(@PathVariable("id") int id) {
-		logger.debug("예약정보 조회");
+		logger.debug("예약 번호로 예약정보 조회");
 		final BasicResponse result = new BasicResponse();
 		Map<String, Object> map = reservationService.readReservation(id);
 		if (map != null) {
@@ -66,10 +66,10 @@ public class ReservationController {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "예약정보 리스트 조회", response = BasicResponse.class)
+	@ApiOperation(value = "특정 사용자의 모든 예약정보 리스트 조회", response = BasicResponse.class)
 	@GetMapping("")
 	private ResponseEntity<BasicResponse> readAllReservations(@RequestParam(value = "id") int id) {
-		logger.debug("예약정보 리스트 조회");
+		logger.debug("특정 사용자의 모든 예약정보 리스트 조회");
 		final BasicResponse result = new BasicResponse();
 		List<ReservationDto> reservationList = reservationService.readAllReservation(id);
 		if (reservationList != null) {
