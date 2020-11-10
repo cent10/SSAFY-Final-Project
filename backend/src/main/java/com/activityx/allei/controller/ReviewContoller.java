@@ -50,12 +50,12 @@ public class ReviewContoller {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "후기 조회", response = BasicResponse.class)
-	@GetMapping("/{id}")
-	private ResponseEntity<BasicResponse> readReview(@PathVariable("id") int id) {
+	@ApiOperation(value = "후기 조회 (예약번호에 일치하는 후기 조회)", response = BasicResponse.class)
+	@GetMapping("/{reservation}")
+	private ResponseEntity<BasicResponse> readReview(@PathVariable("reservation") int reservation) {
 		logger.debug("후기 조회");
 		final BasicResponse result = new BasicResponse();
-		ReviewDto reviewDto = reviewService.read(id);
+		ReviewDto reviewDto = reviewService.read(reservation);
 		if (reviewDto != null) {
 			result.status = true;
 			result.data = reviewDto;
