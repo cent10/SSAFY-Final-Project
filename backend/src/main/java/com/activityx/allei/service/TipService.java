@@ -20,5 +20,7 @@ public interface TipService {
 	boolean increaseHits(int id);
 	//통합검색
 	ArrayList<TipDto> getTipsHasKeyword(String keyword);
+	//특정 유저가 작성한 모든 글목록
+	ArrayList<TipDto> getTipsByUser(int id);
 
 }
