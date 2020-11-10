@@ -51,5 +51,10 @@ public class TipServiceImpl implements TipService{
 		if(keyword == null) keyword = "";
 		return dao.getTipsHasKeyword(keyword);
 	}
+	
+	@Override
+	public ArrayList<TipDto> getTipsByUser(int id) {
+		return dao.getTipsByUser(id);
+	}
 
 }

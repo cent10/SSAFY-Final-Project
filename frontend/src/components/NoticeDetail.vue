@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="notice-detail">
     <table class="table table-striped table-bordered table-hover mt-3">
       <thead>
         <tr>
@@ -144,5 +144,9 @@ export default {
   .mybutton2 {
     background-color: #fa1e44;
     border: none;
+  }
+  .notice-detail {
+    padding-top: 100px;
+    background-color: #F2F2F5;
   }
 </style>

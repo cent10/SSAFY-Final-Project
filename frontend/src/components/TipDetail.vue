@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tip-detail">
     <table class="table table-striped table-bordered table-hover mt-3">
       <thead>
         <tr>
@@ -32,10 +32,10 @@
     </table>
     
     <!-- <b-button v-if="notice.user == user" class="mybutton1" @click="moveNoticeModify()">수정</b-button> -->
-    <b-button class="mybutton1" @click="moveNoticeModify()">수정</b-button>
+    <b-button v-if="notice.user == user.id" class="mybutton1" @click="moveNoticeModify()">수정</b-button>
 
     <!-- <b-button  v-if="notice.user == user" class="mybutton2 mx-3" @click="moveNoticeDelete()">삭제</b-button> -->
-    <b-button class="mybutton2 mx-3" @click="moveNoticeDelete()">삭제</b-button>
+    <b-button v-if="notice.user == user.id" class="mybutton2 mx-3" @click="moveNoticeDelete()">삭제</b-button>
 
     <b-button class="border-0" @click="moveNotice()">목록으로</b-button>
 
@@ -51,8 +51,8 @@
             <b-col cols="2"><p class="m-0">{{ onecomment.replier }}</p></b-col>
             <b-col cols="2"><p class="m-0">{{ onecomment.date.slice(0,10) }}</p></b-col>
             <b-col cols="4">
-              <b-icon-pencil class="mr-1" @click="mdModCmtOpen(onecomment.id)"></b-icon-pencil>
-              <b-icon-trash  @click="delCmt(onecomment.id)"></b-icon-trash>
+              <b-icon-pencil v-if="onecomment.replier == user.id" class="mr-1" @click="mdModCmtOpen(onecomment.id)"></b-icon-pencil>
+              <b-icon-trash  v-if="onecomment.replier == user.id" @click="delCmt(onecomment.id)"></b-icon-trash>
             </b-col>
           </b-row>
         </b-list-group-item>
@@ -60,13 +60,13 @@
 
     <b-modal ref="mdAddCmt" hide-footer title="댓글 작성" >
       <b-form @submit="addCmt">
-        <b-form-group label="작성자" label-for="f-a-c-content">
+        <!-- <b-form-group label="작성자" label-for="f-a-c-content">
           <b-form-textarea
             id="f-a-c-content"
             v-model="replier"
             placeholder="작성자를 입력해주세요"
           ></b-form-textarea>
-        </b-form-group>
+        </b-form-group> -->
         <!-- </b-form-group> 
             id="f-m-c-ontent" 
             v-model="replier" 
@@ -129,6 +129,7 @@ export default {
       title: "",
       replier: "",
       replycontent: "",
+      user: {},
       
       
       name: "",
@@ -152,8 +153,22 @@ export default {
     // ...mapGetters(['userinfo', 'isLogin']),
   },
   created() {
-    // const token = this.$cookies.get("auth-token");
-    // console.log(token);
+    const uid = this.$cookies.get("uid");
+    console.log(uid);
+
+    axios({
+        method:"GET",
+        url:`${API_URL}/user/findById/${uid}`,
+        })
+        .then(({ data }) => {
+            console.log(data.data);
+            this.user = data.data
+          })
+        .catch(err => {
+            console.log(err)
+            alert("정보를 받아올때 에러가 발생했습니다.");
+        });
+
 
     axios({
       method: "GET",
@@ -218,8 +233,7 @@ export default {
     addCmt(evt) {
       evt.preventDefault();
 
-      // const token = this.$cookies.get("auth-token");
-      // console.log(token);
+      const uid = this.$cookies.get("uid");
 
       axios({
         method: "POST",
@@ -228,7 +242,7 @@ export default {
         data: {
           tip: this.$route.params.id,
           content: this.replycontent,
-          replier: this.replier,
+          replier: uid,
         },
         // headers: {
         //   Authorization: `Token ${token}`,
@@ -285,7 +299,6 @@ export default {
         .then((data) => {
           if (!data) throw new Error("");
 
-          // const token = this.$cookies.get("auth-token");
           // console.log(token);
           // console.log(333);
           // console.log(this.commenter.id);
@@ -450,5 +463,9 @@ export default {
   .mybutton2 {
     background-color: #fa1e44;
     border: none;
+  }
+  .tip-detail {
+    padding-top: 100px;
+    background-color: #F2F2F5;
   }
 </style>
