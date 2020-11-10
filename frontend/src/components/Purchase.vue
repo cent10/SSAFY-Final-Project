@@ -20,7 +20,9 @@
       </b-row>
       <b-row align-h="center" class="pay-row">
           <h5>예약날짜</h5>
-          {{startDate}} ~ {{endDate}}
+      </b-row>
+      <b-row align-h="center" class="pay-row">
+          <div v-if="startDate!==''">{{startDate}} ~ {{endDate}}</div>
       </b-row>
       <b-row align-h="center" class="pay-row">
         <div>
@@ -52,12 +54,15 @@
       </b-row> -->
     </b-container>
   </div>
-        <b-button>카카오페이로 결제</b-button>
+        <b-button @click="pay">카카오페이로 결제</b-button>
         <b-button @click="back">뒤로가기</b-button>
   </div>
 </template>
 
 <script>
+const API_URL = process.env.VUE_APP_SERVER_URL;
+
+import axios from 'axios';
 
 export default {
   name: "Purchase",
@@ -94,13 +99,46 @@ export default {
     },
     dateDisabled(ymd) {
       return ymd < this.startDate;
+    },
+    pay() {
+      if(this.startDate===""){
+        alert("날짜를 선택해주세요.");
+        return;
+      }
+      let reservationName = this.purchasingList[0].name;
+      
+      axios({
+        method: "GET",
+        url: `${API_URL}/reservations`,
+      }).then((res) => {
+        console.log(res.data);
+        axios({
+          method: "POST",
+            url: `${API_URL}/pay/kakao`,
+            data: {
+              "amount": this.totalPrice,
+              "id": res.data.data,
+              "name": reservationName,
+              "quantity": 1,
+              "shop": this.purchasingList[0].shop,
+            },
+          }).then((res) => {
+            this.$cookies.set("yol_tid", res.data.data.tid);
+            window.location.href = res.data.data.next_redirect_pc_url;
+          }).catch((err) => {
+            console.log(err);
+          });
+      }).catch((err) => {
+        console.log(err);
+      });
+
     }
   },
   watch: {
     startDate (to){
       this.endDate = to;
     },
-  }
+  },
 };
 </script>
 
