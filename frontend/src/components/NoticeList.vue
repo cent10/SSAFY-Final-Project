@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="notice-list">
     <h2>공지사항</h2>
     <hr />
     <div class="search" align="left">				
@@ -154,3 +154,9 @@ export default {
   filter: {},
 };
 </script>
+<style scoped>
+  .notice-list {
+    padding-top: 100px;
+    background-color: #F2F2F5;
+  }
+</style>

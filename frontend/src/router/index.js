@@ -22,6 +22,8 @@ import LeisureDetail from "@/components/LeisureDetail.vue";
 import KakaoSuccess from "@/components/KakaoSuccess.vue";
 import KakaoFail from "@/components/KakaoFail.vue";
 
+import MyProfile from "@/components/MyProfile.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -103,6 +105,11 @@ const routes = [
     path: "/kakaopay/fail",
     name: "KakaoFail",
     component: KakaoFail,
+  },
+  {
+    path: "/myprofile",
+    name: "MyProfile",
+    component: MyProfile
   },
 ];
 

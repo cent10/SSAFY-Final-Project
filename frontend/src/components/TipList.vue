@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tip-list">
     <h2>팁 게시판</h2>
     <hr />
     <div class="d-flex justify-content-between">
@@ -50,7 +50,7 @@
           <td>{{notice.category.slice(0, 6)}}</td>
           <td>{{notice.title.slice(0, 8)}}</td>
           <td>{{notice.content.slice(0, 7)}}</td>
-          <td>{{notice.user}}</td>
+          <td>{{notice.name}}</td>
           <td>{{notice.date.slice(0,10)}}</td>
           <td>{{notice.hits}}</td>
 
@@ -124,10 +124,14 @@ export default {
         alert("정보를 받아올때 에러가 발생했습니다.");
         console.log(err);
       });
-
     
-    axios
-      .get(`${API_URL}/tip/all`)
+    axios({
+      method: "GET",
+      url: `${API_URL}/tip/all`,
+      params: {
+        page: 0,
+      }
+    })
       .then(({ data }) => {
         console.log(data)
         this.notices = data.data;
@@ -241,3 +245,10 @@ export default {
   filter: {},
 };
 </script>
+<style scoped>
+  .tip-list {
+    padding-top: 100px;
+    background-color: #F2F2F5;
+  }
+
+</style>
