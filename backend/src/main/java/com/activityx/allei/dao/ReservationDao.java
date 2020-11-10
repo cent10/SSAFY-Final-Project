@@ -32,4 +32,10 @@ public interface ReservationDao {
 	
 	// 최근 예약번호
 	public Integer getLastReservationId();
+	
+	// 결제 시작시 tid 추가
+	public int addTid(String tid, int id);
+	
+	// tid로 예약정보 검색
+	public ReservationDto getReservationByTid(String tid);
 }

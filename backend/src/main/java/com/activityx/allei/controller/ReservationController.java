@@ -41,8 +41,10 @@ public class ReservationController {
 	private ResponseEntity<BasicResponse> createReservation(@RequestBody ReservationBean bean) {
 		logger.debug("예약하기");
 		final BasicResponse result = new BasicResponse();
-		if (reservationService.create(bean)) {
+		int data = reservationService.create(bean);
+		if (data > 0) {
 			result.status = true;
+			result.data = data;
 		} else {
 			result.status = false;
 			result.msg = "예약하기가 실패했습니다.";

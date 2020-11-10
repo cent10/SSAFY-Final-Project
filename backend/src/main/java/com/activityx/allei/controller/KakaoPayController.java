@@ -55,12 +55,12 @@ public class KakaoPayController {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "카카오 페이 결제 성공", response = BasicResponse.class)
-	@PostMapping("kakao/success")
-	public ResponseEntity<BasicResponse> kakaoPaySuccess(@RequestParam String pg_token, @RequestBody KakaoPayBean bean) {
+	@ApiOperation(value = "카카오 페이 결제 성공요청", response = BasicResponse.class)
+	@PostMapping("kakao/approval")
+	public ResponseEntity<BasicResponse> kakaoPaySuccess(@RequestParam String pg_token, @RequestParam String tid) {
 		logger.debug("KakaoPay test : kakaoPayApproval - 호츌");
 		final BasicResponse result = new BasicResponse();
-		KakaoPayApprovalDto data = service.kakaoPayApproval(pg_token, bean);
+		KakaoPayApprovalDto data = service.kakaoPayApproval(pg_token, tid);
 		if(data != null) {
 			result.status = true;
 			result.data = data;

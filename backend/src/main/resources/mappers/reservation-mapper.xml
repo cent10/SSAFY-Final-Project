@@ -46,5 +46,19 @@
 		SELECT MAX(id)
 		FROM reservation
 	</select>
+	
+	<!-- 결제 시작시 tid 입력 -->
+	<update id="addTid">
+		update reservation
+		set tid = #{tid}
+		where id = #{id}
+	</update>
+	
+	<!-- tid로 예약정보 검색 -->
+	<select id="getReservationByTid" resultType="ReservationDto">
+		select *
+		from reservation
+		where tid = #{tid}
+	</select>
 
 </mapper>

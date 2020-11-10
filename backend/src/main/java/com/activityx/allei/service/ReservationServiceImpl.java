@@ -25,7 +25,7 @@ public class ReservationServiceImpl implements ReservationService {
 	ProductDao productDao;
 	
 	@Override
-	public boolean create(ReservationBean bean) {
+	public int create(ReservationBean bean) {
 		ReservationDto reservationDto = new ReservationDto();
 		reservationDto.setShop(bean.getShop());
 		reservationDto.setUser(bean.getUser());
@@ -38,7 +38,10 @@ public class ReservationServiceImpl implements ReservationService {
 			check2 += reservationDao.createDetailReservation(reservationDto.getId(), bean.getProducts().get(i), bean.getNums().get(i), bean.getStart(), bean.getEnd());			
 		}
 		
-		return (check1==1) && (check2==i);
+		if((check1==1) && (check2==i))
+			return reservationDto.getId();
+		
+		return -1;
 	}
 	
 	@Override

@@ -8,5 +8,5 @@ public interface KakaoPayService {
 	
 	KakaoPayReadyDto kakaoPayReady(KakaoPayBean bean);
 	
-	KakaoPayApprovalDto kakaoPayApproval(String pg_token, KakaoPayBean bean);
+	KakaoPayApprovalDto kakaoPayApproval(String pg_token, String tid);
 }
