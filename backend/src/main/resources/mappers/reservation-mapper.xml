@@ -33,6 +33,7 @@
 		SELECT *
 		FROM reservation
 		WHERE user=#{id}
+		order by desc
 	</select>
 	
 	<!-- 예약취소 -->
