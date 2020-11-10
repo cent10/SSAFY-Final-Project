@@ -63,6 +63,13 @@
 		order by hits desc
 		limit 12
 	</select>
+	
+	<!-- 특정 유저가 작성한 모든 글목록 -->
+	<select id="getTipsByUser" resultType="TipDto">
+		select id, user, title, content, date, hits, category
+		from tip
+		where user = #{id}
+	</select>
 
 </mapper>
 
