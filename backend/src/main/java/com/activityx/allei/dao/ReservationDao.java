@@ -38,4 +38,7 @@ public interface ReservationDao {
 	
 	// tid로 예약정보 검색
 	public ReservationDto getReservationByTid(String tid);
+	
+	// 결제완료시 state변경
+	public int changeState(String tid);
 }

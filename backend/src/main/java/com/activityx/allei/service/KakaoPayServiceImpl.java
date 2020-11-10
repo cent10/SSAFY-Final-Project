@@ -100,7 +100,8 @@ public class KakaoPayServiceImpl implements KakaoPayService {
 		
 		try {
 			KakaoPayApprovalDto kakaoPayApprovalDto = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalDto.class);
-
+			//state변경
+			reservationDao.changeState(tid);
 			return kakaoPayApprovalDto;
 			
 		} catch (RestClientException e) {
