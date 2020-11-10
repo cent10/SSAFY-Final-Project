@@ -114,6 +114,22 @@ public class TipController {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "모든 게시글을 가져 옵니다.", response = BasicResponse.class)
+	@GetMapping("user/{id}")
+	public ResponseEntity<BasicResponse> getTipsByUser(@PathVariable int id) {
+		logger.debug("Tip Board test : allTips - 호츌");
+		final BasicResponse result = new BasicResponse();
+		ArrayList<TipDto> data = service.getTipsByUser(id);
+		if(data != null && !data.isEmpty()){
+			result.status = true;
+			result.data = data;
+		}else{
+			result.status = false;
+			result.msg = "게시글이 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
 	@ApiOperation(value = "특정 게시글 조회수 증가", response = BasicResponse.class)
 	@GetMapping("increase/{id}")
 	public ResponseEntity<BasicResponse> increaseHits(@PathVariable int id) {
