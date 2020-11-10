@@ -30,19 +30,21 @@
 	
 	<!-- 게시글 상세보기 -->
 	<select id="detailTip" resultType="TipDto">
-		select id, user, title, content, date, hits, category
-		from tip
-		where id = #{id}
+		select t.id as id, t.user as user, u.name as name, t.title as title, t.content as content, t.date as date, t.hits as hits, t.category as category
+		from tip as t
+		inner join user as u on t.user = u.id
+		where t.id = #{id}
 	</select>
 	
 	<!-- 전체 게시글 목록 -->
 	<select id="allTips" resultType="TipDto">
-		select id, user, title, content, date, hits, category
-		from tip
-		where category like CONCAT('%', #{keyword}, '%')
-		or title like CONCAT('%', #{keyword}, '%')
-		or content like CONCAT('%', #{keyword}, '%')
-		order by hits desc
+		select t.id as id, t.user as user, u.name as name, t.title as title, t.content as content, t.date as date, t.hits as hits, t.category as category
+		from tip as t
+		inner join user as u on t.user = u.id
+		where t.category like CONCAT('%', #{keyword}, '%')
+		or t.title like CONCAT('%', #{keyword}, '%')
+		or t.content like CONCAT('%', #{keyword}, '%')
+		order by t.hits desc
 		limit #{start}, 12
 	</select>
 	
@@ -55,20 +57,22 @@
 	
 	<!-- 통합 검색 -->
 	<select id="getTipsHasKeyword" resultType="TipDto">
-		select id, user, title, content, date, hits, category
-		from tip
-		where category like CONCAT('%', #{keyword}, '%')
-		or title like CONCAT('%', #{keyword}, '%')
-		or content like CONCAT('%', #{keyword}, '%')
-		order by hits desc
+		select t.id as id, t.user as user, u.name as name, t.title as title, t.content as content, t.date as date, t.hits as hits, t.category as category
+		from tip as t
+		inner join user as u on t.user = u.id
+		where t.category like CONCAT('%', #{keyword}, '%')
+		or t.title like CONCAT('%', #{keyword}, '%')
+		or t.content like CONCAT('%', #{keyword}, '%')
+		order by t.hits desc
 		limit 12
 	</select>
 	
 	<!-- 특정 유저가 작성한 모든 글목록 -->
 	<select id="getTipsByUser" resultType="TipDto">
-		select id, user, title, content, date, hits, category
-		from tip
-		where user = #{id}
+		select t.id as id, t.user as user, u.name as name, t.title as title, t.content as content, t.date as date, t.hits as hits, t.category as category
+		from tip as t
+		inner join user as u on t.user = u.id
+		where t.user = #{id}
 	</select>
 
 </mapper>
