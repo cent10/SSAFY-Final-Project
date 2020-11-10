@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tip-update">
     
     <h1 class="mt-2 mb-3">팁 수정 페이지</h1>
 
@@ -127,5 +127,8 @@
 </script>
 
 <style>
-
+.tip-update {
+  padding-top: 100px;
+  background-color: #F2F2F5;
+}
 </style>

@@ -19,6 +19,11 @@ import Login from "@/components/Login.vue";
 import LeisureList from "@/components/LeisureList.vue";
 import LeisureDetail from "@/components/LeisureDetail.vue";
 
+import KakaoSuccess from "@/components/KakaoSuccess.vue";
+import KakaoFail from "@/components/KakaoFail.vue";
+
+import MyProfile from "@/components/MyProfile.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -89,6 +94,22 @@ const routes = [
     name: "LeisureList",
     component: LeisureList,
     props: true,
+  },
+  {
+    path: "/kakaopay/success",
+    name: "KakaoSuccess",
+    component: KakaoSuccess,
+    props: (route) => ({ query: route.query.pg_token }),
+  },
+  {
+    path: "/kakaopay/fail",
+    name: "KakaoFail",
+    component: KakaoFail,
+  },
+  {
+    path: "/myprofile",
+    name: "MyProfile",
+    component: MyProfile
   },
 ];
 

@@ -6,6 +6,7 @@
   >
     <b-navbar-brand href="/"> 야! 올레? </b-navbar-brand>
     <b-navbar-nav class="ml-auto">
+      <b-nav-item @click="movemyprofile()"> 너의 정보가 궁금해!? </b-nav-item>
       <b-nav-item @click="noticelist()"> 공지사항 </b-nav-item>
       <b-nav-item v-b-modal.modal-login v-if="!this.$cookies.isKey('yol_token')"> 로그인 </b-nav-item>
       <b-nav-item @click="logout" v-else> 로그아웃 </b-nav-item>
@@ -33,6 +34,9 @@ export default {
     },
     updateScroll() {
       this.scrollPosition = window.scrollY;
+    },
+    movemyprofile(){
+      this.$router.push({ path: "/myprofile" });
     },
     noticelist() {
       this.$router.push({ path: "/noticelist/" });

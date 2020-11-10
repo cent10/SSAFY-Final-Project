@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <Header v-if="this.$route.path !== '/login'"/>
+    <Header v-if="this.$route.path !== '/login' && !this.$route.path.includes('/kakaopay')"/>
     <router-view/>
-    <Footer v-if="this.$route.path !== '/login'"/>
+    <Footer v-if="this.$route.path !== '/login' && !this.$route.path.includes('/kakaopay')"/>
     <b-modal id="modal-login"
       centered
       size="sm"

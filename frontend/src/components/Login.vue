@@ -26,7 +26,7 @@ export default {
             nickname:"",
             token: "",
             ukey: 0,
-            //id: 0,
+            uid: 0,
         };
     },
     created() {
@@ -38,15 +38,17 @@ export default {
             }
         })
         .then(({ data }) => {
+            console.log(data.id);
             this.nickname = data.name;
             this.token = data.acess_token;
             this.ukey = data.ukey;
-            //this.id = data.id;
+            this.uid = data.id;
+            console.log(this.uid);
             if(data.name !== null){
                 this.$cookies.set("yol_token", this.token);
                 this.$cookies.set("yol_nickname", this.nickname);
                 this.$cookies.set("yol_ukey", this.ukey);
-                // this.$cookies.set("id", this.id);
+                this.$cookies.set("uid", this.uid);
                 this.$router.push({path: "/"});
             }
         })
@@ -88,6 +90,7 @@ export default {
                 this.$cookies.set("yol_token", this.token);
                 this.$cookies.set("yol_nickname", this.nickname);
                 this.$cookies.set("yol_ukey", this.ukey);
+                this.$cookies.set("uid", this.uid);
                 this.$router.push({path: "/"});
             })
             .catch((err) => {
