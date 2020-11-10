@@ -195,7 +195,7 @@ export default {
     },
     moveUpdateUser(){
       this.$router.push({ path: "/updateuser" });
-    }
+    },
 
     moveDetail(id) {
       axios.get(`${API_URL}/tip/increase/`+ id)
