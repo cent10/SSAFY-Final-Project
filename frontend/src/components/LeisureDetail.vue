@@ -74,15 +74,18 @@
           <h5>상품리스트</h5>
           <b-list-group>
             <b-list-group-item v-for="(product, i) in products" :key="i">
-              <table>
+              <table class="product-list">
+                <colgroup>
+                  <col width="30%">
+                  <col width="30%">
+                  <col width="20%">
+                  <col width="20%">
+                </colgroup>
                 <tr>
                   <td>
                     <b-form-checkbox :value="i" v-model="checkedProducts">
                       {{product.name}}
                     </b-form-checkbox>
-                  </td>
-                  <td>
-                    설명: {{product.description}}
                   </td>
                   <td>
                     {{product.price}}원
@@ -101,12 +104,16 @@
               </table>
             </b-list-group-item>
           </b-list-group>
-          <b-button @click="purchase">결제하기</b-button>
-          <b-button @click="moveSearchPage">목록으로</b-button>
         </b-col>
       </b-row>
       <b-row v-else>
         등록된 상품이 없습니다.
+      </b-row>
+      <b-row>
+        <b-col>
+          <b-button @click="purchase">결제하기</b-button>
+          <b-button @click="moveSearchPage">목록으로</b-button>
+        </b-col>
       </b-row>
     </b-container>
     <Purchase v-else :pl="purchasingList" v-model="isPurchasing"/>
@@ -267,5 +274,8 @@ li {
 }
 .desc {
   width: 100%;
+}
+.product-list {
+  text-align: center;
 }
 </style>

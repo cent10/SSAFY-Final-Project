@@ -1,6 +1,7 @@
 <template>
   <div>
-    헐... 결제에 실패했어요..
+    헐... 결제 실패...
+    <b-button @click="toMain">메인으로</b-button>
   </div>
 </template>
 
@@ -17,6 +18,11 @@ export default {
   },
   created() {
     this.$cookies.remove("yol_purchasingList");
+  },
+  methods: {
+    toMain() {
+      this.$router.push({name: "Home"});
+    }
   }
 };
 </script>

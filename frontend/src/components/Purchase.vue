@@ -83,6 +83,7 @@ export default {
       totalPrice: 0,
       startDate: "",
       endDate: "",
+      productName: "",
     }
   },
   created() {
@@ -105,23 +106,43 @@ export default {
         alert("날짜를 선택해주세요.");
         return;
       }
-      let reservationName = this.purchasingList[0].name;
       
+      const products = []; // 상품 아이디
+      const nums = [];     // 상품 수량
+
+      this.purchasingList.map((pl) => {
+        products.push(pl.id);
+        nums.push(pl.num);
+      });
+
       axios({
-        method: "GET",
+        method: "POST",
         url: `${API_URL}/reservations`,
+            data: {
+              "start": this.startDate,
+              "end": this.endDate,
+              "amount": this.totalPrice,
+              "user": 23, // 유저 아이디 수정 필요
+              "shop": this.purchasingList[0].shop,
+              "products": products,
+              "nums": nums,
+            },
       }).then((res) => {
-        console.log(res.data);
+        this.productName += this.startDate + " ~ " +this.endDate + " " + this.purchasingList[0].name;
+        if(this.purchasingList.length > 1){
+          this.productName += " 외 " + (this.purchasingList.length-1);
+        }
+
         axios({
           method: "POST",
             url: `${API_URL}/pay/kakao`,
             data: {
               "amount": this.totalPrice,
               "id": res.data.data,
-              "name": reservationName,
+              "name": this.productName,
               "quantity": 1,
               "shop": this.purchasingList[0].shop,
-            },
+            }
           }).then((res) => {
             this.$cookies.set("yol_tid", res.data.data.tid);
             window.location.href = res.data.data.next_redirect_pc_url;
