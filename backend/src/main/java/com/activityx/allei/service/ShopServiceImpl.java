@@ -248,4 +248,9 @@ public class ShopServiceImpl implements ShopService {
 		return shopDao.delete(id) == 1;
 	}
 
+	@Override
+	public boolean updateImgDesc(ShopDto shopDto) {
+		return shopDao.updateImgDesc(shopDto) == 1;
+	}
+
 }

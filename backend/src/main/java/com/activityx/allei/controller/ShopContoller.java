@@ -324,4 +324,18 @@ public class ShopContoller {
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "업체 설명 이미지 URL 수정", response = BasicResponse.class)
+	@PutMapping("/{id}/imgdesc")
+	private ResponseEntity<BasicResponse> updateImgDesc(@RequestBody ShopDto shopDto) {
+		logger.debug("업체 설명 이미지 URL 수정");
+		final BasicResponse result = new BasicResponse();
+		if (shopService.updateImgDesc(shopDto)) {
+			result.status = true;
+		} else {
+			result.status = false;
+			result.msg = "업체 설명 이미지 URL 수정에 실패했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 }
