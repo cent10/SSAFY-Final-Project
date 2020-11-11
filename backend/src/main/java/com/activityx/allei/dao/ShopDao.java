@@ -45,6 +45,12 @@ public interface ShopDao {
 	// 업체 평점 조회
 	public Float readRate(int shop);
 	
-	// 업체 설명 이미지 URL 수정
+	// 업체 이미지 저장
+	public int updateImg(ShopDto shopDto);
+	
+	// 업체 설명 이미지 저장
 	public int updateImgDesc(ShopDto shopDto);
+	
+	// 업체 아이디로 업체 이름 찾기
+	public String getNamebyId(int id);
 }

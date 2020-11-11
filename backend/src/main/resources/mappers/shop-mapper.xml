@@ -19,6 +19,7 @@
 	<select id="readAll" resultType="com.activityx.allei.dto.ShopDto">
 		SELECT *
 		FROM shop
+		order by id desc
 	</select>
 
 	<!-- 레저 서비스 업체 검색 -->
@@ -26,6 +27,7 @@
 		SELECT *
 		FROM shop
 		WHERE (name LIKE CONCAT('%', #{searchword}, '%') OR description LIKE CONCAT('%', #{searchword}, '%')) AND classification = 0
+		order by id desc
 	</select>
 	
 	<!-- 장비 대여 업체 검색 -->
@@ -33,13 +35,15 @@
 		SELECT *
 		FROM shop
 		WHERE (name LIKE CONCAT('%', #{searchword}, '%') OR description LIKE CONCAT('%', #{searchword}, '%')) AND classification = 1
+		order by id desc
 	</select>
 	
 	<!-- 레저 서비스 업체 검색 (12개) -->
 	<select id="searchLeisureShopsLimit" resultType="com.activityx.allei.dto.ShopDto">
 		SELECT shop.id, shop.admin, shop.name, shop.address, shop.phone, shop.classification, shop.number, shop.description, shop.imgDesc, shop.img, shop.region
 		FROM shop, shop_category, category
-		WHERE shop.id = shop_category.shop AND shop_category.code = category.code AND (shop.name LIKE CONCAT('%', #{searchword}, '%') OR shop.description LIKE CONCAT('%', #{searchword}, '%') OR category.name LIKE CONCAT('%', #{searchword}, '%')) AND classification = 0
+		WHERE shop.id = shop_category.shop AND shop_category.code = category.code AND (shop.name LIKE CONCAT('%', #{searchword}, '%') OR shop.description LIKE CONCAT('%', #{searchword}, '%') OR category.name LIKE CONCAT('%', #{searchword}, '%') OR address LIKE CONCAT('%', #{searchword}, '%') OR region LIKE CONCAT('%', #{searchword}, '%')) AND classification = 0
+		order by shop.id desc
 		LIMIT 12
 	</select>
 	
@@ -47,7 +51,8 @@
 	<select id="searchRentalShopsLimit" resultType="com.activityx.allei.dto.ShopDto">
 		SELECT shop.id, shop.admin, shop.name, shop.address, shop.phone, shop.classification, shop.number, shop.description, shop.imgDesc, shop.img, shop.region
 		FROM shop, shop_category, category
-		WHERE shop.id = shop_category.shop AND shop_category.code = category.code AND (shop.name LIKE CONCAT('%', #{searchword}, '%') OR shop.description LIKE CONCAT('%', #{searchword}, '%') OR category.name LIKE CONCAT('%', #{searchword}, '%')) AND classification = 1
+		WHERE shop.id = shop_category.shop AND shop_category.code = category.code AND (shop.name LIKE CONCAT('%', #{searchword}, '%') OR shop.description LIKE CONCAT('%', #{searchword}, '%') OR category.name LIKE CONCAT('%', #{searchword}, '%') OR address LIKE CONCAT('%', #{searchword}, '%') OR region LIKE CONCAT('%', #{searchword}, '%')) AND classification = 1
+		order by shop.id desc
 		LIMIT 12
 	</select>
 	
@@ -60,6 +65,7 @@
 		WHERE (shop.classification = 0) AND (shop.id = ctgr.shop) AND shop.id IN (SELECT shop
 												FROM product
 												WHERE price BETWEEN #{minPrice} AND #{maxPrice} AND region LIKE CONCAT('%', #{region}, '%'))
+		order by shop.id desc
 	</select>
 	
 	<!-- 장비 대여 업체 상세 검색 -->
@@ -71,6 +77,7 @@
 		WHERE (shop.classification = 1) AND (shop.id = ctgr.shop) AND shop.id IN (SELECT shop
 												FROM product
 												WHERE price BETWEEN #{minPrice} AND #{maxPrice} AND region LIKE CONCAT('%', #{region}, '%'))
+		order by shop.id desc
 	</select>
 	
 	<!-- 업체 수정 -->
@@ -94,11 +101,25 @@
 		GROUP BY reservation.shop
 	</select>
 	
-	<!-- 업체 설명 이미지 URL 수정 -->
+	<!-- 업체 이미지 저장 -->
+	<update id="updateImg">
+		UPDATE shop
+		SET img=#{img}
+		WHERE id=#{id}
+	</update>
+	
+	<!-- 업체 설명 이미지 저장 -->
 	<update id="updateImgDesc">
 		UPDATE shop
 		SET imgDesc=#{imgDesc}
 		WHERE id=#{id}
 	</update>
+	
+	<!-- 업체 아이디로 업체 이름 찾기 -->
+	<select id="getNamebyId" resultType="String">
+		select name
+		from shop
+		where id = #{id}
+	</select>
 
 </mapper>

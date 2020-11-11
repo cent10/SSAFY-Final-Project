@@ -33,6 +33,7 @@
 		SELECT *
 		FROM product
 		WHERE id=#{product}
+		order by id desc
 	</select>
 	
 	<!-- 업체의 상품 중에서 가장 저렴한 상품가격 조회 -->

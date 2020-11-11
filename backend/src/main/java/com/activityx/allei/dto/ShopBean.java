@@ -20,7 +20,7 @@ public class ShopBean {
 		super();
 	}
 	public ShopBean(int id, int admin, String name, String address, String phone, boolean classification, String number,
-			String description, String imgDesc, String img, String region, float avgRate, int minPrice) {
+			String description, String imgDesc, String img, String region, Float avgRate, int minPrice) {
 		super();
 		this.id = id;
 		this.admin = admin;
@@ -33,6 +33,7 @@ public class ShopBean {
 		this.imgDesc = imgDesc;
 		this.img = img;
 		this.region = region;
+		if(avgRate == null) avgRate = 0.0f;
 		this.avgRate = avgRate;
 		this.minPrice = minPrice;
 	}
