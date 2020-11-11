@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="notice-update">
     <h1 class="mt-2 mb-3">공지사항 수정 페이지</h1>
     <div style="width:40%; margin:0px auto">	
 		<div class="form-group">
@@ -103,5 +103,8 @@
 </script>
 
 <style>
-
+.notice-update {
+  padding-top: 100px;
+  background-color: #F2F2F5;
+}
 </style>

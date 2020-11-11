@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tip-write">
     <h1 class="mt-2 mb-3">팁 작성 페이지</h1>
     <div class="d-none d-md-block">
       <div class="form-group">
@@ -15,7 +15,7 @@
             :value="onecategory.category"
           >{{onecategory.category}}</option>
         </select>
-        <input type="text" class="form-control my-2" placeholder="작성자" v-model="user" />
+        <!-- <input type="text" class="form-control my-2" placeholder="작성자" v-model="user" /> -->
        
         <textarea type="text" class="form-control my-2" placeholder="내용" v-model="content"></textarea>
       </div>
@@ -69,7 +69,9 @@ export default {
   },
   methods: {
     submit() {
-    //   const token = this.$cookies.get("auth-token");
+      const uid = this.$cookies.get("uid");
+
+      console.log(uid);
     //   console.log(token);
     //   console.log();
       axios({
@@ -80,7 +82,7 @@ export default {
           category: this.SelectedCategory,
           
           title: this.title,
-          user: this.user,
+          user: uid,
           content: this.content,
           
         },
@@ -108,6 +110,10 @@ export default {
 </script>
 
 <style scoped>
+.tip-write {
+  padding-top: 100px;
+  background-color: #F2F2F5;
+}
 .mybutton1 {
   background-color: #084481;
   border: none;

@@ -6,9 +6,9 @@
 	<!-- create -->
 	<insert id="create" useGeneratedKeys="true" keyProperty="id">
         insert into user(
-            email, name, ukey
+            name, ukey
         ) values (
-            #{email}, #{name}, #{ukey}
+            #{name}, #{ukey}
         )
 	</insert>
 
@@ -63,8 +63,7 @@
 	<!-- update -->
     <update id="update">
         update user
-        set email = #{email}
-            name = #{name}
+        set name = #{name}
         where id = #{id}
     </update>
 
