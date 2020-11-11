@@ -67,8 +67,8 @@
           <span class="post-tag">{{tip.category}}</span>
           <div class="post-tip">
             <div class="post-text-tip">
-              <h3 style="text-align: left; margin-bottom: 80%;">{{tip.title}}</h3>
-              <p class="post-desc-tip">{{tip.name}}</p>
+              <h3 style="text-align: left;  padding: 25% 0 35% 0;">{{tip.title}}</h3>
+              <p class="post-desc-tip" style="margin-top: 20%;">{{tip.name}}</p>
               <p class="post-desc-tip">{{tip.date}}</p>
               <p class="post-desc-tip">조회수 {{tip.hits}}</p>
             </div>
@@ -236,7 +236,7 @@ export default {
   }
   .post-desc-tip {
       margin: 4px 0;
-      font-size: 0.5rem;
+      font-size: 0.8rem;
       text-align: right;
   }
   .post-add {
@@ -256,5 +256,10 @@ export default {
     height: 100px;
     margin-top: 7%;
     margin-bottom: 7%;
+  }
+  .zullll {
+    background-color: #495464;
+    width: 70%;
+    height: 2px;
   }
 </style>
