@@ -55,7 +55,7 @@
       </div>
     </b-row>
     <b-row>
-      <router-link v-if="equips.length > 0" class="more" :to="{ name: 'LeisureList' }">더 찾아보기...</router-link>
+      <router-link v-if="equips.length > 0" class="more" :to="{ name: 'EquipList' }">더 찾아보기...</router-link>
     </b-row>
     <b-row>
       <h3> 정보 공유 </h3>
@@ -122,7 +122,7 @@ export default {
       this.$router.push({ path: `/leisuredetail/${this.leisures[this.$refs.leisureSlides.currentIndex].id}`});
     },
     viewEquip() {
-      this.$router.push({ path: `/leisuredetail/${this.equips[this.$refs.equipSlides.currentIndex].id}`}); // equip 상세페이지로 바꾸기
+      this.$router.push({ path: `/equipdetail/${this.equips[this.$refs.equipSlides.currentIndex].id}`}); 
     },
     viewTip() {
       this.$router.push({ path: `/tipdetail/${this.tips[this.$refs.tipSlides.currentIndex].id}`});

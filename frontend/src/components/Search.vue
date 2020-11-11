@@ -24,6 +24,7 @@
         :style="cardStyle[1]"
         @mouseover="changeStyle(1)"
         @mouseleave="originalStyle(1)"
+        @click="equiplist()"
       >
       </b-card>
       <b-card
@@ -77,6 +78,9 @@ export default {
     },
     leisurelist() {
       this.$router.push({ path: "/leisurelist" });
+    },
+    equiplist() {
+      this.$router.push({ path: "/equiplist" });
     },
     tiplist() {
       this.$router.push({ path: "/tiplist/" });
