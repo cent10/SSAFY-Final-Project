@@ -47,6 +47,7 @@ public class ShopServiceImpl implements ShopService {
 		ShopDto shopDto = shopDao.read(id);
 		String category = categoryDao.readName(id);
 		Float rate = shopDao.readRate(id);
+		if(rate == null) rate = 0.0f;
 		map.put("shop", shopDto);
 		map.put("category", category);
 		map.put("rate", rate);
