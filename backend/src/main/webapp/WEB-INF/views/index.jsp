@@ -1,20 +1,97 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import = "java.util.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Insert title here</title>
+<meta charset="utf-8">
+	<title>Board</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <c:if test="${userId eq null}">
-        <a href="https://kauth.kakao.com/oauth/authorize?client_id=c917624215999ace922acc8e48ce073e&redirect_uri=http://k3a210.p.ssafy.io/api/login&response_type=code">
-            <img src="/img/kakao_account_login_btn_medium_wide_ov.png">
-        </a>
-    </c:if>
-    <c:if test="${userId ne null}">
-        <h1>로그인 성공입니다</h1>
-    </c:if>
+
+
+<div class="container">
+
+	<h4 class="text-center">File Upload</h4>       
+
+	<div class="col-xl-12 form-group">
+		id: <input type="text" id="id">
+	</div>
+	<div class="col-xl-12 form-group">
+		img: <input type="file" id="inputFileUpload">
+		<div class="thumbnail-wrapper" style="width:200px; margin-top: 10px;">
+			<img id="imgFileUpload" style="max-width: 100%;">
+		</div>
+	</div>
+	<!-- / New for FileUpload -->
+	<div class="col-md-12 float-right">
+		<button id="btnFileUpload" class="btn btn-sm btn-primary btn-outline" data-dismiss="modal" type="button">Upload</button>
+	</div>
+									
+</div>
+
+
+<script>
+
+
+$(document).ready(function(){
+
+	$("#btnFileUpload").click(function(){
+		fileUpload();
+	});
+	
+	$("#inputFileUpload").change(function(e){
+
+		if( this.files && this.files[0] ){
+			var reader = new FileReader();
+			reader.readAsDataURL(this.files[0]);
+			reader.onload = function(e){
+				$("#imgFileUpload").attr("src", e.target.result);
+			}
+		}
+	});
+
+});
+
+function fileUpload(){
+
+	var formData = new FormData();
+
+	formData.append("id", $("#id").val());
+	formData.append("file", $("#inputFileUpload")[0].files[0]);
+	
+	var id = $("#id").val();
+	var requestUrl = 'shops/' + id + '/fileupload/img';
+	
+	$.ajax(
+	{
+        type : 'post',
+        url : requestUrl,
+        dataType : 'json',
+        data : formData,
+        contentType: false,
+        processData: false,
+        success : function(data, status, xhr) { 
+        	alert('파일을 업로드했습니다.');
+        }, 
+        error: function(jqXHR, textStatus, errorThrown) 
+        {
+        	alert('파일을 업로드하지 못했습니다.');
+        	console.log(jqXHR.responseText); 
+        }
+    });
+}
+
+
+</script>
+
 </body>
 </html>

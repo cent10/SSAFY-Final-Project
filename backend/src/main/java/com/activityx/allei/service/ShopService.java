@@ -47,6 +47,9 @@ public interface ShopService {
 	// 업체 삭제
 	boolean delete(int id);
 	
-	// 업체 설명 이미지 URL 수정
+	// 업체 이미지 저장
+	boolean updateImg(ShopDto shopDto);
+	
+	// 업체 설명 이미지 저장
 	boolean updateImgDesc(ShopDto shopDto);
 }
