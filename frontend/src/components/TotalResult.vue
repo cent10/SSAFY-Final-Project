@@ -27,7 +27,7 @@
       </div>
     </b-row>
     <b-row>
-      <div v-if="leisures.length > 0" class="more">더보기...</div>
+      <router-link v-if="leisures.length > 0" class="more" :to="{ name: 'LeisureList' }">더 찾아보기...</router-link>
     </b-row>
     <b-row>
         <h3> 장비 대여 </h3>
@@ -55,21 +55,22 @@
       </div>
     </b-row>
     <b-row>
-      <div v-if="equips.length > 0" class="more">더보기...</div>
+      <router-link v-if="equips.length > 0" class="more" :to="{ name: 'LeisureList' }">더 찾아보기...</router-link>
     </b-row>
     <b-row>
       <h3> 정보 공유 </h3>
     </b-row>
     <b-row>
-      <carousel-3d v-if="tips.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" :count="tips.length"  ref="tipSlides" :on-main-slide-click="viewtip">
+      <carousel-3d v-if="tips.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" :count="tips.length"  ref="tipSlides" :on-main-slide-click="viewTip">
         <slide v-for="(tip, i) in tips" :key="tip.id" :index="i">
         <div class="post-card">
           <span class="post-tag">{{tip.category}}</span>
           <div class="post-tip">
-            <div class="post-text">
-              <h3>{{tip.title}}</h3>
-              <p class="post-desc">{{tip.date}}</p>
-              <p class="post-desc">{{tip.hits}}</p>
+            <div class="post-text-tip">
+              <h3 style="text-align: left; margin-bottom: 80%;">{{tip.title}}</h3>
+              <p class="post-desc-tip">{{tip.name}}</p>
+              <p class="post-desc-tip">{{tip.date}}</p>
+              <p class="post-desc-tip">조회수 {{tip.hits}}</p>
             </div>
           </div>
         </div>
@@ -81,7 +82,7 @@
       </div>
     </b-row>
     <b-row>
-      <router-link v-if="tips.length > 0" class="more" :to="{ name: 'TipList', params: { word: this.word }}">더보기...</router-link>
+      <router-link v-if="tips.length > 0" class="more" :to="{ name: 'TipList', params: { word: this.word }}">더 찾아보기...</router-link>
     </b-row>
   </b-container>
   </div>
@@ -148,6 +149,9 @@ export default {
       })
         .then((res) => {
           this.tips = res.data.data;
+          this.tips.map((t) => {
+            t.date = t.date.slice(0, 10);
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -160,14 +164,14 @@ export default {
 <style scoped>
   .total-result {
     padding-top: 100px;
-    background-color: #F2F2F5;
+    background-color: #e8e8e8;
   }
   .carousel-3d-slide {
-    background-color: #F2F2F5;
+    background-color: #e8e8e8;
     border-style: none;
   }
   .post-card {
-    background-color: white;
+    background-color: #f4f4f2;
     max-width: 300px;
     height: 100%;
     border-radius: 5px;
@@ -175,13 +179,18 @@ export default {
     font-family: 'roboto', Sans-Serif;
     text-align: center;
     overflow: hidden;
+    cursor: pointer;
+    transition: all 0.5s;
+  }
+  .post-card:hover {
+    transform: scale(1.05);
   }
   .post-tag {
     position: absolute;
     right: -6px;
     top: 15px; 
     background-color: #FFD95B;
-    font-size: 10px;
+    font-size: 0.7rem;
     padding: 7px;
     letter-spacing: .4px;
     text-transform: uppercase;
@@ -191,7 +200,7 @@ export default {
   .logo {
     height: 50%;
     width: 100%;
-    background-color: darkgray;
+    background-color: #495464;
     display: inline-block;
     position: relative;
   } 
@@ -216,9 +225,19 @@ export default {
       margin-left: 15px;
       margin-right: 15px;
   }
+  .post-text-tip {
+    width: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
   .post-desc {
       margin: 4px 0;
       font-size: 12px;
+  }
+  .post-desc-tip {
+      margin: 4px 0;
+      font-size: 0.5rem;
+      text-align: right;
   }
   .post-add {
     width: 100%;
