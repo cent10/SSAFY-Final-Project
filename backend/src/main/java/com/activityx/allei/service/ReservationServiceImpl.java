@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.activityx.allei.dao.ProductDao;
 import com.activityx.allei.dao.ReservationDao;
+import com.activityx.allei.dao.ReviewDao;
 import com.activityx.allei.dao.ShopDao;
 import com.activityx.allei.dto.DetailReservationDto;
 import com.activityx.allei.dto.ProductDto;
@@ -28,6 +29,9 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	ShopDao shopDao;
+	
+	@Autowired
+	ReviewDao reviewDao;
 	
 	@Override
 	public int create(ReservationBean bean) {
@@ -72,21 +76,22 @@ public class ReservationServiceImpl implements ReservationService {
 		ArrayList<ReservationsByUserBean> beans = new ArrayList<ReservationsByUserBean>();
 		for(ReservationDto res : reservations) {
 			ReservationsByUserBean bean = new ReservationsByUserBean();
-			bean.setId(res.getId());
-			bean.setUser(res.getUser());
-			bean.setShop(res.getShop());
-			bean.setShopName(shopDao.getNamebyId(res.getShop()));
-			bean.setDate(res.getDate());
-			bean.setProducts(new ArrayList<>());
-			bean.setNums(new ArrayList<>());
-			//상품목록부터 추가
+			bean.setId(res.getId());		// 예약번호
+			bean.setUser(res.getUser());	// 예약자번호 (user.id)
+			bean.setShop(res.getShop());	// 업체 번호 (shop.id)
+			bean.setShopName(shopDao.getNamebyId(res.getShop()));	// 업체 이름
+			bean.setDate(res.getDate());	// 에약 일시
+			bean.setProducts(new ArrayList<>());	// 예약 상품 내역
+			bean.setNums(new ArrayList<>());		// 예약 상품 개수
 			ArrayList<DetailReservationDto> details = reservationDao.readDetailReservation(res.getId());
 			for(DetailReservationDto detail : details) {
-				bean.setStart(detail.getStart());
-				bean.setEnd(detail.getEnd());
+				bean.setStart(detail.getStart());	// 예약 시작일
+				bean.setEnd(detail.getEnd());		// 예약 종료일
 				bean.getNums().add(detail.getNum());
 				bean.getProducts().add(productDao.readProduct(detail.getProduct()));
 			}
+			bean.setReviewed(reviewDao.reviewWrited(res.getId()));
+			
 			beans.add(bean);
 		}
 		
