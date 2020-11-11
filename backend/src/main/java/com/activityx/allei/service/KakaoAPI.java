@@ -145,6 +145,7 @@ public class KakaoAPI {
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=c917624215999ace922acc8e48ce073e");
 			sb.append("&redirect_uri=http://k3a210.p.ssafy.io/login");
+//			sb.append("&redirect_uri=http://localhost:3000/login");
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
 			bw.flush();

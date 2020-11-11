@@ -115,6 +115,13 @@
 		</dependency>
 		-->
 		
+		<!-- for fileupload - not for uploading itself, but FilenameUtils -->
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.4</version>
+		</dependency>
 	</dependencies>
 
 	<build>

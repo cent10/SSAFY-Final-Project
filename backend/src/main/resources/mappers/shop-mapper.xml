@@ -101,7 +101,14 @@
 		GROUP BY reservation.shop
 	</select>
 	
-	<!-- 업체 설명 이미지 URL 수정 -->
+	<!-- 업체 이미지 저장 -->
+	<update id="updateImg">
+		UPDATE shop
+		SET img=#{img}
+		WHERE id=#{id}
+	</update>
+	
+	<!-- 업체 설명 이미지 저장 -->
 	<update id="updateImgDesc">
 		UPDATE shop
 		SET imgDesc=#{imgDesc}
