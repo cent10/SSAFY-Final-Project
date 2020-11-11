@@ -21,14 +21,11 @@ import LeisureDetail from "@/components/LeisureDetail.vue";
 
 import KakaoSuccess from "@/components/KakaoSuccess.vue";
 import KakaoFail from "@/components/KakaoFail.vue";
-
 import MyProfile from "@/components/MyProfile.vue";
-
 import WriteReview from "@/components/WriteReview.vue";
-
 import UpdateReview from "@/components/UpdateReview.vue";
-
 import ReviewDetail from "@/components/ReviewDetail.vue";
+
 
 
 
