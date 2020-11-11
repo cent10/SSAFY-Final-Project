@@ -23,9 +23,13 @@
                         
                         <div class="post-info">
                             <div class="post-text">
-                            <h5>{{leisure.shop}}</h5>
+                            <h5>{{leisure.shopName}}</h5>
                             <!-- <p class="post-desc">{{leisure.description}}</p> -->
                             <b-button @click="writereview(i)">후기 작성</b-button>
+                            <h6>{{leisure.date.slice(0,10)}}</h6>
+                            </div>
+                            <div v-for="(service, k) in leisure.products" :key="k" :index="k">
+                              <h5>{{service.name}}</h5>
                             </div>
                         </div>
                         </div>
