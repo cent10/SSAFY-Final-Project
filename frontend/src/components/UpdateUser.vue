@@ -62,13 +62,17 @@ export default {
       })
         .then(({ data }) => {
           console.log(data);
-          // console.log(data.id)
-          // if (data == 'success'){
-          this.$router.push({ path: `/` });
-          // }
-          alert(
-            "닉네임 변경에 성공했습니다."
-          );
+          if(data.status){
+            this.$router.push({ path: `/` });
+            alert(
+              "닉네임 변경에 성공했습니다."
+            );
+          }
+          else{
+            alert(
+              data.msg
+            )
+          }
         })
         .catch((err) => {
           alert(
