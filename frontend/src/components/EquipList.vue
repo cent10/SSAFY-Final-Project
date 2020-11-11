@@ -265,8 +265,9 @@ input::-webkit-inner-spin-button {
 }
 .stuck {
   filter: brightness(60%);
-    position: fixed;
-    width: 100%;
+  position: fixed;
+  width: 100%;
+  z-index: -1;
 }
 .equip-list {
   padding-top: 100px;

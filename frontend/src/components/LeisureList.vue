@@ -234,7 +234,7 @@ export default {
     infiniteHandler($state) {
       this.requestCondition.num += 1;
       axios({
-      method: "GET",
+        method: "GET",
       url: `${API_URL}/shops/detailsearch/leisureshop`,
       params: this.requestCondition,
       }).then(res => {
@@ -265,8 +265,9 @@ input::-webkit-inner-spin-button {
 }
 .stuck {
   filter: brightness(60%);
-    position: fixed;
-    width: 100%;
+  position: fixed;
+  width: 100%;
+  z-index: -1;
 }
 .leisure-list {
   padding-top: 100px;
