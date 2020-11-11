@@ -14,8 +14,6 @@
         <b-img id="kakao" center :src="kakao"/>
       </a>
     </b-modal>
-    
-        {{this.$cookies.get("yol_nickname")}}
   </div>
 </template>
 

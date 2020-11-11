@@ -1,10 +1,21 @@
 <template>
-  <div>
-    결제 성공!
-
-    상품명: {{this.name}}
-    가격: {{this.totalPrice}}원
-    <b-button @click="toMain">메인으로</b-button>
+  <div class="success">
+  <b-container fluid>
+    <b-row align-h="center" style="margin-bottom: 30px">
+      <h1>결제 성공! ^오^</h1>
+    </b-row>
+    <b-row align-h="center">
+      <b-container fluid style="width: 50%">
+        <b-row align-h="start" style="margin-bottom: 20px">
+          상품명: {{this.name}}
+        </b-row>
+        <b-row align-h="start" style="margin-bottom: 20px">
+          가격: {{this.totalPrice}}원
+        </b-row>
+      </b-container>
+    </b-row>
+    <b-button @click="toMain" style="margin-top: 20px">메인으로</b-button>
+  </b-container>
   </div>
 </template>
 
@@ -51,4 +62,10 @@ export default {
 </script>
 
 <style scoped>
+.success {
+  margin: auto;
+  padding: 5%;
+  width: 50%;
+  background-color: #e8e8e8;
+}
 </style>
