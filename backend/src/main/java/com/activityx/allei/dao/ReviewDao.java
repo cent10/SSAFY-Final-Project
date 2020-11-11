@@ -18,4 +18,7 @@ public interface ReviewDao {
 	
 	// 후기 삭제
 	public int delete(int id);
+	
+	// 후기 작성 여부
+	public int reviewWrited(int reservation);
 }

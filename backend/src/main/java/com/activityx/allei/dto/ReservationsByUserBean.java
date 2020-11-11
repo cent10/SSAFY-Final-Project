@@ -18,6 +18,7 @@ public class ReservationsByUserBean {
 	private Date start;
 	@JsonFormat(pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date end;
+	private int reviewed;
 
 	public int getId() {
 		return id;
@@ -72,6 +73,12 @@ public class ReservationsByUserBean {
 	}
 	public void setEnd(Date end) {
 		this.end = end;
+	}
+	public int getReviewed() {
+		return reviewed;
+	}
+	public void setReviewed(int reviewed) {
+		this.reviewed = reviewed;
 	}
 
 }
