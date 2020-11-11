@@ -17,12 +17,13 @@
     </b-carousel>
     <div class="search-jumbotron">
       <b-jumbotron
+        fluid
         header="야! 올레?"
-        header-level="2"
+        header-level="3"
         text-variant="white"
         bg-variant="transparent"
       >
-        <p>#번지점프 #행글라이더 #스키장비</p>
+        <p>#번지점프#행글라이더 #스키장비</p>
         <b-nav-form>
           <b-form-input
             size="lg"
@@ -95,11 +96,10 @@ li {
   position: relative;
 }
 .yol-carousel {
-  z-index: -99;
   filter: brightness(65%);
 }
 .search-jumbotron {
-  z-index: 1;
+  z-index: 4;
   position: absolute;
   top: 50%;
   left: 50%;
