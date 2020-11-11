@@ -24,6 +24,7 @@
         :style="cardStyle[1]"
         @mouseover="changeStyle(1)"
         @mouseleave="originalStyle(1)"
+        @click="equiplist()"
       >
       </b-card>
       <b-card
@@ -78,6 +79,9 @@ export default {
     leisurelist() {
       this.$router.push({ path: "/leisurelist" });
     },
+    equiplist() {
+      this.$router.push({ path: "/equiplist" });
+    },
     tiplist() {
       this.$router.push({ path: "/tiplist/" });
     },
@@ -93,6 +97,7 @@ export default {
 
 <style scoped>
 .search {
+  background-color: #e8e8e8;
   padding: 100px;
 }
 .yol-card-group {
@@ -104,6 +109,7 @@ export default {
   cursor: pointer;
   border: none;
   transition: all 0.5s;
+  background-color: #e8e8e8;
 }
 .card-img {
   border-radius: 30px;

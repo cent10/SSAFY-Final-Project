@@ -2,60 +2,65 @@
   <div>
   <div class="pay-info">
     <b-container fluid>
-      <!-- <b-row align-h="center">
-        <h1>결제페이지</h1>
-      </b-row> -->
-      <b-row align-h="center" class="pay-row">
-        <h2>구매 정보</h2>
-      </b-row>
-      <b-row align-h="center" class="pay-row">
-        <div>
-          <label for="start-date">시작 날짜</label>
-          <b-form-datepicker hide-header id="start-date" v-model="startDate"></b-form-datepicker>
-        </div>
-        <div>
-          <label for="end-date">끝 날짜</label>
-          <b-form-datepicker :disabled="startDate === ''" :date-disabled-fn="dateDisabled" hide-header id="end-date" v-model="endDate"></b-form-datepicker>
+      <b-row class="pay-row">
+        <div style="margin-top: 20px;">
+          <h2>구매 정보</h2>
         </div>
       </b-row>
-      <b-row align-h="center" class="pay-row">
-          <h5>예약날짜</h5>
+      <b-row align-h="end" class="pay-row">
+        <div class="zullll"/>
       </b-row>
       <b-row align-h="center" class="pay-row">
-          <div v-if="startDate!==''">{{startDate}} ~ {{endDate}}</div>
-      </b-row>
-      <b-row align-h="center" class="pay-row">
-        <div>
-          <b-list-group>
+        <b-col>
+          <h5>예약 기간</h5>
+          <div class="yol-date">
+            <label for="start-date">시작일</label>
+            <b-form-datepicker :date-disabled-fn="startDateDisabled" hide-header id="start-date" v-model="startDate"></b-form-datepicker>
+          </div>
+          <div class="yol-date">
+            <label for="end-date">종료일</label>
+            <b-form-datepicker :disabled="startDate === ''" :date-disabled-fn="endDateDisabled" hide-header id="end-date" v-model="endDate"></b-form-datepicker>
+          </div>
+        </b-col>
+        <b-col>
+          <h5>예약 상품</h5>
+          <b-list-group style="margin-top: 30px;">
             <b-list-group-item v-for="(pl, i) in purchasingList" :key="i">
-              <table>
+              <table width="100%">
+                <colgroup>
+                  <col width="20%">
+                  <col width="80%">
+                </colgroup>
                 <tr>
-                  <td>
-                    {{pl.name}}
+                  <td rowspan="2">
+                    +
                   </td>
-                  <td>
-                    {{pl.buyNum}}개
+                  <td class="product-info">
+                    {{pl.name}}: {{pl.buyNum}}개
                   </td>
-                  <td>
+                </tr>
+                <tr>
+                  <td class="product-info">
                     {{pl.price * pl.buyNum}}원
                   </td>
                 </tr>
               </table>
             </b-list-group-item>
           </b-list-group>
-        </div>
+        </b-col>
       </b-row>
-      <b-row align-h="center" class="pay-row">
+      <b-row align-h="end" class="pay-row">
+        <div class="zullll"/>
+      </b-row>
+      <b-row align-h="end" class="pay-row">
         <div>
-          총 {{totalPrice}}원
+          <h1>총 {{totalPrice}}원</h1>
         </div>
       </b-row>
-      <!-- <b-row align-h="center">
-      </b-row> -->
     </b-container>
   </div>
-        <b-button @click="pay">카카오페이로 결제</b-button>
-        <b-button @click="back">뒤로가기</b-button>
+        <b-button @click="pay" style="margin-right: 0.5%;">카카오페이로 결제</b-button>
+        <b-button @click="back" style="margin-left: 0.5%;">뒤로가기</b-button>
   </div>
 </template>
 
@@ -63,6 +68,9 @@
 const API_URL = process.env.VUE_APP_SERVER_URL;
 
 import axios from 'axios';
+
+const now = new Date();
+const nowDate = now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate();
 
 export default {
   name: "Purchase",
@@ -74,10 +82,9 @@ export default {
     },
   },
   data() {
-    const now = new Date();
     return {
       isPurchasing: this.value,
-      date: now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate(),
+      date: nowDate,
       context: null,
       purchasingList: this.pl,
       totalPrice: 0,
@@ -98,7 +105,10 @@ export default {
     onContext(ctx) {
       this.context = ctx
     },
-    dateDisabled(ymd) {
+    startDateDisabled(ymd) {
+      return ymd < nowDate;
+    },
+    endDateDisabled(ymd) {
       return ymd < this.startDate;
     },
     pay() {
@@ -122,13 +132,13 @@ export default {
               "start": this.startDate,
               "end": this.endDate,
               "amount": this.totalPrice,
-              "user": 23, // 유저 아이디 수정 필요
+              "user": this.$cookies.get('uid'),
               "shop": this.purchasingList[0].shop,
               "products": products,
               "nums": nums,
             },
       }).then((res) => {
-        this.productName += this.startDate + " ~ " +this.endDate + " " + this.purchasingList[0].name;
+        this.productName += this.startDate + "~" +this.endDate + " " + this.purchasingList[0].name;
         if(this.purchasingList.length > 1){
           this.productName += " 외 " + (this.purchasingList.length-1);
         }
@@ -166,10 +176,29 @@ export default {
 <style scoped>
 .pay-info {
   margin: auto;
-  width: 50%;
-  background-color:lightgray;
+  width: 60%;
+  background-color: #f4f4f2;
+  margin-bottom: 15px;
 }
 .pay-row {
   padding: 3%;
+}
+.product-info {
+  text-align: right;
+}
+.reserved-date {
+  padding-top: 10%;
+}
+.yol-date {
+  margin: 10% auto;
+}
+.zullll {
+  background-color: #bbbfca;
+  width: 100%;
+  height: 2px;
+}
+label {
+  display:block;
+   text-align:left;
 }
 </style>

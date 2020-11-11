@@ -1,6 +1,9 @@
 <template>
+<div>
+<video-bg :sources="[require('../assets/video.mp4')]" class="stuck">
+</video-bg>
   <div class="leisure-list">
-    <b-card bg-variant="light">
+    <b-card class="condition-card">
       <b-container fluid>
         <b-row class="condition">
           <b-col>
@@ -12,16 +15,19 @@
               <b-form-input type="number" v-model="totalCondition.maxPrice"/>
               <div class="price-character">원</div>
             </div>
+            <p style="font-size: 0.2rem; margin: 0; margin-top: 0.1rem; text-align: right;">* 가장 저렴한 상품 가격 기준</p>
           </b-col>
           <b-col>
             <h5>지역</h5>
             <b-form-select v-model="totalCondition.selectedRegion">
+              <b-form-select-option value="null">모두</b-form-select-option>
               <b-form-select-option v-for="(region,id) in regions" :key="id" :value="region">{{region}}</b-form-select-option>
             </b-form-select>
           </b-col>
           <b-col>
             <h5>카테고리</h5>
             <b-form-select v-model="totalCondition.selectedCategory">
+              <b-form-select-option value="null">모두</b-form-select-option>
               <b-form-select-option v-for="(onecategory,id) in categorys" :key="id" :value="onecategory.category">{{onecategory.category}}</b-form-select-option>
             </b-form-select>
           </b-col>
@@ -31,34 +37,39 @@
         </b-row>
       </b-container>
     </b-card>
-    <div class="order-condition">
-      <b-form-select v-model="selectedCondtion">
-        <b-form-select-option v-for="(condition,id) in conditions" :key="id" :value="condition">{{condition}}</b-form-select-option>
-      </b-form-select>
-    </div>
-    <b-card-group deck v-if="leisures !== null && leisures.length > 0">
-      <b-card v-for="(leisure, i) in leisures" :key="leisure.id" :index="i" @click="viewLeisure(i)">
-        <div class="post-card">
-          <span class="post-tag">{{leisure.region}}</span>
-          <div class="logo">
-            <img v-bind:src="leisure.img">
-          </div>
-          <div class="post-info">
-            <div class="post-text">
-              <h5>{{leisure.name}}</h5>
-              <p class="post-desc">{{leisure.description}}</p>
+      <div class="order-condition">
+        <b-form-select v-model="selectedCondtion">
+          <b-form-select-option value="null">최신순</b-form-select-option>
+          <b-form-select-option v-for="(condition,id) in conditions" :key="id" :value="condition">{{condition}}</b-form-select-option>
+        </b-form-select>
+      </div>
+      <b-card-group deck v-if="leisures !== null && leisures.length > 0">
+        <b-card v-for="(leisure, i) in leisures" :key="leisure.id" :index="i" @click="viewLeisure(i)">
+          <div class="post-card">
+            <span class="post-tag">{{leisure.region}}</span>
+            <div class="logo">
+              <img v-bind:src="leisure.img">
+            </div>
+            <div class="post-info">
+              <div class="post-text">
+                <h5>{{leisure.name}}</h5>
+                <p class="post-desc">{{leisure.description}}</p>
+              </div>
             </div>
           </div>
+        </b-card>
+      </b-card-group>
+      <b-card-group deck v-else>
+        <div class="no-search" >
+          <img :src="empty"/>
+          <h3>검색결과 없음</h3>
         </div>
-      </b-card>
-    </b-card-group>
-    <div v-else>
-      검색결과 없음
-    </div>
-      <infinite-loading @infinite="infiniteHandler" ref="infiniteLoading" spinner="spiral">
+      </b-card-group>
+      <infinite-loading @infinite="infiniteHandler" ref="infiniteLoading" spinner="waveDots">
         <div slot="no-more"></div>
         <div slot="no-results"></div>
       </infinite-loading>
+    </div>
   </div>
 </template>
 
@@ -68,10 +79,14 @@ const API_URL = process.env.VUE_APP_SERVER_URL;
 import InfiniteLoading from 'vue-infinite-loading';
 import axios from 'axios';
 
+import empty from '../assets/empty.png';
+import VideoBg from 'vue-videobg'
+
 export default {
   name: "LeisureList",
   components: {
-    InfiniteLoading
+    InfiniteLoading,
+    VideoBg
   },
   data() {
     return {
@@ -159,6 +174,8 @@ export default {
       requestCondition: {
         num: 0,
       },
+
+      empty,
     };
   },
   created() {
@@ -198,11 +215,12 @@ export default {
   },
   methods: {
     search(){
+      this.requestCondition = {};
       this.requestCondition.minPrice = this.totalCondition.minPrice;
       this.requestCondition.maxPrice = this.totalCondition.maxPrice;
-      if(this.totalCondition.selectedRegion !== null)
+      if(this.totalCondition.selectedRegion !== null && this.totalCondition.selectedRegion !== "null")
         this.requestCondition.region = this.totalCondition.selectedRegion;
-      if(this.totalCondition.selectedCategory !== null)
+      if(this.totalCondition.selectedCategory !== null && this.totalCondition.selectedCategory !== "null")
         this.requestCondition.category = this.totalCondition.selectedCategory;
 
       this.getList(this.selectedCondtion, 0);
@@ -245,8 +263,31 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+.stuck {
+  filter: brightness(60%);
+    position: fixed;
+    width: 100%;
+}
 .leisure-list {
-  padding: 100px;
+  padding-top: 100px;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+.no-search {
+  position: relative;
+  width: 100%;
+  color: white;
+  height: 400px;
+}
+.no-search img {
+  width: 100px;
+  height: 100px;
+  margin-top: 7%;
+  margin-bottom: 7%;
+}
+.condition-card {
+  background-color: #f4f4f2;
+  border-radius: 10px;
 }
 .price {
   display: flex;
@@ -255,14 +296,17 @@ input::-webkit-inner-spin-button {
   padding: 5px;
 }
 .order-condition{
+  position: relative;
   display: flex;
   margin-top: 5%;
   margin-left: 80%;
+  padding-right: 30px;
   width: 20%;
 }
 .condition {
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-top: 2%;
+  padding-left: 3%;
+  padding-right: 3%;
 }
 .search-button{
   padding: 2% 0;
@@ -278,13 +322,16 @@ input::-webkit-inner-spin-button {
   width: calc(25% - 30px);
   height: 400px;
   cursor: pointer;
+  background-color: #f4f4f2;
   transition: all 0.5s;
+  opacity: 0.85;
 }
 .card-deck .card:hover {
-    opacity:0.7;
+  transform: scale(1.05);
+  opacity: 1;
 }
 .post-card {
-    background-color: white;
+    background-color: #f4f4f2;
     width: 100%;
     height: 100%;
     border-radius: 5px;
@@ -292,6 +339,7 @@ input::-webkit-inner-spin-button {
     font-family: 'roboto', Sans-Serif;
     text-align: center;
     overflow: hidden;
+    opacity: 0.8;
   }
   .post-tag {
     position: absolute;
@@ -308,13 +356,14 @@ input::-webkit-inner-spin-button {
   .logo {
     height: 50%;
     width: 100%;
-    background-color: darkgray;
+    background-color: #495464;
     display: inline-block;
     position: relative;
   } 
   .logo img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
   }
   .post-info{
     display: flex;
