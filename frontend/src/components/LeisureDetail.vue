@@ -1,7 +1,7 @@
 <template>
   <div class="leisure-detail">
     <b-container v-if="!isPurchasing">
-      <b-row align-h="center" align-v="center">
+      <b-row align-h="center" align-v="center" style="padding-bottom: 5%">
         <b-col align-self="center">
           <div class="leisure-logo">
             <b-img :src="shop.img" class="logo" />
@@ -63,16 +63,19 @@
       <b-row>
         <b-col>
           <div :class="{ 'leisure-desc' : !isShowDesc, 'leisure-desc-show' : isShowDesc }">
-            <b-img :src="shop.imgDesc" class="desc" />
+            <!-- <b-img :src="shop.imgDesc" class="desc" /> -->
+            <b-img src="http://www.saraminimage.co.kr/recruit/bbs_recruit2/hj_n_190617.png" class="desc" />
           </div>
-          <b-button v-if="!isShowDesc" @click="toggleShowDesc">자세한 설명 보기</b-button>
-          <b-button v-else @click="toggleShowDesc">자세한 설명 숨기기</b-button>
+          <div style="padding-top: 3%; padding-bottom: 5%">
+            <b-button v-if="!isShowDesc" @click="toggleShowDesc">자세한 설명 보기</b-button>
+            <b-button v-else @click="toggleShowDesc">자세한 설명 숨기기</b-button>
+          </div>
         </b-col>
       </b-row>
       <b-row v-if="products !== null && products.length > 0">
         <b-col>
           <h5>상품리스트</h5>
-          <b-list-group>
+          <b-list-group class="yol-list-group">
             <b-list-group-item v-for="(product, i) in products" :key="i">
               <table class="product-list">
                 <colgroup>
@@ -111,8 +114,8 @@
       </b-row>
       <b-row>
         <b-col>
-          <b-button @click="purchase">결제하기</b-button>
-          <b-button @click="moveSearchPage">목록으로</b-button>
+          <b-button @click="purchase" style="margin-right: 0.5%;">결제하기</b-button>
+          <b-button @click="moveSearchPage" style="margin-left: 0.5%;">목록으로</b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -215,16 +218,17 @@ export default {
       if(purchasingIdx.length === 0) {
         alert("상품을 선택해주세요.");
       } else {
-        purchasingIdx.map((pi, i) => {
+        purchasingIdx.map((pi) => {
           if(this.products[pi].buyNum === 0){
-            removeIdx.push(i);
+            removeIdx.push(pi);
           } else {
             list.push(this.products[pi]);
           }
         });
 
-        removeIdx.map((i) => {
-          purchasingIdx.splice(i, 1);
+        removeIdx.map((ri) => {
+          const idx = purchasingIdx.indexOf(ri);
+          if (idx > -1) purchasingIdx.splice(idx, 1);
         });
 
         if(list.length === 0)
@@ -252,7 +256,9 @@ li {
   display: flex;
 }
 .leisure-detail {
-  padding-top: 100px;
+  padding-top: 110px;
+  width: 80%;
+  margin: auto;
 }
 .logo {
   width: 100%;
@@ -277,5 +283,8 @@ li {
 }
 .product-list {
   text-align: center;
+}
+.yol-list-group{
+  margin-bottom: 3%;
 }
 </style>

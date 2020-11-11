@@ -15,6 +15,7 @@
               <b-form-input type="number" v-model="totalCondition.maxPrice"/>
               <div class="price-character">원</div>
             </div>
+            <p style="font-size: 0.2rem; margin: 0; margin-top: 0.1rem; text-align: right;">* 가장 저렴한 상품 가격 기준</p>
           </b-col>
           <b-col>
             <h5>지역</h5>
@@ -58,10 +59,13 @@
           </div>
         </b-card>
       </b-card-group>
-      <div v-else class="no-search">
-          검색결과 없음
-      </div>
-      <infinite-loading @infinite="infiniteHandler" ref="infiniteLoading" spinner="spiral">
+      <b-card-group deck v-else>
+        <div class="no-search" >
+          <img :src="empty"/>
+          <h3>검색결과 없음</h3>
+        </div>
+      </b-card-group>
+      <infinite-loading @infinite="infiniteHandler" ref="infiniteLoading" spinner="waveDots">
         <div slot="no-more"></div>
         <div slot="no-results"></div>
       </infinite-loading>
@@ -75,6 +79,7 @@ const API_URL = process.env.VUE_APP_SERVER_URL;
 import InfiniteLoading from 'vue-infinite-loading';
 import axios from 'axios';
 
+import empty from '../assets/empty.png';
 import VideoBg from 'vue-videobg'
 
 export default {
@@ -169,6 +174,8 @@ export default {
       requestCondition: {
         num: 0,
       },
+
+      empty,
     };
   },
   created() {
@@ -270,6 +277,13 @@ input::-webkit-inner-spin-button {
   position: relative;
   width: 100%;
   color: white;
+  height: 400px;
+}
+.no-search img {
+  width: 100px;
+  height: 100px;
+  margin-top: 7%;
+  margin-bottom: 7%;
 }
 .condition-card {
   background-color: #f4f4f2;

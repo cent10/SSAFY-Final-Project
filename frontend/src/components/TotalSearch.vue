@@ -105,4 +105,7 @@ li {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.display-3 {
+  font-weight: 600;
+}
 </style>
