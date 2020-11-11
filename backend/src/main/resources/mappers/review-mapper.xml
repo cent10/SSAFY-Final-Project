@@ -28,4 +28,11 @@
 		DELETE FROM review
 		WHERE id=#{id}
 	</delete>
+	
+	<!-- 후기 작성 여부 -->
+	<select id="reviewWrited" resultType="int">
+		select count(id)
+		from review
+		where reservation = #{reservation}
+	</select>
 </mapper>
