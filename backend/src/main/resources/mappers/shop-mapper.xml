@@ -42,7 +42,7 @@
 	<select id="searchLeisureShopsLimit" resultType="com.activityx.allei.dto.ShopDto">
 		SELECT shop.id, shop.admin, shop.name, shop.address, shop.phone, shop.classification, shop.number, shop.description, shop.imgDesc, shop.img, shop.region
 		FROM shop, shop_category, category
-		WHERE shop.id = shop_category.shop AND shop_category.code = category.code AND (shop.name LIKE CONCAT('%', #{searchword}, '%') OR shop.description LIKE CONCAT('%', #{searchword}, '%') OR category.name LIKE CONCAT('%', #{searchword}, '%')) AND classification = 0
+		WHERE shop.id = shop_category.shop AND shop_category.code = category.code AND (shop.name LIKE CONCAT('%', #{searchword}, '%') OR shop.description LIKE CONCAT('%', #{searchword}, '%') OR category.name LIKE CONCAT('%', #{searchword}, '%') OR address LIKE CONCAT('%', #{searchword}, '%') OR region LIKE CONCAT('%', #{searchword}, '%')) AND classification = 0
 		order by shop.id desc
 		LIMIT 12
 	</select>
@@ -51,7 +51,7 @@
 	<select id="searchRentalShopsLimit" resultType="com.activityx.allei.dto.ShopDto">
 		SELECT shop.id, shop.admin, shop.name, shop.address, shop.phone, shop.classification, shop.number, shop.description, shop.imgDesc, shop.img, shop.region
 		FROM shop, shop_category, category
-		WHERE shop.id = shop_category.shop AND shop_category.code = category.code AND (shop.name LIKE CONCAT('%', #{searchword}, '%') OR shop.description LIKE CONCAT('%', #{searchword}, '%') OR category.name LIKE CONCAT('%', #{searchword}, '%')) AND classification = 1
+		WHERE shop.id = shop_category.shop AND shop_category.code = category.code AND (shop.name LIKE CONCAT('%', #{searchword}, '%') OR shop.description LIKE CONCAT('%', #{searchword}, '%') OR category.name LIKE CONCAT('%', #{searchword}, '%') OR address LIKE CONCAT('%', #{searchword}, '%') OR region LIKE CONCAT('%', #{searchword}, '%')) AND classification = 1
 		order by shop.id desc
 		LIMIT 12
 	</select>
