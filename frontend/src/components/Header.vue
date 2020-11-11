@@ -6,7 +6,7 @@
   >
     <b-navbar-brand href="/"> 야! 올레? </b-navbar-brand>
     <b-navbar-nav class="ml-auto">
-      <b-nav-item @click="movemyprofile()"> 너의 정보가 궁금해!? </b-nav-item>
+      <b-nav-item @click="movemyprofile()" v-if="this.$cookies.isKey('yol_token')"> 너의 정보가 궁금해!? </b-nav-item>
       <b-nav-item @click="noticelist()"> 공지사항 </b-nav-item>
       <b-nav-item v-b-modal.modal-login v-if="!this.$cookies.isKey('yol_token')"> 로그인 </b-nav-item>
       <b-nav-item @click="logout" v-else> 로그아웃 </b-nav-item>
@@ -87,7 +87,11 @@ export default {
   transition: background-color 0.3s;
 }
 .yol-header-bg {
-  background-color: rgba(1, 1, 1, 0.7);
+  background-color: #495464;
+  opacity: 0.9;
   transition: background-color 0.3s;
+}
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255,255,255,0.9);
 }
 </style>

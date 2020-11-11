@@ -11,11 +11,11 @@
       <b-row align-h="center" class="pay-row">
         <div>
           <label for="start-date">시작 날짜</label>
-          <b-form-datepicker hide-header id="start-date" v-model="startDate"></b-form-datepicker>
+          <b-form-datepicker :date-disabled-fn="startDateDisabled" hide-header id="start-date" v-model="startDate"></b-form-datepicker>
         </div>
         <div>
           <label for="end-date">끝 날짜</label>
-          <b-form-datepicker :disabled="startDate === ''" :date-disabled-fn="dateDisabled" hide-header id="end-date" v-model="endDate"></b-form-datepicker>
+          <b-form-datepicker :disabled="startDate === ''" :date-disabled-fn="endDateDisabled" hide-header id="end-date" v-model="endDate"></b-form-datepicker>
         </div>
       </b-row>
       <b-row align-h="center" class="pay-row">
@@ -64,6 +64,9 @@ const API_URL = process.env.VUE_APP_SERVER_URL;
 
 import axios from 'axios';
 
+const now = new Date();
+const nowDate = now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate();
+
 export default {
   name: "Purchase",
   props: {
@@ -74,10 +77,9 @@ export default {
     },
   },
   data() {
-    const now = new Date();
     return {
       isPurchasing: this.value,
-      date: now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate(),
+      date: nowDate,
       context: null,
       purchasingList: this.pl,
       totalPrice: 0,
@@ -98,7 +100,10 @@ export default {
     onContext(ctx) {
       this.context = ctx
     },
-    dateDisabled(ymd) {
+    startDateDisabled(ymd) {
+      return ymd < nowDate;
+    },
+    endDateDisabled(ymd) {
       return ymd < this.startDate;
     },
     pay() {
@@ -122,13 +127,13 @@ export default {
               "start": this.startDate,
               "end": this.endDate,
               "amount": this.totalPrice,
-              "user": 23, // 유저 아이디 수정 필요
+              "user": this.$cookies.get('uid'),
               "shop": this.purchasingList[0].shop,
               "products": products,
               "nums": nums,
             },
       }).then((res) => {
-        this.productName += this.startDate + " ~ " +this.endDate + " " + this.purchasingList[0].name;
+        this.productName += this.startDate + "~" +this.endDate + " " + this.purchasingList[0].name;
         if(this.purchasingList.length > 1){
           this.productName += " 외 " + (this.purchasingList.length-1);
         }

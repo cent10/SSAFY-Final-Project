@@ -93,6 +93,7 @@ export default {
 
 <style scoped>
 .search {
+  background-color: #e8e8e8;
   padding: 100px;
 }
 .yol-card-group {
@@ -104,6 +105,7 @@ export default {
   cursor: pointer;
   border: none;
   transition: all 0.5s;
+  background-color: #e8e8e8;
 }
 .card-img {
   border-radius: 30px;
