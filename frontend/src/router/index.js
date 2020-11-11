@@ -26,6 +26,8 @@ import UpdateUser from "@/components/UpdateUser.vue";
 
 import MyProfile from "@/components/MyProfile.vue";
 
+import EquipList from "@/components/EquipList.vue";
+import EquipDetail from "@/components/EquipDetail.vue";
 
 Vue.use(VueRouter);
 
@@ -117,7 +119,18 @@ const routes = [
   {
     path: "/myprofile",
     name: "MyProfile",
-    component: MyProfile
+    component: MyProfile,
+  },
+  {
+    path: "/equipDetail/:id",
+    name: "EquipDetail",
+    component: EquipDetail,
+  },
+  {
+    path: "/equiplist",
+    name: "EquipList",
+    component: EquipList,
+    props: true,
   },
 ];
 
