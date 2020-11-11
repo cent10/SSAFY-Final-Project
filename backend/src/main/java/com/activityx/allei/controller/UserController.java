@@ -52,6 +52,10 @@ public class UserController {
     public ResponseEntity<BasicResponse> modifyUser(@RequestBody User user) {
         logger.debug("User DB test : modifyUser - 호출");
         final BasicResponse result = new BasicResponse();
+        if(service.findByName(user.getName())!=null){
+            result.status = false;
+            result.msg = "이미 존재하는 이름입니다.";
+        }
         if (service.modifyUser(user)) {
             result.status = true;
         } else {
