@@ -47,4 +47,7 @@ public interface ShopDao {
 	
 	// 업체 설명 이미지 URL 수정
 	public int updateImgDesc(ShopDto shopDto);
+	
+	// 업체 아이디로 업체 이름 찾기
+	public String getNamebyId(int id);
 }
