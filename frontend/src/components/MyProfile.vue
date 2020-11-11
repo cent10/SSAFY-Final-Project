@@ -25,7 +25,8 @@
                             <div class="post-text">
                             <h5>{{leisure.shopName}}</h5>
                             <!-- <p class="post-desc">{{leisure.description}}</p> -->
-                            <b-button @click="writereview(i)">후기 작성</b-button>
+                            <b-button v-if="leisure.reviewed===0" @click="writereview(leisure.id)">후기 작성</b-button>
+                            <b-button v-if="leisure.reviewed===1" @click="updatereview(leisure.id)">후기 수정</b-button>
                             <h6>{{leisure.date.slice(0,10)}}</h6>
                             </div>
                             <div v-for="(service, k) in leisure.products" :key="k" :index="k">
@@ -94,6 +95,7 @@ export default {
   data(){
       return{
           notices: [],
+          reviews: [],
           user: {},
           leisures: {},
 
@@ -203,6 +205,12 @@ export default {
         console.log(err)
       })
       this.$router.push({ path: "/tipdetail/" + id });
+    },
+    writereview(id){
+      this.$router.push({ path: "/writereview/" + id});
+    },
+    updatereview(id){
+      this.$router.push({ path: "/updatereview/" + id});
     },
   }
 

@@ -24,6 +24,14 @@ import KakaoFail from "@/components/KakaoFail.vue";
 
 import MyProfile from "@/components/MyProfile.vue";
 
+import WriteReview from "@/components/WriteReview.vue";
+
+import UpdateReview from "@/components/UpdateReview.vue";
+
+import ReviewDetail from "@/components/ReviewDetail.vue";
+
+
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -111,6 +119,21 @@ const routes = [
     name: "MyProfile",
     component: MyProfile
   },
+  {
+    path: "/writereview/:id",
+    name: "WriteReview",
+    component: WriteReview
+  },
+  {
+    path: "/updatereview/:id",
+    name: "UpdateReview",
+    component: UpdateReview
+  },
+  {
+    path: "/reviewdetail/:id",
+    name: "ReviewDetail",
+    component: ReviewDetail
+  }
 ];
 
 const router = new VueRouter({
