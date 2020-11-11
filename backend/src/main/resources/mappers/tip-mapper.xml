@@ -44,8 +44,7 @@
 		where t.category like CONCAT('%', #{keyword}, '%')
 		or t.title like CONCAT('%', #{keyword}, '%')
 		or t.content like CONCAT('%', #{keyword}, '%')
-		order by t.hits desc
-		limit #{start}, 12
+		order by t.id desc
 	</select>
 	
 	<!-- 조회수 증가 -->
@@ -63,7 +62,7 @@
 		where t.category like CONCAT('%', #{keyword}, '%')
 		or t.title like CONCAT('%', #{keyword}, '%')
 		or t.content like CONCAT('%', #{keyword}, '%')
-		order by t.hits desc
+		order by t.id desc
 		limit 12
 	</select>
 	
@@ -73,6 +72,7 @@
 		from tip as t
 		inner join user as u on t.user = u.id
 		where t.user = #{id}
+		order by t.id desc
 	</select>
 
 </mapper>

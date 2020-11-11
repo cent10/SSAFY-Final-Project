@@ -13,6 +13,7 @@
 		SELECT *
 		FROM review
 		WHERE reservation=#{reservation}
+		order by id desc
 	</select>
 	
 	<!-- 후기 수정 -->

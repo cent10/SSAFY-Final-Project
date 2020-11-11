@@ -1,10 +1,12 @@
 package com.activityx.allei.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.activityx.allei.dto.ReservationBean;
 import com.activityx.allei.dto.ReservationDto;
+import com.activityx.allei.dto.ReservationsByUserBean;
 
 public interface ReservationService {
 	
@@ -15,7 +17,7 @@ public interface ReservationService {
 	Map<String, Object> readReservation(int id);
 	
 	// 사용자의 예약정보 리스트 조회
-	List<ReservationDto> readAllReservation(int id);
+	ArrayList<ReservationsByUserBean> readAllReservation(int id);
 	
 	// 예약정보 등록
 	boolean deleteReservation(int id);

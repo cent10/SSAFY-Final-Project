@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.activityx.allei.dao.ProductDao;
 import com.activityx.allei.dao.ReservationDao;
+import com.activityx.allei.dao.ShopDao;
 import com.activityx.allei.dto.DetailReservationDto;
 import com.activityx.allei.dto.ProductDto;
 import com.activityx.allei.dto.ReservationBean;
 import com.activityx.allei.dto.ReservationDto;
+import com.activityx.allei.dto.ReservationsByUserBean;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -23,6 +25,9 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
 	ProductDao productDao;
+	
+	@Autowired
+	ShopDao shopDao;
 	
 	@Override
 	public int create(ReservationBean bean) {
@@ -61,8 +66,31 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<ReservationDto> readAllReservation(int id) {
-		return reservationDao.readAllReservation(id);
+	public ArrayList<ReservationsByUserBean> readAllReservation(int id) {
+		List<ReservationDto> reservations = reservationDao.readAllReservation(id);
+		System.out.println("예약목록 개수"+reservations.size());
+		ArrayList<ReservationsByUserBean> beans = new ArrayList<ReservationsByUserBean>();
+		for(ReservationDto res : reservations) {
+			ReservationsByUserBean bean = new ReservationsByUserBean();
+			bean.setId(res.getId());
+			bean.setUser(res.getUser());
+			bean.setShop(res.getShop());
+			bean.setShopName(shopDao.getNamebyId(res.getShop()));
+			bean.setDate(res.getDate());
+			bean.setProducts(new ArrayList<>());
+			bean.setNums(new ArrayList<>());
+			//상품목록부터 추가
+			ArrayList<DetailReservationDto> details = reservationDao.readDetailReservation(res.getId());
+			for(DetailReservationDto detail : details) {
+				bean.setStart(detail.getStart());
+				bean.setEnd(detail.getEnd());
+				bean.getNums().add(detail.getNum());
+				bean.getProducts().add(productDao.readProduct(detail.getProduct()));
+			}
+			beans.add(bean);
+		}
+		
+		return beans;
 	}
 
 	@Override
