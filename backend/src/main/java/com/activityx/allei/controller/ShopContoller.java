@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.activityx.allei.dto.BasicResponse;
 import com.activityx.allei.dto.ProductDto;
 import com.activityx.allei.dto.ShopBean;
 import com.activityx.allei.dto.ShopDto;
+import com.activityx.allei.service.FileUploadService;
 import com.activityx.allei.service.ProductService;
 import com.activityx.allei.service.ShopService;
 
@@ -41,17 +43,35 @@ public class ShopContoller {
 	@Autowired
 	ProductService productService;
 	
+	@Autowired
+	FileUploadService fileUploadService;
+	
 	@ApiOperation(value = "업체 등록", response = BasicResponse.class)
 	@PostMapping("")
-	private ResponseEntity<BasicResponse> createShop(@RequestParam(value = "categoryName") String categoryName, @RequestBody ShopDto shopDto) {
+	private ResponseEntity<BasicResponse> createShop(@RequestParam(value = "categoryName") String categoryName, MultipartFile imgFile, MultipartFile imgDescFile, @RequestBody ShopDto shopDto) {
 		logger.debug("업체 등록");
 		final BasicResponse result = new BasicResponse();
 		if (shopService.create(shopDto, categoryName)) {
+			if (imgFile != null) {
+				try {
+					fileUploadService.fileUpload(shopDto.getId(), imgFile, 0);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (imgDescFile != null) {
+				try {
+					fileUploadService.fileUpload(shopDto.getId(), imgDescFile, 1);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 			result.status = true;
 		} else {
 			result.status = false;
 			result.msg = "업체 등록에 실패했습니다.";
 		}
+		
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
@@ -325,16 +345,30 @@ public class ShopContoller {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "업체 설명 이미지 URL 수정", response = BasicResponse.class)
-	@PutMapping("/{id}/imgdesc")
-	private ResponseEntity<BasicResponse> updateImgDesc(@RequestBody ShopDto shopDto) {
-		logger.debug("업체 설명 이미지 URL 수정");
+	@ApiOperation(value = "업체 img 파일 업로드", response = String.class)
+	@PutMapping("/{id}/fileupload/img")
+	private ResponseEntity<BasicResponse> uploadImg(@PathVariable("id") int id, MultipartFile file) throws Exception {
+		logger.debug("업체 img 파일 업로드");
 		final BasicResponse result = new BasicResponse();
-		if (shopService.updateImgDesc(shopDto)) {
+		if (fileUploadService.fileUpload(id, file, 0) > 0) {
 			result.status = true;
 		} else {
 			result.status = false;
-			result.msg = "업체 설명 이미지 URL 수정에 실패했습니다.";
+			result.msg = "업체 img 파일 업로드에 실패했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "업체 imgDesc 파일 업로드", response = String.class)
+	@PutMapping("/{id}/fileupload/imgdesc")
+	private ResponseEntity<BasicResponse> uploadImgDesc(@PathVariable("id") int id, MultipartFile file) throws Exception {
+		logger.debug("업체 imgDesc 파일 업로드");
+		final BasicResponse result = new BasicResponse();
+		if (fileUploadService.fileUpload(id, file, 1) > 0) {
+			result.status = true;
+		} else {
+			result.status = false;
+			result.msg = "업체 imgDesc 파일 업로드에 실패했습니다.";
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}

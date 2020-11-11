@@ -250,6 +250,11 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
+	public boolean updateImg(ShopDto shopDto) {
+		return shopDao.updateImg(shopDto) == 1;
+	}
+
+	@Override
 	public boolean updateImgDesc(ShopDto shopDto) {
 		return shopDao.updateImgDesc(shopDto) == 1;
 	}
