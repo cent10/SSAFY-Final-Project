@@ -1,6 +1,6 @@
 package com.activityx.allei.controller;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.activityx.allei.dto.BasicResponse;
 import com.activityx.allei.dto.ReservationBean;
 import com.activityx.allei.dto.ReservationDto;
+import com.activityx.allei.dto.ReservationsByUserBean;
 import com.activityx.allei.service.ReservationService;
 
 import io.swagger.annotations.ApiOperation;
@@ -73,10 +74,10 @@ public class ReservationController {
 	private ResponseEntity<BasicResponse> readAllReservations(@RequestParam(value = "id") int id) {
 		logger.debug("특정 사용자의 모든 예약정보 리스트 조회");
 		final BasicResponse result = new BasicResponse();
-		List<ReservationDto> reservationList = reservationService.readAllReservation(id);
-		if (reservationList != null) {
+		ArrayList<ReservationsByUserBean> data = reservationService.readAllReservation(id);
+		if (data != null) {
 			result.status = true;
-			result.data = reservationList;
+			result.data = data;
 		} else {
 			result.status = false;
 			result.msg = "해당 사용자의 예약정보 리스트가 없습니다.";

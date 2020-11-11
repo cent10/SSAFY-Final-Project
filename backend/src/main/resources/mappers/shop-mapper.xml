@@ -107,5 +107,12 @@
 		SET imgDesc=#{imgDesc}
 		WHERE id=#{id}
 	</update>
+	
+	<!-- 업체 아이디로 업체 이름 찾기 -->
+	<select id="getNamebyId" resultType="String">
+		select name
+		from shop
+		where id = #{id}
+	</select>
 
 </mapper>
