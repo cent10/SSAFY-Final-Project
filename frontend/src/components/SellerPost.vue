@@ -1,57 +1,40 @@
 <template>
   <div class="seller-post">
     <h1 class="mt-2 mb-3">업체 등록</h1>
-    <div class="d-none d-md-block">
-      <div class="form-group">
-        <div class="d-flex justify-content-between mb-3">
-          <div style="width: 45%;">
-            <input type="text" class="form-control" placeholder="* 이름" v-model="name" />
-            <input type="text" class="form-control" placeholder="* 업체번호" v-model="admin" />
-            <input type="text" class="form-control" placeholder="* 전화번호" v-model="phone" />
-            <input type="text" class="form-control" placeholder="* 주소" v-model="address" />
-
-            <!-- <div class="d-flex flex-column">
-            img업로드 : 
-              <input type="file" class="d-block my-3" @change="onFileChanged1" />
-              <b-button id="upload" class="mybutton1" style="width: 70px;" @click="onUpload">Upload!</b-button>
-            </div>
-            <div class="d-flex flex-column">
-            imgDesc업로드 :
-              <input type="file" class="d-block my-3" @change="onFileChanged2" />
-              <b-button id="upload" class="mybutton1" style="width: 70px;" @click="onUpload">Upload!</b-button>
-            </div> -->
-          </div>
-        </div>
-
-        <b-col>
-            <h5>지역</h5>
-            <b-form-select v-model="selectedRegion">
-              <b-form-select-option value="null">선택하세요</b-form-select-option>
-              <b-form-select-option v-for="(region,id) in regions" :key="id" :value="region">{{region}}</b-form-select-option>
-            </b-form-select>
-          </b-col>
-          <b-col>
-            <h5>카테고리</h5>
-            <b-form-select v-model="selectedCategory">
-              <b-form-select-option value="null">선택하세요</b-form-select-option>
-              <b-form-select-option v-for="(onecategory,id) in categorys" :key="id" :value="onecategory.category">{{onecategory.category}}</b-form-select-option>
-            </b-form-select>
+    <b-container>
+      <b-row>
+        <b-col class="shop-info-1">
+          <input type="text" class="form-control my-2" placeholder="업체명" v-model="name" />
+          <input type="text" class="form-control my-2" placeholder="전화번호 ex) 02-1234-5678" v-model="phone" />
+          <input type="text" class="form-control my-2" placeholder="주소" v-model="address" />
+          <input type="text" class="form-control my-2" placeholder="사업자등록번호" v-model="number" />
+          <textarea class="form-control my-2" placeholder="업체간단설명(50자 이내)" v-model="description" style="resize: none; height: 100px"/>
         </b-col>
-
-        <select v-model="classification">
-            <option value="false">서비스</option>
-            <option value="true">장비</option>
-        </select>
-
-        <input type="text" class="form-control my-2" placeholder="사업자등록번호" v-model="number" />
-        <input type="text" class="form-control my-2" placeholder="설명" v-model="description" />
-       
-
-       
-      </div>
-      <b-button block class="mybutton2 mb-3" @click="submit()">등록</b-button>
-      <b-button block class="mb-4" @click="moveNotice()">취소</b-button>
-    </div>
+        <b-col class="shop-info-2">
+          <h5>제공 서비스 종류</h5>
+          <b-form-select v-model="classification" style="margin-bottom: 10px;">
+              <b-form-select-option value="false">레저/액티비티</b-form-select-option>
+              <b-form-select-option value="true">장비</b-form-select-option>
+          </b-form-select>
+          <h5>지역</h5>
+          <b-form-select v-model="selectedRegion" style="margin-bottom: 10px;">
+            <b-form-select-option v-for="(region,id) in regions" :key="id" :value="region">{{region}}</b-form-select-option>
+          </b-form-select>
+          <h5>카테고리</h5>
+          <b-form-select v-model="selectedCategory" style="margin-bottom: 10px;">
+            <b-form-select-option v-for="(onecategory,id) in categorys" :key="id" :value="onecategory.category">{{onecategory.category}}</b-form-select-option>
+          </b-form-select>
+      </b-col>
+      </b-row>
+      <b-row align-v="center">
+        <b-col>
+          <b-button block class="mybutton2 mb-3" @click="submit()" style="width: 50%; margin: auto;">등록</b-button>
+        </b-col>
+        <b-col>
+          <b-button block class="mb-4" @click="moveNotice()" style="width: 50%; margin: auto;">취소</b-button>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -66,17 +49,15 @@ export default {
   data() {
     return {
       name: "",
-      admin: null,
       phone: "",
       address: "",
       classification: false,
       number: "",
       description: "",
       categorys: [],
-
       
-      selectedRegion: null,
-      selectedCategory: null,
+      selectedRegion: "서울",
+      selectedCategory: "산악자전거",
 
 
       regions: [
@@ -124,12 +105,10 @@ export default {
   },
   methods: {
     submit() {
-    
       axios({
         method: "POST",
         url: `${API_URL}/shops/`,
         data: {
-          admin: this.admin,
           name: this.name,
           address: this.address,
           phone: this.phone,
@@ -144,13 +123,9 @@ export default {
         params: {
             categoryName: this.selectedCategory
         }
-        
       })
-        .then(({ data }) => {
-          console.log(data);
-          
+        .then(() => {
           this.$router.push({ path: `/sellerread` }); 
-          
         })
         .catch((err) => {
           console.log(err);
@@ -158,7 +133,7 @@ export default {
         });
     },
     moveNotice() {
-      this.$router.push({ path: "/articles_find/" });
+      this.$router.push({ path: "/myprofile" });
     },
 
   },
@@ -174,8 +149,19 @@ export default {
   background-color: #fa1e44;
   border: none;
 }
-.seller-post{
-    padding-top: 100px;
+.seller-post {
+    margin: 100px auto 20px auto;
+    padding: 20px;
+    width: 60%;
     background-color: #F2F2F5;
+}
+.shop-info-1 {
+  padding: 5%;
+}
+.shop-info-2 {
+  padding: 5%;
+}
+.image-upload {
+  min-height: 300px;
 }
 </style>

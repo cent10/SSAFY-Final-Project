@@ -3,16 +3,14 @@
     <div>
         <h1>{{user.name}}님 환영합니다!!</h1>
     </div>
-    <div>
-
-    </div>
     <h1>
     <div>
       <b-button class="mybutton2 ml-2" @click="moveUpdateUser()">정보 수정</b-button>
     </div>
     </h1>
     <div>
-      <b-button class="mybutton2 ml-2" @click="sellerpost()">판매자 등록</b-button>
+      <b-button v-if="authority === 2" class="mybutton2 ml-2" @click="sellerpost()">업체 등록</b-button>
+      <b-button v-else-if="authority === 3" class="mybutton2 ml-2" @click="sellerread()">업체 정보</b-button>
     </div>
     <div>
       <b-button v-b-modal.modal-prevent-closing class="mybutton4 ml-2">탈퇴하기</b-button>
@@ -101,6 +99,7 @@ export default {
           reviews: [],
           user: {},
           leisures: {},
+          authority: 0,
 
           outtext: "",
           empty,
@@ -176,17 +175,31 @@ export default {
 
       axios({
       method: "GET",
+      url: `${API_URL}/user/authority/${uid}`,
+      params: {
+        page: 0,
+      }
+      })
+      .then(({ data }) => {
+        this.authority = data.data;
+        //   console.log(this.data)
+        //   this.comments = notices.comments;
+        //   console.log(comments)
+      })
+      .catch((err) => {
+        alert("정보를 받아올때 에러가 발생했습니다.");
+        console.log(err);
+      });
+
+      axios({
+      method: "GET",
       url: `${API_URL}/tip/user/${uid}`,
       params: {
         page: 0,
       }
       })
       .then(({ data }) => {
-        console.log(data)
         this.notices = data.data;
-        //   console.log(this.data)
-        //   this.comments = notices.comments;
-        //   console.log(comments)
       })
       .catch((err) => {
         alert("정보를 받아올때 에러가 발생했습니다.");
@@ -220,7 +233,10 @@ export default {
     },
     sellerpost(){
       this.$router.push({ path: "/sellerpost" });
-    }
+    },
+    sellerread(){
+      this.$router.push({ path: "/sellerread" });
+    },
   }
 
 }
