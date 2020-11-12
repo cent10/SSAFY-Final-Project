@@ -15,9 +15,6 @@
 </template>
 
 <script>
-// const API_URL = process.env.VUE_APP_SERVER_URL;
-
-// import axios from 'axios';
 
 export default {
   name: "Header",
@@ -42,27 +39,12 @@ export default {
       this.$router.push({ path: "/noticelist/" });
     },
     logout() {
-      
             this.$cookies.remove("yol_nickname");
             this.$cookies.remove("yol_token");
             this.$cookies.remove("yol_ukey");
-        // axios({
-        //     method: "GET",
-        //     url: `${API_URL}/logout`,
-        //     params: {
-        //         code: this.$route.query.code
-        //     }
-        // })
-        // .then(() => {
-        //     this.$cookies.remove("yol_nickname");
-        //     this.$cookies.remove("yol_token");
-        //     this.$cookies.remove("yol_ukey");
-        // })
-        // .catch((err) => {
-        //     console.log(err);
-        //     alert("로그인 과정 중 에러가 발생했습니다.");
-        // });
-      this.$router.go(this.$router.currentRoute);
+            this.$cookies.remove("uid");
+            this.$router.push({name: 'Home'});
+            window.scrollTo(0,0);
     }
   },
   mounted() {

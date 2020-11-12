@@ -1,13 +1,13 @@
 <template>
-    <div class="login">
+    <div class="login" v-if="!isMember">
         <b-form-group
-      id="nickname"
-      description="야!올레?에서 사용할 닉네임을 입력해주세요."
-      label="닉네임"
-      label-for="nickname-input"
-      :invalid-feedback="invalidFeedback"
-      :state="state"
-    >
+            id="nickname"
+            description="야!올레?에서 사용할 닉네임을 입력해주세요."
+            label="닉네임"
+            label-for="nickname-input"
+            :invalid-feedback="invalidFeedback"
+            :state="state"
+        >
       <b-form-input id="nickname-input" v-model="nickname" :state="state" trim></b-form-input>
     </b-form-group>
         <b-button @click="join" type="button">가입하기</b-button>
@@ -27,6 +27,7 @@ export default {
             token: "",
             ukey: 0,
             uid: 0,
+            isMember: true,
         };
     },
     created() {
@@ -38,12 +39,10 @@ export default {
             }
         })
         .then(({ data }) => {
-            console.log(data.id);
             this.nickname = data.name;
             this.token = data.acess_token;
             this.ukey = data.ukey;
             this.uid = data.id;
-            console.log(this.uid);
             if(data.name !== null){
                 this.$cookies.set("yol_token", this.token);
                 this.$cookies.set("yol_nickname", this.nickname);
@@ -51,13 +50,13 @@ export default {
                 this.$cookies.set("uid", this.uid);
                 this.$router.push({path: "/"});
             }
+            this.isMember = false;
         })
         .catch((err) => {
             console.log(err);
             alert("로그인 과정 중 에러가 발생했습니다.");
             this.$router.push({path: "/"});
         });
-            
     },
     computed: {
       state() {
@@ -105,5 +104,7 @@ export default {
 <style scoped>
     .login {
         padding-top: 100px;
+        margin: auto;
+        width: 300px;
     }
 </style>
