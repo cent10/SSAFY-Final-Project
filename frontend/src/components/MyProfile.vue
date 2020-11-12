@@ -12,6 +12,9 @@
     </div>
     </h1>
     <div>
+      <b-button class="mybutton2 ml-2" @click="sellerpost()">판매자 등록</b-button>
+    </div>
+    <div>
       <b-button v-b-modal.modal-prevent-closing class="mybutton4 ml-2">탈퇴하기</b-button>
     </div>
     <div class="tab-content">
@@ -23,9 +26,14 @@
                         
                         <div class="post-info">
                             <div class="post-text">
-                            <h5>{{leisure.shop}}</h5>
+                            <h5>{{leisure.shopName}}</h5>
                             <!-- <p class="post-desc">{{leisure.description}}</p> -->
-                            <b-button @click="writereview(i)">후기 작성</b-button>
+                            <b-button v-if="leisure.reviewed===0" @click="writereview(leisure.id)">후기 작성</b-button>
+                            <b-button v-if="leisure.reviewed===1" @click="updatereview(leisure.id)">후기 수정</b-button>
+                            <h6>{{leisure.date.slice(0,10)}}</h6>
+                            </div>
+                            <div v-for="(service, k) in leisure.products" :key="k" :index="k">
+                              <h5>{{service.name}}</h5>
                             </div>
                         </div>
                         </div>
@@ -90,6 +98,7 @@ export default {
   data(){
       return{
           notices: [],
+          reviews: [],
           user: {},
           leisures: {},
 
@@ -204,6 +213,15 @@ export default {
       })
       this.$router.push({ path: "/tipdetail/" + id });
     },
+    writereview(id){
+      this.$router.push({ path: "/writereview/" + id});
+    },
+    updatereview(id){
+      this.$router.push({ path: "/updatereview/" + id});
+    },
+    sellerpost(){
+      this.$router.push({ path: "/sellerpost" });
+    }
   }
 
 }
