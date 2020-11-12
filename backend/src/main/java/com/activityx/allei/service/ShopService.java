@@ -52,4 +52,7 @@ public interface ShopService {
 	
 	// 업체 설명 이미지 저장
 	boolean updateImgDesc(ShopDto shopDto);
+	
+	// 사용자 id로 업체 id 찾기
+	public Integer getShopIdByUser(int user); 
 }

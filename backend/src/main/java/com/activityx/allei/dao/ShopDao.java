@@ -53,4 +53,7 @@ public interface ShopDao {
 	
 	// 업체 아이디로 업체 이름 찾기
 	public String getNamebyId(int id);
+	
+	// 사용자 id로 업체 id 찾기
+	public Integer getShopIdByUser(int user);
 }
