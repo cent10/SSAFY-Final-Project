@@ -259,4 +259,9 @@ public class ShopServiceImpl implements ShopService {
 		return shopDao.updateImgDesc(shopDto) == 1;
 	}
 
+	@Override
+	public Integer getShopIdByUser(int user) {
+		return shopDao.getShopIdByUser(user);
+	}
+
 }

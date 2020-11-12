@@ -372,4 +372,21 @@ public class ShopContoller {
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "사용자 아이디로 업체 아이디 조회하기", response = BasicResponse.class)
+	@GetMapping("find/{id}")
+	private ResponseEntity<BasicResponse> getShopIdByUser(@PathVariable("id") int id) {
+		logger.debug("사용자 아이디로 업체 아이디 조회하기");
+		final BasicResponse result = new BasicResponse();
+		Integer data = shopService.getShopIdByUser(id);
+		if (data != null) {
+			result.status = true;
+			result.data = data;
+		} else {
+			result.status = false;
+			result.msg = "해당 업체가 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+
 }
