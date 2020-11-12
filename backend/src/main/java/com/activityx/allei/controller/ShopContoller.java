@@ -48,24 +48,10 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "업체 등록", response = BasicResponse.class)
 	@PostMapping("")
-	private ResponseEntity<BasicResponse> createShop(@RequestParam(value = "categoryName") String categoryName, MultipartFile imgFile, MultipartFile imgDescFile, @RequestBody ShopDto shopDto) {
+	private ResponseEntity<BasicResponse> createShop(@RequestParam(value = "categoryName") String categoryName, @RequestBody ShopDto shopDto) {
 		logger.debug("업체 등록");
 		final BasicResponse result = new BasicResponse();
 		if (shopService.create(shopDto, categoryName)) {
-			if (imgFile != null) {
-				try {
-					fileUploadService.fileUpload(shopDto.getId(), imgFile, 0);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			if (imgDescFile != null) {
-				try {
-					fileUploadService.fileUpload(shopDto.getId(), imgDescFile, 1);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
 			result.status = true;
 		} else {
 			result.status = false;
