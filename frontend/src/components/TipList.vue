@@ -2,7 +2,8 @@
   <div class="tip-list">
     <h2>팁 게시판</h2>
     <hr />
-    <div class="d-flex justify-content-between">
+    <!-- <div class="d-flex justify-content-between"> -->
+    <div class="d-inline-flex p-2">
       <select
         name="category"
         id="category"
@@ -15,8 +16,8 @@
         <option v-for="(onecategory,id) in categorys" :key="id" :value="onecategory.category">{{onecategory.category}}</option>
       </select>
     </div>
-
-    <div class="search" align="left">				
+    
+    <div class="search" align="center">				
 				<select class="custom-select" style="width:15%; display:inline-block;" v-model="key">
 					<option value="1">제목+내용</option>
 					<option value="2">제목</option>
@@ -29,14 +30,14 @@
     <p></p>
     <b-button class="border-0" @click="movewrite()" v-if="this.$cookies.isKey('yol_token')">글쓰기</b-button>
 
+    <!-- <div class="d-inline-flex p-2"> -->
     <table class="table table-striped table-bordered table-hover">
       <thead>
         <tr>
-          <th style="width:20%;">카테고리</th>
+          <th style="width:30%;">카테고리</th>
           <th style="width:20%;">제목</th>
-          <th style="width:20%;">내용</th>
-          <th style="width:15%;">작성자</th>
-          <th style="width:15%;">날짜</th>
+          <th style="width:20%;">작성자</th>
+          <th style="width:20%;">날짜</th>
           <th style="width:10%;" @click="orderNotice(1)">조회수</th>
         </tr>
       </thead>
@@ -50,7 +51,6 @@
         >
           <td>{{notice.category.slice(0, 6)}}</td>
           <td>{{notice.title.slice(0, 8)}}</td>
-          <td>{{notice.content.slice(0, 7)}}</td>
           <td>{{notice.name}}</td>
           <td>{{notice.date.slice(0,10)}}</td>
           <td>{{notice.hits}}</td>
@@ -58,6 +58,7 @@
         </tr>
       </tbody>
     </table>
+    <!-- </div> -->
     <p />
   </div>
 </template>
@@ -250,6 +251,8 @@ export default {
   .tip-list {
     padding-top: 100px;
     background-color: #F2F2F5;
+    padding-left: 15%;
+    padding-right: 15%;
   }
 
 </style>

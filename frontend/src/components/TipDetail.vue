@@ -453,5 +453,7 @@ export default {
   .tip-detail {
     padding-top: 100px;
     background-color: #F2F2F5;
+    padding-left: 15%;
+    padding-right: 15%;
   }
 </style>
