@@ -2,7 +2,7 @@
   <div class="notice-list">
     <h2>공지사항</h2>
     <hr />
-    <div class="search" align="left">				
+    <div class="search" align="center">				
 				<select class="custom-select" style="width:15%; display:inline-block;" v-model="key">
 					<option value="1">제목+내용</option>
 					<option value="2">제목</option>
@@ -13,7 +13,7 @@
 
     <p />
     <p></p>
-    <b-button class="border-0" @click="movewrite()">글쓰기</b-button>
+    <b-button class="border-0" @click="movewrite()" v-if="this.$cookies.isKey('yol_token')">글쓰기</b-button>
 
     <table class="table table-striped table-bordered table-hover">
       <thead>
@@ -158,5 +158,7 @@ export default {
   .notice-list {
     padding-top: 100px;
     background-color: #F2F2F5;
+    padding-left: 15%;
+    padding-right: 15%;
   }
 </style>
