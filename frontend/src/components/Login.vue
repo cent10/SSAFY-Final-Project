@@ -47,7 +47,7 @@ export default {
                 this.$cookies.set("yol_token", this.token);
                 this.$cookies.set("yol_nickname", this.nickname);
                 this.$cookies.set("yol_ukey", this.ukey);
-                this.$cookies.set("uid", this.uid);
+                this.$cookies.set("yol_uid", this.uid);
                 this.$router.push({path: "/"});
             }
             this.isMember = false;
@@ -89,7 +89,7 @@ export default {
                 this.$cookies.set("yol_token", this.token);
                 this.$cookies.set("yol_nickname", this.nickname);
                 this.$cookies.set("yol_ukey", this.ukey);
-                this.$cookies.set("uid", this.uid);
+                this.$cookies.set("yol_uid", this.uid);
                 this.$router.push({path: "/"});
             })
             .catch((err) => {

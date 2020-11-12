@@ -32,10 +32,10 @@
     </table>
     
     <!-- <b-button v-if="notice.user == user" class="mybutton1" @click="moveNoticeModify()">수정</b-button> -->
-    <b-button v-if="notice.user == user.id" class="mybutton1" @click="moveNoticeModify()">수정</b-button>
+    <b-button v-if="notice.user == yol_uid" class="mybutton1" @click="moveNoticeModify()">수정</b-button>
 
     <!-- <b-button  v-if="notice.user == user" class="mybutton2 mx-3" @click="moveNoticeDelete()">삭제</b-button> -->
-    <b-button v-if="notice.user == user.id" class="mybutton2 mx-3" @click="moveNoticeDelete()">삭제</b-button>
+    <b-button v-if="notice.user == yol_uid" class="mybutton2 mx-3" @click="moveNoticeDelete()">삭제</b-button>
 
     <b-button class="border-0" @click="moveNotice()">목록으로</b-button>
 
@@ -51,8 +51,8 @@
             <b-col cols="2"><p class="m-0">{{ onecomment.replier }}</p></b-col>
             <b-col cols="2"><p class="m-0">{{ onecomment.date.slice(0,10) }}</p></b-col>
             <b-col cols="4">
-              <b-icon-pencil v-if="onecomment.replier == user.id" class="mr-1" @click="mdModCmtOpen(onecomment.id)"></b-icon-pencil>
-              <b-icon-trash  v-if="onecomment.replier == user.id" @click="delCmt(onecomment.id)"></b-icon-trash>
+              <b-icon-pencil v-if="onecomment.replier == yol_uid" class="mr-1" @click="mdModCmtOpen(onecomment.id)"></b-icon-pencil>
+              <b-icon-trash  v-if="onecomment.replier == yol_uid" @click="delCmt(onecomment.id)"></b-icon-trash>
             </b-col>
           </b-row>
         </b-list-group-item>
@@ -129,8 +129,7 @@ export default {
       title: "",
       replier: "",
       replycontent: "",
-      user: {},
-      
+      yol_uid: this.$cookies.get('yol_uid'),
       
       name: "",
       
@@ -153,21 +152,8 @@ export default {
     // ...mapGetters(['userinfo', 'isLogin']),
   },
   created() {
-    const uid = this.$cookies.get("uid");
+    const uid = this.$cookies.get("yol_uid");
     console.log(uid);
-
-    axios({
-        method:"GET",
-        url:`${API_URL}/user/findById/${uid}`,
-        })
-        .then(({ data }) => {
-            console.log(data.data);
-            this.user = data.data
-          })
-        .catch(err => {
-            console.log(err)
-            alert("정보를 받아올때 에러가 발생했습니다.");
-        });
 
 
     axios({
@@ -233,7 +219,7 @@ export default {
     addCmt(evt) {
       evt.preventDefault();
 
-      const uid = this.$cookies.get("uid");
+      const uid = this.$cookies.get("yol_uid");
 
       axios({
         method: "POST",

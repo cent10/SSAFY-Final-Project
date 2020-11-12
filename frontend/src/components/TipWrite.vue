@@ -69,9 +69,8 @@ export default {
   },
   methods: {
     submit() {
-      const uid = this.$cookies.get("uid");
+      const uid = this.$cookies.get("yol_uid");
 
-      console.log(uid);
     //   console.log(token);
     //   console.log();
       axios({

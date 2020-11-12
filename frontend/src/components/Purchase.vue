@@ -132,7 +132,7 @@ export default {
               "start": this.startDate,
               "end": this.endDate,
               "amount": this.totalPrice,
-              "user": this.$cookies.get('uid'),
+              "user": this.$cookies.get('yol_uid'),
               "shop": this.purchasingList[0].shop,
               "products": products,
               "nums": nums,
