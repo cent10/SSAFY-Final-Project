@@ -22,16 +22,19 @@ import LeisureDetail from "@/components/LeisureDetail.vue";
 import KakaoSuccess from "@/components/KakaoSuccess.vue";
 import KakaoFail from "@/components/KakaoFail.vue";
 
-import UpdateUser from "@/components/UpdateUser.vue";
+
 
 import MyProfile from "@/components/MyProfile.vue";
 
-import EquipList from "@/components/EquipList.vue";
-import EquipDetail from "@/components/EquipDetail.vue";
+
+
 
 import UpdateReview from "@/components/UpdateReview.vue";
 import ReviewDetail from "@/components/ReviewDetail.vue";
 import WriteReview from "@/components/WriteReview.vue";
+
+import SellerPost from "@/components/SellerPost.vue";
+
 
 Vue.use(VueRouter);
 
@@ -40,11 +43,6 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-  },
-  {
-    path: "/updateuser",
-    name: "UpdateUser",
-    component: UpdateUser,
   },
   {
     path: "/tiplist",
@@ -123,18 +121,7 @@ const routes = [
   {
     path: "/myprofile",
     name: "MyProfile",
-    component: MyProfile,
-  },
-  {
-    path: "/equipDetail/:id",
-    name: "EquipDetail",
-    component: EquipDetail,
-  },
-  {
-    path: "/equiplist",
-    name: "EquipList",
-    component: EquipList,
-    props: true,
+    component: MyProfile
   },
   {
     path: "/writereview/:id",
@@ -150,7 +137,12 @@ const routes = [
     path: "/reviewdetail/:id",
     name: "ReviewDetail",
     component: ReviewDetail
-  }
+  },
+  {
+    path: "/sellerpost",
+    name: "SellerPost",
+    component: SellerPost
+  },
 ];
 
 const router = new VueRouter({

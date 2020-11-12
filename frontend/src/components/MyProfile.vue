@@ -12,6 +12,9 @@
     </div>
     </h1>
     <div>
+      <b-button class="mybutton2 ml-2" @click="sellerpost()">판매자 등록</b-button>
+    </div>
+    <div>
       <b-button v-b-modal.modal-prevent-closing class="mybutton4 ml-2">탈퇴하기</b-button>
     </div>
     <div class="tab-content">
@@ -212,6 +215,9 @@ export default {
     updatereview(id){
       this.$router.push({ path: "/updatereview/" + id});
     },
+    sellerpost(){
+      this.$router.push({ path: "/sellerpost" });
+    }
   }
 
 }
