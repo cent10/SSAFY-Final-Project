@@ -141,8 +141,7 @@ export default {
       }
   },
   created(){
-      const uid = this.$cookies.get("uid");
-      console.log(uid);
+      const uid = this.$cookies.get("yol_uid");
 
       axios({
         method:"GET",
