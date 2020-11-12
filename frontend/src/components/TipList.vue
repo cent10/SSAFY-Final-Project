@@ -27,7 +27,7 @@
 
     <p />
     <p></p>
-    <b-button class="border-0" @click="movewrite()">글쓰기</b-button>
+    <b-button class="border-0" @click="movewrite()" v-if="this.$cookies.isKey('yol_token')">글쓰기</b-button>
 
     <table class="table table-striped table-bordered table-hover">
       <thead>
@@ -44,8 +44,9 @@
         <tr
           v-for="(notice,id) in notices"
           :key="id"
-          v-show="keyWord(notice.title, notice.content, notice.category)"
+          v-show="keyWord(notice.title, notice.content, notice.category)" 
           @click="moveDetail(notice.id)"
+          
         >
           <td>{{notice.category.slice(0, 6)}}</td>
           <td>{{notice.title.slice(0, 8)}}</td>
