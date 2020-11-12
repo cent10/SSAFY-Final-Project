@@ -43,7 +43,8 @@ export default {
             this.$cookies.remove("yol_token");
             this.$cookies.remove("yol_ukey");
             this.$cookies.remove("uid");
-            this.$router.push({name: 'Home'});
+            if(this.$route.path !== '/') this.$router.push({name: 'Home'});
+            else this.$forceUpdate();
             window.scrollTo(0,0);
     }
   },
