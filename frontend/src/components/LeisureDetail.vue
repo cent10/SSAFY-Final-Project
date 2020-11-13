@@ -171,8 +171,8 @@ export default {
       this.shop.phone = shop.phone;
       this.shop.number = shop.number;
       this.shop.description = shop.description;
-      this.shop.imgDesc = "file:///home/ubuntu/activityx_shop_imgDesc/" + shop.imgDesc;
-      this.shop.img = "file:///home/ubuntu/activityx_shop_imgDesc/" + shop.img;
+      this.shop.img = "http://k3a210.p.ssafy.io/img/activityx_shop_img/" + shop.img;
+      this.shop.imgDesc = "http://k3a210.p.ssafy.io/img/activityx_shop_imgDesc/" + shop.imgDesc;
     }).catch((err) => {
         console.log(err);
         alert("업체 정보를 받아올때 에러가 발생했습니다.");

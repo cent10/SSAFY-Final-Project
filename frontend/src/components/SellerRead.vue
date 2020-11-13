@@ -199,10 +199,10 @@ export default {
         console.log(data.data);
         this.shop = data.data;
         if(data.data.img !== null){
-          this.shopImgUrl = "file:///home/ubuntu/activityx_shop_img/" + data.data.shop.img;
+          this.shopImgUrl = "http://k3a210.p.ssafy.io/img/activityx_shop_img/" + data.data.shop.img;
         }
         if(data.data.imgDesc !== null){
-          this.shopDescImgUrl = "file:///home/ubuntu/activityx_shop_imgDesc/" + data.data.shop.descImg;
+          this.shopDescImgUrl = "http://k3a210.p.ssafy.io/img/activityx_shop_imgDesc/" + data.data.shop.imgDesc;
         }
       })
       .catch((err) => {
@@ -282,8 +282,8 @@ export default {
         this.shop.address === "" ||
         this.shop.number === "" ||
         this.shop.description === "" ||
-        this.shopImg === null ||
-        this.shopDescImg === null
+        this.shopImgUrl === null ||
+        this.shopDescImgUrl === null
         ){
         alert("입력하지 않은 정보가 있습니다.");
         return;
