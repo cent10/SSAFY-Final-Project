@@ -41,30 +41,16 @@ public class NoticeController {
 
 	@ApiOperation(value = "공지사항 등록", response = BasicResponse.class)
 	@PostMapping("")
-	private ResponseEntity<BasicResponse> createNotice(@RequestBody NoticeDto noticeDto,
-			@RequestHeader String access_Token) {
+	private ResponseEntity<BasicResponse> createNotice(@RequestBody NoticeDto noticeDto) {
 		logger.debug("공지사항 등록");
 		final BasicResponse result = new BasicResponse();
-		Map<String, Object> map = new HashMap<>();
-		
-		//엑세스 토큰 만료 확인
-		if (kakao.checkTime(access_Token) > 0) {
-			map.put("checkLogin", true);
-			result.data = map;
-			if (noticeService.create(noticeDto)) {
-				result.status = true;
-			} else {
-				result.status = false;
-				result.msg = "공지사항 등록에 실패했습니다.";
-			}
-			return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+		if (noticeService.create(noticeDto)) {
+			result.status = true;
 		} else {
-			map.put("checkLogin", false);
-			result.data = map;
 			result.status = false;
-			result.msg = "로그인이 만료되었습니다.";
-			return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+			result.msg = "공지사항 등록에 실패했습니다.";
 		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "공지사항 상세보기", response = BasicResponse.class)
@@ -117,46 +103,29 @@ public class NoticeController {
 
 	@ApiOperation(value = "공지사항 수정", response = BasicResponse.class)
 	@PutMapping("/{id}")
-	private ResponseEntity<BasicResponse> updateNotice(@RequestBody NoticeDto noticeDto,
-			@RequestHeader String access_Token) {
+	private ResponseEntity<BasicResponse> updateNotice(@RequestBody NoticeDto noticeDto) {
 		logger.debug("공지사항 수정");
 		final BasicResponse result = new BasicResponse();
-		Map<String, Object> map = kakao.getUserInfo(access_Token);
-		String ukey = (String) map.get("ukey");
-		if (ukey.equals("1521857312")) {
-			if (noticeService.update(noticeDto)) {
-				result.status = true;
-			} else {
-				result.status = false;
-				result.msg = "공지사항 수정에 실패했습니다.";
-			}
-			return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+		if (noticeService.update(noticeDto)) {
+			result.status = true;
 		} else {
 			result.status = false;
-			result.msg = "공지사항 수정 권한이 없습니다.";
-			return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+			result.msg = "공지사항 수정에 실패했습니다.";
 		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "공지사항 삭제", response = BasicResponse.class)
 	@DeleteMapping("/{id}")
-	private ResponseEntity<BasicResponse> deleteNotice(@PathVariable("id") int id, @RequestHeader String access_Token) {
+	private ResponseEntity<BasicResponse> deleteNotice(@PathVariable("id") int id) {
 		logger.debug("공지사항 삭제");
 		final BasicResponse result = new BasicResponse();
-		Map<String, Object> map = kakao.getUserInfo(access_Token);
-		String ukey = (String) map.get("ukey");
-		if (ukey.equals("1521857312")) {
-			if (noticeService.delete(id)) {
-				result.status = true;
-			} else {
-				result.status = false;
-				result.msg = "공지사항 삭제에 실패했습니다.";
-			}
-			return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+		if (noticeService.delete(id)) {
+			result.status = true;
 		} else {
 			result.status = false;
-			result.msg = "공지사항 삭제 권한이 없습니다.";
-			return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+			result.msg = "공지사항 삭제에 실패했습니다.";
 		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 }
