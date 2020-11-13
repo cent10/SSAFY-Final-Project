@@ -6,6 +6,7 @@ public class TipReplyDto {
 	
 	private int id;
 	private int replier;
+	private String name;
 	private int tip;
 	private String content;
 	private Date date;
@@ -21,6 +22,12 @@ public class TipReplyDto {
 	}
 	public void setReplier(int replier) {
 		this.replier = replier;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public int getTip() {
 		return tip;
