@@ -130,5 +130,7 @@
 .tip-update {
   padding-top: 100px;
   background-color: #F2F2F5;
+  padding-bottom: 5%;
+  margin-bottom: -30px;
 }
 </style>

@@ -199,10 +199,10 @@ export default {
         console.log(data.data);
         this.shop = data.data;
         if(data.data.img !== null){
-          this.shopImgUrl = "/home/ubuntu/activityx_shop_img/" + data.data.img;
+          this.shopImgUrl = "file:///home/ubuntu/activityx_shop_img/" + data.data.img;
         }
         if(data.data.imgDesc !== null){
-          this.shopDescImgUrl = "/home/ubuntu/activityx_shop_imgDesc/" + data.data.descImg;
+          this.shopDescImgUrl = "file:///home/ubuntu/activityx_shop_imgDesc/" + data.data.descImg;
         }
       })
       .catch((err) => {
