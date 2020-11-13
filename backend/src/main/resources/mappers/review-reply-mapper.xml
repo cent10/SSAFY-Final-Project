@@ -4,8 +4,8 @@
 
 	<!-- 후기 답글 등록 -->
 	<insert id="create">
-		INSERT INTO review_reply (replier, review, content, date)
-		VALUES(#{replier}, #{review}, #{content}, #{date})
+		INSERT INTO review_reply (replier, review, content)
+		VALUES(#{replier}, #{review}, #{content})
 	</insert>
 	
 	<!-- 후기 답글 조회 -->
@@ -19,7 +19,7 @@
 	<!-- 후기 답글 수정 -->
 	<update id="update">
 		UPDATE review_reply
-		SET content=#{content}, date=#{date}
+		SET content=#{content}
 		WHERE id=#{id}
 	</update>
 	
