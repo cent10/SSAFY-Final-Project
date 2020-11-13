@@ -1,9 +1,10 @@
 <template>
-      <div class="review-write" align="center">
+      <div class="review-detail" align="center">
     <h3 class="mt-2 mb-3">내가 쓴 후기</h3>
+        <div class="review-content">
         {{review.content}}
  
-            <div>
+            <div class="review-rate">
             
             <b-form-rating v-model="review.rate" readonly color="#ff8800"></b-form-rating>
             
@@ -12,6 +13,7 @@
             <b-button class="mybutton2 ml-2" @click="moveUpdateReview()">수정하기</b-button>
             <b-button v-b-modal.modal-prevent-closing class="mybutton4 ml-2" @click="moveprofile()">마이프로필로</b-button>
             </div>
+        </div>
   </div>
 </template>
 
@@ -76,5 +78,18 @@
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 
+.review-detail {
+  padding-top: 100px;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+.review-rate{
+  padding-top: 50px;
+}
+.review-content{
+  padding-top: 50px;
+  font-family: 'Jua', sans-serif;
+}
 </style>

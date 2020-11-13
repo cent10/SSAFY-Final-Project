@@ -78,8 +78,15 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+
 .review-write {
   padding-top: 100px;
+  padding-left: 15%;
+  padding-right: 15%;
+  font-family: 'Jua', sans-serif;
+
 }
 
 .bu-tton{
