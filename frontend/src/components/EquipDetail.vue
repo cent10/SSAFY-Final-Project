@@ -63,8 +63,7 @@
       <b-row>
         <b-col>
           <div :class="{ 'equip-desc' : !isShowDesc, 'equip-desc-show' : isShowDesc }">
-            <!-- <b-img :src="shop.imgDesc" class="desc" /> -->
-            <b-img src="http://www.saraminimage.co.kr/recruit/bbs_recruit2/hj_n_190617.png" class="desc" />
+            <b-img :src="shop.imgDesc" class="desc" />
           </div>
           <div style="padding-top: 3%; padding-bottom: 5%">
             <b-button v-if="!isShowDesc" @click="toggleShowDesc">자세한 설명 보기</b-button>
@@ -172,8 +171,8 @@ export default {
       this.shop.phone = shop.phone;
       this.shop.number = shop.number;
       this.shop.description = shop.description;
-      this.shop.imgDesc = shop.imgDesc;
-      this.shop.img = shop.img;
+      this.shop.imgDesc = "file:///home/ubuntu/activityx_shop_imgDesc/" + shop.imgDesc;
+      this.shop.img = "file:///home/ubuntu/activityx_shop_imgDesc/" + shop.img;
     }).catch((err) => {
         console.log(err);
         alert("업체 정보를 받아올때 에러가 발생했습니다.");
