@@ -19,15 +19,21 @@ import Login from "@/components/Login.vue";
 import LeisureList from "@/components/LeisureList.vue";
 import LeisureDetail from "@/components/LeisureDetail.vue";
 
+import EquipList from "@/components/EquipList.vue";
+import EquipDetail from "@/components/EquipDetail.vue";
+
 import KakaoSuccess from "@/components/KakaoSuccess.vue";
 import KakaoFail from "@/components/KakaoFail.vue";
 
+import MyProfile from "@/components/MyProfile.vue";
 import UpdateUser from "@/components/UpdateUser.vue";
 
-import MyProfile from "@/components/MyProfile.vue";
+import UpdateReview from "@/components/UpdateReview.vue";
+import ReviewDetail from "@/components/ReviewDetail.vue";
+import WriteReview from "@/components/WriteReview.vue";
 
-import EquipList from "@/components/EquipList.vue";
-import EquipDetail from "@/components/EquipDetail.vue";
+import SellerPost from "@/components/SellerPost.vue";
+import SellerRead from "@/components/SellerRead.vue";
 
 Vue.use(VueRouter);
 
@@ -131,6 +137,31 @@ const routes = [
     name: "EquipList",
     component: EquipList,
     props: true,
+  },
+  {
+    path: "/writereview/:id",
+    name: "WriteReview",
+    component: WriteReview,
+  },
+  {
+    path: "/updatereview/:id",
+    name: "UpdateReview",
+    component: UpdateReview,
+  },
+  {
+    path: "/reviewdetail/:id",
+    name: "ReviewDetail",
+    component: ReviewDetail,
+  },
+  {
+    path: "/sellerpost",
+    name: "SellerPost",
+    component: SellerPost,
+  },
+  {
+    path: "/sellerread",
+    name: "SellerRead",
+    component: SellerRead,
   },
 ];
 
