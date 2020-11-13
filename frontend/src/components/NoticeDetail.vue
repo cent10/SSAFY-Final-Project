@@ -150,5 +150,8 @@ export default {
     background-color: #F2F2F5;
     padding-left: 15%;
     padding-right: 15%;
+    padding-bottom: 5%;
+    margin-bottom: -25px;
+
   }
 </style>

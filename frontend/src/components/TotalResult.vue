@@ -165,6 +165,8 @@ export default {
   .total-result {
     padding-top: 100px;
     background-color: #e8e8e8;
+    padding-bottom: 5%;
+    margin-bottom: -30px;
   }
   .carousel-3d-slide {
     background-color: #e8e8e8;

@@ -99,6 +99,7 @@ export default {
 .search {
   background-color: #e8e8e8;
   padding: 100px;
+  margin-bottom: -30px;
 }
 .yol-card-group {
   padding-top: 50px;
