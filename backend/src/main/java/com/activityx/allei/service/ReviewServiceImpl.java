@@ -1,5 +1,7 @@
 package com.activityx.allei.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,11 @@ public class ReviewServiceImpl implements ReviewService {
 	public ReviewDto read(int id) {
 		return reviewDao.read(id);
 	}
+	
+	@Override
+	public List<ReviewDto> readReviews(int shop) {
+		return reviewDao.readReviews(shop);
+	}
 
 	@Override
 	public boolean update(ReviewDto reviewDto) {
@@ -31,6 +38,5 @@ public class ReviewServiceImpl implements ReviewService {
 	public boolean delete(int id) {
 		return reviewDao.delete(id) == 1;
 	}
-	
 	
 }

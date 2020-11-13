@@ -16,6 +16,14 @@
 		order by id desc
 	</select>
 	
+	<!-- 후기 리스트 조회 (업체 번호로 후기 리스트 조회) -->
+	<select id="readReviews" resultType="com.activityx.allei.dto.ReviewDto">
+		SELECT *
+		FROM review LEFT OUTER JOIN reservation ON review.reservation = reservation.id
+		WHERE reservation.shop=#{shop}
+		order by review.date desc
+	</select>
+	
 	<!-- 후기 수정 -->
 	<update id="update">
 		UPDATE review
