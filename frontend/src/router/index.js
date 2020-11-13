@@ -33,6 +33,7 @@ import ReviewDetail from "@/components/ReviewDetail.vue";
 import WriteReview from "@/components/WriteReview.vue";
 
 import SellerPost from "@/components/SellerPost.vue";
+import SellerRead from "@/components/SellerRead.vue";
 
 Vue.use(VueRouter);
 
@@ -156,6 +157,11 @@ const routes = [
     path: "/sellerpost",
     name: "SellerPost",
     component: SellerPost,
+  },
+  {
+    path: "/sellerread",
+    name: "SellerRead",
+    component: SellerRead,
   },
 ];
 
