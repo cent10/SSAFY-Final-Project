@@ -14,6 +14,7 @@ import com.activityx.allei.dao.CategoryDao;
 import com.activityx.allei.dao.ProductDao;
 import com.activityx.allei.dao.ShopCategoryDao;
 import com.activityx.allei.dao.ShopDao;
+import com.activityx.allei.dao.UserAuthorityDao;
 import com.activityx.allei.dto.ShopBean;
 import com.activityx.allei.dto.ShopCategoryDto;
 import com.activityx.allei.dto.ShopDto;
@@ -31,14 +32,24 @@ public class ShopServiceImpl implements ShopService {
 	
 	@Autowired
 	ProductDao productDao;
+	
+	@Autowired
+	UserAuthorityDao userAuthorityDao;
 
 	@Override
 	public boolean create(ShopDto shopDto, String categoryName) {
 		int check1 = shopDao.createShop(shopDto);
 		ShopCategoryDto shopCategoryDto = new ShopCategoryDto(0, shopDto.getId(), categoryDao.readCode(categoryName));
 		int check2 = shopCategoryDao.createShopCategory(shopCategoryDto);
+		int check3 = 0;
+		int userId = shopDto.getAdmin();
+		if (userAuthorityDao.check(userId) > 0) {
+			check3 = userAuthorityDao.update(userId, 3);
+		} else {
+			check3 = userAuthorityDao.create(userId, 3);
+		}
 		
-		return check1 + check2 > 1;
+		return check1 + check2 + check3 > 2;
 	}
 
 	@Override

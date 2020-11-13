@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.activityx.allei.dao.UserAuthorityDao">
+	
+	<!-- 계정 권한 부여 -->
+	<insert id="create">
+		INSERT INTO user_authority (user, code)
+		VALUES(#{user}, #{code})
+	</insert>
+	
+	<!-- 계정의 권한이 등록되어 있는지 확인 -->
+	<select id="check" resultType="int">
+		SELECT COUNT(*)
+		FROM user_authority
+		WHERE user=#{user}
+	</select>
+	
+	<!-- 계정 권한 변경 -->
+	<update id="update">
+		UPDATE user_authority
+		SET code=#{code}
+		WHERE user=#{user}
+	</update>
+
+</mapper>
