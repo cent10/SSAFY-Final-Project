@@ -102,7 +102,7 @@ export default {
                 this.leisures = res.data.data;
                 this.leisures.map((l) => {
                   if(l.img !== null)
-                    l.img = "file:///home/ubuntu/activityx_shop_imgDesc/" + l.img;
+                    l.img = "http://k3a210.p.ssafy.io/img/activityx_shop_img/" + l.img;
                 });
               })
               .catch((err) => {
@@ -119,7 +119,7 @@ export default {
                 this.leisures = res.data.data;
                 this.leisures.map((l) => {
                   if(l.img !== null)
-                    l.img = "file:///home/ubuntu/activityx_shop_imgDesc/" + l.img;
+                    l.img = "http://k3a210.p.ssafy.io/img/activityx_shop_img/" + l.img;
                 });
               })
               .catch((err) => {
@@ -136,7 +136,7 @@ export default {
                 this.leisures = res.data.data;
                 this.leisures.map((l) => {
                   if(l.img !== null)
-                    l.img = "file:///home/ubuntu/activityx_shop_imgDesc/" + l.img;
+                    l.img = "http://k3a210.p.ssafy.io/img/activityx_shop_img/" + l.img;
                 });
               })
               .catch((err) => {
@@ -213,7 +213,7 @@ export default {
         this.leisures = res.data.data;
         this.leisures.map((l) => {
           if(l.img !== null)
-            l.img = "file:///home/ubuntu/activityx_shop_imgDesc/" + l.img;
+            l.img = "http://k3a210.p.ssafy.io/img/activityx_shop_img/" + l.img;
         });
       })
       .catch((err) => {
