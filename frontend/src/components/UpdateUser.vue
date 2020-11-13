@@ -84,6 +84,7 @@ export default {
 <style scoped>
 .update-user {
   margin-top: 100px;
+  margin-bottom: 17%;
 }
 .table {
   font-size: 30px;
