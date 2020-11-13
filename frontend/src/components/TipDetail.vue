@@ -14,7 +14,7 @@
         </tr>
         <tr>
           <td>작성자</td>
-          <td style="white-space:pre;">{{notice.user}}</td>
+          <td style="white-space:pre;">{{notice.name}}</td>
         </tr>
         <tr>
           <td>날짜</td>
@@ -41,14 +41,14 @@
 
     <div class="d-flex justify-content-between">
       <h4 class="my-3 text-left">댓글 <b-icon-chat-text></b-icon-chat-text></h4>
-      <b-button size="sm" class="mybutton1 my-3" @click="mdAddCmtOpen()">작성하기</b-button>
+      <b-button size="sm" class="mybutton1 my-3" @click="mdAddCmtOpen()" v-if="this.$cookies.isKey('yol_token')">작성하기</b-button>
     </div>
 
     <b-list-group flush class="text-left">
         <b-list-group-item v-for="(onecomment,id) in this.comments" :key="id" class="px-3">
           <b-row>
             <b-col cols="9"><p class="m-0">{{ onecomment.content }} </p></b-col>
-            <b-col cols="2"><p class="m-0">{{ onecomment.replier }}</p></b-col>
+            <b-col cols="2"><p class="m-0">{{ onecomment.name }}</p></b-col>
             <b-col cols="2"><p class="m-0">{{ onecomment.date.slice(0,10) }}</p></b-col>
             <b-col cols="4">
               <b-icon-pencil v-if="onecomment.replier == yol_uid" class="mr-1" @click="mdModCmtOpen(onecomment.id)"></b-icon-pencil>
