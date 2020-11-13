@@ -113,6 +113,10 @@ export default {
 .tip-write {
   padding-top: 100px;
   background-color: #F2F2F5;
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-bottom: 5%;
+  margin-bottom: -30px;
 }
 .mybutton1 {
   background-color: #084481;

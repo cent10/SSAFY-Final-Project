@@ -105,6 +105,9 @@
 <style>
 .notice-update {
   padding-top: 100px;
+  padding-bottom: 5%;
   background-color: #F2F2F5;
+  margin-bottom: -25px;
+
 }
 </style>

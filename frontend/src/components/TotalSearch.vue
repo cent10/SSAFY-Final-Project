@@ -94,6 +94,7 @@ li {
 .total-search {
   background-color: transparent;
   position: relative;
+  
 }
 .yol-carousel {
   filter: brightness(65%);

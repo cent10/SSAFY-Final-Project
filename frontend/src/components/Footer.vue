@@ -1,5 +1,5 @@
 <template>
-  <!-- Footer -->
+  <div class="footer">
   <mdb-footer color="stylish-color-dark" class="font-small pt-4 mt-4">
     <mdb-container class="text-center text-md-left">
       <mdb-row class="text-center text-md-left mt-3 pb-3">
@@ -41,7 +41,7 @@
           <p class="text-center text-md-left grey-text">&copy; 2020 Copyright: <a href="http://k3a210.p.ssafy.io">
               http://k3a210.p.ssafy.io </a></p>
         </mdb-col>
-        <mdb-col md="4" lg="4" class="ml-lg-0">
+        <!-- <mdb-col md="4" lg="4" class="ml-lg-0">
           <div class="text-center text-md-right">
             <ul class="list-unstyled list-inline">
               <li class="list-inline-item"><a class="btn-floating btn-sm rgba-white-slight mx-1"><i class="fab fa-facebook"></i></a></li>
@@ -50,11 +50,12 @@
               <li class="list-inline-item"><a class="btn-floating btn-sm rgba-white-slight mx-1"><i class="fab fa-linkedin-in"></i></a></li>
             </ul>
           </div>
-        </mdb-col>
+        </mdb-col> -->
       </mdb-row>
     </mdb-container>
   </mdb-footer>
   <!-- Footer -->
+  </div>
 </template>
 
 <script>
@@ -73,6 +74,7 @@
 <style scoped>
   .footer {
     background-color: #e8e8e8;
+    margin-top: 0 auto;
   }
   
 </style>
