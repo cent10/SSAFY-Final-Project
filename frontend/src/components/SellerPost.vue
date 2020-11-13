@@ -51,11 +51,11 @@ export default {
       name: "",
       phone: "",
       address: "",
-      classification: false,
       number: "",
       description: "",
       categorys: [],
       
+      classification: false,
       selectedRegion: "서울",
       selectedCategory: "산악자전거",
 
@@ -105,6 +105,16 @@ export default {
   },
   methods: {
     submit() {
+      if(
+        this.name === "" ||
+        this.phone === "" ||
+        this.address === "" ||
+        this.number === "" ||
+        this.description === ""){
+          alert("정보를 모두 입력해주세요!");
+          return;
+      }
+
       axios({
         method: "POST",
         url: `${API_URL}/shops/`,
