@@ -102,7 +102,7 @@ export default {
                 this.equips = res.data.data;
                 this.equips.map((e) => {
                   if(e.img !== null)
-                    e.img = "file:///home/ubuntu/activityx_shop_imgDesc/" + e.img;
+                    e.img = "http://k3a210.p.ssafy.io/img/activityx_shop_img/" + e.img;
                 });
               })
               .catch((err) => {
@@ -119,7 +119,7 @@ export default {
                 this.equips = res.data.data;
                 this.equips.map((e) => {
                   if(e.img !== null)
-                    e.img = "file:///home/ubuntu/activityx_shop_imgDesc/" + e.img;
+                    e.img = "http://k3a210.p.ssafy.io/img/activityx_shop_img/" + e.img;
                 });
               })
               .catch((err) => {
@@ -136,7 +136,7 @@ export default {
                 this.equips = res.data.data;
                 this.equips.map((e) => {
                   if(e.img !== null)
-                    e.img = "file:///home/ubuntu/activityx_shop_imgDesc/" + e.img;
+                    e.img = "http://k3a210.p.ssafy.io/img/activityx_shop_img/" + e.img;
                 });
               })
               .catch((err) => {
@@ -213,7 +213,7 @@ export default {
         this.equips = res.data.data;
         this.equips.map((e) => {
           if(e.img !== null)
-            e.img = "file:///home/ubuntu/activityx_shop_imgDesc/" + e.img;
+            e.img = "http://k3a210.p.ssafy.io/img/activityx_shop_img/" + e.img;
         });
       })
       .catch((err) => {
