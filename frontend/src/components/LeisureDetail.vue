@@ -114,7 +114,7 @@
       </b-row>
       <b-row>
         <b-col>
-          <b-button @click="purchase" style="margin-right: 0.5%;">결제하기</b-button>
+          <b-button @click="purchase" style="margin-right: 0.5%;" v-if="this.$cookies.isKey('yol_token')">결제하기</b-button>
           <b-button @click="moveSearchPage" style="margin-left: 0.5%;">목록으로</b-button>
         </b-col>
       </b-row>

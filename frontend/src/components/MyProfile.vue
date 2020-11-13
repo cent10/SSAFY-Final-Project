@@ -1,16 +1,18 @@
 <template>
+
   <div class="my-profile">
     <div>
         <h1>{{user.name}}님 환영합니다!!</h1>
-    </div>
-    <div>
-
     </div>
     <h1>
     <div>
       <b-button class="mybutton2 ml-2" @click="moveUpdateUser()">정보 수정</b-button>
     </div>
     </h1>
+    <div>
+      <b-button v-if="authority === 2" class="mybutton2 ml-2" @click="sellerpost()">업체 등록</b-button>
+      <b-button v-else-if="authority === 3" class="mybutton2 ml-2" @click="sellerread()">업체 정보</b-button>
+    </div>
     <div>
       <b-button v-b-modal.modal-prevent-closing class="mybutton4 ml-2">탈퇴하기</b-button>
     </div>
@@ -20,12 +22,20 @@
                     <carousel-3d v-if="leisures.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" >
                         <slide v-for="(leisure, i) in leisures" :key="i" :index="i">
                         <div class="post-card">
+                        <h5 class="shop-name">{{leisure.shopName}}</h5>
                         
+                            <h6>{{leisure.date.slice(0,10)}}</h6>
+                            <div class="card-button">
+                            <b-button class="button5" v-if="leisure.reviewed===0" @click="writereview(leisure.id)">후기 작성</b-button>
+                            <b-button class="button6" v-if="leisure.reviewed===1" @click="updatereview(leisure.id)">후기 수정</b-button>
+                            </div>
                         <div class="post-info">
                             <div class="post-text">
-                            <h5>{{leisure.shop}}</h5>
                             <!-- <p class="post-desc">{{leisure.description}}</p> -->
-                            <b-button @click="writereview(i)">후기 작성</b-button>
+                            <div v-for="(service, k) in leisure.products" :key="k" :index="k">
+                              <h5 class="card-font">{{service.name}}</h5>
+                            </div>
+                        
                             </div>
                         </div>
                         </div>
@@ -36,12 +46,13 @@
                     </div>
             </b-tab>
             <b-tab title="내가 쓴 레저 팁">
+                    <div class="my-tip">
                     <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                         <th style="width:20%;">제목</th>
-                        <th style="width:20%;">내용</th>
-                        <th style="width:15%;">날짜</th>
+                        <th style="width:20%;">날짜</th>
+                        <th style="width:15%;">조회수</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,11 +62,12 @@
                         @click="moveDetail(notice.id)"
                         >
                         <td>{{notice.title.slice(0, 8)}}</td>
-                        <td>{{notice.content.slice(0, 7)}}</td>
-                        <td>{{notice.date.slice(0,10)}}</td>
+                        <td>{{notice.date.slice(0, 10)}}</td>
+                        <td>{{notice.hits}}</td>
                         </tr>
                     </tbody>
                     </table>
+                    </div>
             </b-tab>
         </b-tabs>
     </div>
@@ -90,8 +102,10 @@ export default {
   data(){
       return{
           notices: [],
+          reviews: [],
           user: {},
           leisures: {},
+          authority: 0,
 
           outtext: "",
           empty,
@@ -132,8 +146,7 @@ export default {
       }
   },
   created(){
-      const uid = this.$cookies.get("uid");
-      console.log(uid);
+      const uid = this.$cookies.get("yol_uid");
 
       axios({
         method:"GET",
@@ -168,17 +181,31 @@ export default {
 
       axios({
       method: "GET",
+      url: `${API_URL}/user/authority/${uid}`,
+      params: {
+        page: 0,
+      }
+      })
+      .then(({ data }) => {
+        this.authority = data.data;
+        //   console.log(this.data)
+        //   this.comments = notices.comments;
+        //   console.log(comments)
+      })
+      .catch((err) => {
+        alert("정보를 받아올때 에러가 발생했습니다.");
+        console.log(err);
+      });
+
+      axios({
+      method: "GET",
       url: `${API_URL}/tip/user/${uid}`,
       params: {
         page: 0,
       }
       })
       .then(({ data }) => {
-        console.log(data)
         this.notices = data.data;
-        //   console.log(this.data)
-        //   this.comments = notices.comments;
-        //   console.log(comments)
       })
       .catch((err) => {
         alert("정보를 받아올때 에러가 발생했습니다.");
@@ -204,12 +231,27 @@ export default {
       })
       this.$router.push({ path: "/tipdetail/" + id });
     },
+    writereview(id){
+      this.$router.push({ path: "/writereview/" + id});
+    },
+    updatereview(id){
+      this.$router.push({ path: "/updatereview/" + id});
+    },
+    sellerpost(){
+      this.$router.push({ path: "/sellerpost" });
+    },
+    sellerread(){
+      this.$router.push({ path: "/sellerread" });
+    },
   }
 
 }
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Brush+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cute+Font&family=Jua&family=Nanum+Brush+Script&display=swap');
   .element.style {
     height: 402px;
   }
@@ -233,7 +275,8 @@ export default {
     border-style: none;
   }
   .post-card {
-    background-color: white;
+    background-color: #E8E8E8;
+    padding-top: 5px;
     margin: 40px 0px;
     max-width: 300px;
     height: 320px;
@@ -282,6 +325,7 @@ export default {
       text-align: left;
       margin-left: 15px;
       margin-right: 15px;
+      font-family: 'Cute Font', cursive;
   }
   .post-desc {
       margin: 4px 0;
@@ -305,11 +349,24 @@ export default {
     margin-top: 7%;
     margin-bottom: 7%;
   }
-
-
-
-
-
+  .shop-name{
+    background-color: #BBBFCA;
+    font-family: 'Jua', sans-serif;
+  }
+  .card-button{
+    width: 100px;
+    margin-left: 25%;
+    
+  }
+  .button5{
+    background-color: #0c353a;
+  }
+ .button6{
+    background-color: #4b0881;
+  }
+  .card-font{
+    font-size: 30px;
+  }
 
   .grow { 
   transition: all .2s ease-in-out; 
@@ -333,5 +390,9 @@ export default {
   .popover {
     font-family: 'Cafe24Oneprettynight';
     font-weight: bold;
+  }
+  .my-tip{
+    padding-left: 15%;
+    padding-right: 15%;
   }
 </style>

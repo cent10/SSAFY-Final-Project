@@ -1,6 +1,6 @@
 <template>
 <div>
-<video-bg :sources="[require('../assets/video.mp4')]" class="stuck">
+<video-bg :sources="[require('../assets/equipBg.mp4')]" class="stuck">
 </video-bg>
   <div class="equip-list">
     <b-card class="condition-card">

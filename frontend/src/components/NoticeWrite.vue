@@ -6,7 +6,6 @@
           <div style="width: 45%;">
             <input type="text" class="form-control" placeholder="* 제목" v-model="title" />
           </div>
-        <input type="text" class="form-control my-2" placeholder="작성자" v-model="user" />
        
         <textarea type="text" class="form-control my-2" placeholder="내용" v-model="content"></textarea>
       </div>
@@ -35,6 +34,7 @@ export default {
     };
   },
   created() {
+
     
   },
 
@@ -46,14 +46,16 @@ export default {
   },
   methods: {
     submit() {
-    
+      const uid = this.$cookies.get("yol_uid");
+      
+
       axios({
         method: "POST",
         url: `${API_URL}/notices`,
         data: {
           
           title: this.title,
-          user: this.user,
+          user: uid,
           content: this.content,
           
         },
@@ -84,6 +86,8 @@ export default {
 .notice-write {
   padding-top: 100px;
   background-color: #F2F2F5;
+  padding-left: 15%;
+  padding-right: 15%;
 }
 .mybutton1 {
   background-color: #084481;

@@ -52,7 +52,7 @@ export default {
         method: "PUT",
         url: `${API_URL}/user/modify`,
         data: {
-          id: this.$cookies.get("uid"),
+          id: this.$cookies.get("yol_uid"),
           name: this.name,
           ukey: this.$cookies.get("yol_ukey"),
         },

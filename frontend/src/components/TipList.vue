@@ -1,8 +1,11 @@
 <template>
   <div class="tip-list">
-    <h2>팁 게시판</h2>
+    <h2 @click="tipreturn()">팁 게시판</h2>
     <hr />
-    <div class="d-flex justify-content-between">
+    <!-- <div class="d-flex justify-content-between"> -->
+    <div align="left">
+    <div >
+      <div class="cate-gory">
       <select
         name="category"
         id="category"
@@ -14,29 +17,31 @@
         <option value="null">카테고리</option>
         <option v-for="(onecategory,id) in categorys" :key="id" :value="onecategory.category">{{onecategory.category}}</option>
       </select>
-    </div>
-
-    <div class="search" align="left">				
-				<select class="custom-select" style="width:15%; display:inline-block;" v-model="key">
+      </div>
+				<select class="custom-select" style="width:30%; display:inline-block;" v-model="key">
 					<option value="1">제목+내용</option>
 					<option value="2">제목</option>
 					<option value="3">내용</option>					
 				</select>				
-				<input type="text" class="form-control" style="width:70%;margin-left:5px;display:inline-block;" v-model="word" />&nbsp;			
+				<input type="text" class="form-control" style="width:60%;margin-left:38px;display:inline-block;" v-model="word" />&nbsp;			
+    <div class="search" >				
 		</div><p/>
+    </div>
+    </div>
 
     <p />
     <p></p>
-    <b-button class="border-0" @click="movewrite()">글쓰기</b-button>
-
+    <div align="right">
+    <b-button class="border-0" @click="movewrite()" v-if="this.$cookies.isKey('yol_token')">글쓰기</b-button>
+    </div>
+    <!-- <div class="d-inline-flex p-2"> -->
     <table class="table table-striped table-bordered table-hover">
       <thead>
         <tr>
-          <th style="width:20%;">카테고리</th>
+          <th style="width:30%;">카테고리</th>
           <th style="width:20%;">제목</th>
-          <th style="width:20%;">내용</th>
-          <th style="width:15%;">작성자</th>
-          <th style="width:15%;">날짜</th>
+          <th style="width:20%;">작성자</th>
+          <th style="width:20%;">날짜</th>
           <th style="width:10%;" @click="orderNotice(1)">조회수</th>
         </tr>
       </thead>
@@ -44,12 +49,12 @@
         <tr
           v-for="(notice,id) in notices"
           :key="id"
-          v-show="keyWord(notice.title, notice.content, notice.category)"
+          v-show="keyWord(notice.title, notice.content, notice.category)" 
           @click="moveDetail(notice.id)"
+          
         >
           <td>{{notice.category.slice(0, 6)}}</td>
           <td>{{notice.title.slice(0, 8)}}</td>
-          <td>{{notice.content.slice(0, 7)}}</td>
           <td>{{notice.name}}</td>
           <td>{{notice.date.slice(0,10)}}</td>
           <td>{{notice.hits}}</td>
@@ -57,6 +62,7 @@
         </tr>
       </tbody>
     </table>
+    <!-- </div> -->
     <p />
   </div>
 </template>
@@ -240,6 +246,9 @@ export default {
         }
         this.orderCount = (this.orderCount+1)%2;
       }
+    },
+    tipreturn(){
+      location.reload();
     }
   },
   filter: {},
@@ -249,6 +258,12 @@ export default {
   .tip-list {
     padding-top: 100px;
     background-color: #F2F2F5;
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+  .cate-gory{
+    padding-right: 5%;
+
   }
 
 </style>
