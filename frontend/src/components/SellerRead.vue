@@ -9,7 +9,7 @@
             <b-button v-if="isUpdating" type="button" @click="onClickImageUpload1">업체 이미지 업로드</b-button>
           </b-row>
           <b-row align-v="center" align-h="center" style="width: 100%; height: 200px; margin-top: 10px;">
-            <b-img v-if="shopImg" :src="shopImgUrl" style="max-width: 100%; max-height: 100%;"></b-img>
+            <b-img v-if="shopImgUrl" :src="shopImgUrl" style="max-width: 100%; max-height: 100%;"></b-img>
             <h5 v-else>업체 이미지 없음</h5>
           </b-row>
           업체명
@@ -37,7 +37,7 @@
             <b-button v-if="isUpdating" type="button" @click="onClickImageUpload2">업체 설명 이미지 업로드</b-button>
           </b-row>
           <b-row align-v="center" align-h="center" style="width: 100%; height: 400px; margin-top: 10px;">
-            <b-img v-if="shopDescImg" :src="shopDescImgUrl" style="max-width: 100%; max-height: 100%;"></b-img>
+            <b-img v-if="shopDescImgUrl" :src="shopDescImgUrl" style="max-width: 100%; max-height: 100%;"></b-img>
             <h5 v-else>설명 이미지 없음</h5>
           </b-row>
         </b-col>
@@ -198,8 +198,12 @@ export default {
       .then(({ data }) => {
         console.log(data.data);
         this.shop = data.data;
-        this.shopImgUrl = "/home/ubuntu/activityx_shop_img" + data.data.img;
-        this.shopDescImgUrl = "/home/ubuntu/activityx_shop_imgDesc" + data.data.descImg;
+        if(data.data.img !== null){
+          this.shopImgUrl = "/home/ubuntu/activityx_shop_img/" + data.data.img;
+        }
+        if(data.data.imgDesc !== null){
+          this.shopDescImgUrl = "/home/ubuntu/activityx_shop_imgDesc/" + data.data.descImg;
+        }
       })
       .catch((err) => {
         console.log(err);
