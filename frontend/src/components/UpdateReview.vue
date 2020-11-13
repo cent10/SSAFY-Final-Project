@@ -1,5 +1,5 @@
 <template>
-    <div class="review-write" align="center">
+    <div class="review-update" align="center">
     <h3 class="mt-2 mb-3">후기 수정</h3>
         <textarea type="text" class="form-control my-3" placeholder="내용을 작성해주세요!" v-model="review.content"></textarea>
  
@@ -108,5 +108,15 @@
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+
+.review-update {
+  padding-top: 100px;
+  padding-left: 15%;
+  padding-right: 15%;
+  font-family: 'Jua', sans-serif;
+
+}
 
 </style>

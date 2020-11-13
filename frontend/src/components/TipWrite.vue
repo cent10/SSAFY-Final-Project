@@ -109,6 +109,7 @@ export default {
 </script>
 
 <style scoped>
+
 .tip-write {
   padding-top: 100px;
   background-color: #F2F2F5;
