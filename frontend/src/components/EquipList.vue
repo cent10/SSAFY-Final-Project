@@ -100,6 +100,10 @@ export default {
               params: this.requestCondition,
             }).then((res) => {
                 this.equips = res.data.data;
+                this.equips.map((e) => {
+                  if(e.img !== null)
+                    e.img = "file:///home/ubuntu/activityx_shop_imgDesc/" + e.img;
+                });
               })
               .catch((err) => {
                 alert("업체 정보를 받아올때 에러가 발생했습니다.");
@@ -113,6 +117,10 @@ export default {
               params: this.requestCondition,
             }).then((res) => {
                 this.equips = res.data.data;
+                this.equips.map((e) => {
+                  if(e.img !== null)
+                    e.img = "file:///home/ubuntu/activityx_shop_imgDesc/" + e.img;
+                });
               })
               .catch((err) => {
                 alert("업체 정보를 받아올때 에러가 발생했습니다.");
@@ -126,6 +134,10 @@ export default {
               params: this.requestCondition,
             }).then((res) => {
                 this.equips = res.data.data;
+                this.equips.map((e) => {
+                  if(e.img !== null)
+                    e.img = "file:///home/ubuntu/activityx_shop_imgDesc/" + e.img;
+                });
               })
               .catch((err) => {
                 alert("업체 정보를 받아올때 에러가 발생했습니다.");
@@ -199,6 +211,10 @@ export default {
       }
     }).then((res) => {
         this.equips = res.data.data;
+        this.equips.map((e) => {
+          if(e.img !== null)
+            e.img = "file:///home/ubuntu/activityx_shop_imgDesc/" + e.img;
+        });
       })
       .catch((err) => {
         alert("업체 정보를 받아올때 에러가 발생했습니다.");
