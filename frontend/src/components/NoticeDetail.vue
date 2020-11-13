@@ -28,10 +28,10 @@
     </table>
     
     <!-- <b-button v-if="notice.user == user" class="mybutton1" @click="moveNoticeModify()">수정</b-button> -->
-    <b-button class="mybutton1" @click="moveNoticeModify()">수정</b-button>
+    <b-button class="mybutton1" @click="moveNoticeModify()" v-if="this.auth==1">수정</b-button>
 
     <!-- <b-button  v-if="notice.user == user" class="mybutton2 mx-3" @click="moveNoticeDelete()">삭제</b-button> -->
-    <b-button class="mybutton2 mx-3" @click="moveNoticeDelete()">삭제</b-button>
+    <b-button class="mybutton2 mx-3" @click="moveNoticeDelete()" v-if="this.auth==1">삭제</b-button>
 
     <b-button class="border-0" @click="moveNotice()">목록으로</b-button>
 
@@ -52,10 +52,12 @@ export default {
     return {
     
       notice: {},
+      auth: "",
       datas: {},
       id: "",
       comment: "",
       title: "",
+      // uid: this.$cookies.get('yol_uid'),
       
       
       name: "",
@@ -81,6 +83,19 @@ export default {
   created() {
     // const token = this.$cookies.get("auth-token");
     // console.log(token);
+    // const uid = this.$cookies.get("yol_uid");
+
+    axios({
+      method: "GET",
+      url: `${API_URL}/user/authority/`+this.$cookies.get("yol_uid"),
+
+    })
+    .then(({data}) =>{
+      this.auth=data.data;
+    }).catch((err) => {
+        console.log(err);
+        alert("정보를 받아올때 에러가 발생했습니다.");
+      });
 
     axios({
       method: "GET",
