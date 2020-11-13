@@ -114,7 +114,6 @@ export default {
           alert("정보를 모두 입력해주세요!");
           return;
       }
-
       axios({
         method: "POST",
         url: `${API_URL}/shops/`,
@@ -126,9 +125,9 @@ export default {
           number: this.number,
           description: this.description,
           region: this.selectedRegion,
-          img: "",
-          imgDesc: "",
-        
+          img: null,
+          imgDesc: null,
+          admin: this.$cookies.get('yol_uid'),
         },
         params: {
             categoryName: this.selectedCategory
