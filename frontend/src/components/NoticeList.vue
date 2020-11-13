@@ -1,6 +1,6 @@
 <template>
   <div class="notice-list">
-    <h2>공지사항</h2>
+    <h2 @click="noticereturn()">공지사항</h2>
     <hr />
     <div class="search" align="center">				
 				<select class="custom-select" style="width:15%; display:inline-block;" v-model="key">
@@ -13,8 +13,9 @@
 
     <p />
     <p></p>
+    <div align=right>
     <b-button class="border-0" @click="movewrite()" v-if="this.$cookies.isKey('yol_token')">글쓰기</b-button>
-
+    </div>
     <table class="table table-striped table-bordered table-hover">
       <thead>
         <tr>
@@ -149,6 +150,9 @@ export default {
         }
         this.orderCount = (this.orderCount+1)%2;
       }
+    },
+    noticereturn(){
+      location.reload();
     }
   },
   filter: {},
@@ -161,4 +165,5 @@ export default {
     padding-left: 15%;
     padding-right: 15%;
   }
+  
 </style>
