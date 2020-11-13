@@ -196,9 +196,10 @@ export default {
         url: `${API_URL}/shops/${this.shopId}`,
       })
       .then(({ data }) => {
+        console.log(data.data);
         this.shop = data.data;
-        this.shopImgUrl = data.data.img;
-        this.shopImgUrl = data.data.descImg;
+        this.shopImgUrl = "http://k3a210.p.ssafy.io/home/ubuntu/activityx_shop_img" + data.data.img;
+        this.shopDescImgUrl = "http://k3a210.p.ssafy.io/home/ubuntu/activityx_shop_imgDesc" + data.data.descImg;
       })
       .catch((err) => {
         console.log(err);
