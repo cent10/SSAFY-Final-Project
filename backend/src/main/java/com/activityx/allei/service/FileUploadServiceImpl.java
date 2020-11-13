@@ -25,7 +25,7 @@ public class FileUploadServiceImpl implements FileUploadService{
 	// AWS
 	// /home/ubuntu
 	String fileUploadRealPath = 
-			File.separator + "home" + File.separator + "ubuntu";
+			File.separator + "home" + File.separator + "ubuntu" + File.separator + "deploy" + File.separator + "dist" + File.separator + "img";
 	
 	String uploadFolder = "";
 	
