@@ -1,9 +1,11 @@
 <template>
   <div class="tip-list">
-    <h2>팁 게시판</h2>
+    <h2 @click="tipreturn()">팁 게시판</h2>
     <hr />
     <!-- <div class="d-flex justify-content-between"> -->
-    <div class="d-inline-flex p-2">
+    <div align="left">
+    <div >
+      <div class="cate-gory">
       <select
         name="category"
         id="category"
@@ -15,21 +17,23 @@
         <option value="null">카테고리</option>
         <option v-for="(onecategory,id) in categorys" :key="id" :value="onecategory.category">{{onecategory.category}}</option>
       </select>
-    </div>
-    
-    <div class="search" align="center">				
-				<select class="custom-select" style="width:15%; display:inline-block;" v-model="key">
+      </div>
+				<select class="custom-select" style="width:30%; display:inline-block;" v-model="key">
 					<option value="1">제목+내용</option>
 					<option value="2">제목</option>
 					<option value="3">내용</option>					
 				</select>				
-				<input type="text" class="form-control" style="width:70%;margin-left:5px;display:inline-block;" v-model="word" />&nbsp;			
+				<input type="text" class="form-control" style="width:60%;margin-left:38px;display:inline-block;" v-model="word" />&nbsp;			
+    <div class="search" >				
 		</div><p/>
+    </div>
+    </div>
 
     <p />
     <p></p>
+    <div align="right">
     <b-button class="border-0" @click="movewrite()" v-if="this.$cookies.isKey('yol_token')">글쓰기</b-button>
-
+    </div>
     <!-- <div class="d-inline-flex p-2"> -->
     <table class="table table-striped table-bordered table-hover">
       <thead>
@@ -242,6 +246,9 @@ export default {
         }
         this.orderCount = (this.orderCount+1)%2;
       }
+    },
+    tipreturn(){
+      location.reload();
     }
   },
   filter: {},
@@ -253,6 +260,10 @@ export default {
     background-color: #F2F2F5;
     padding-left: 15%;
     padding-right: 15%;
+  }
+  .cate-gory{
+    padding-right: 5%;
+
   }
 
 </style>
