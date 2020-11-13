@@ -48,24 +48,10 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "업체 등록", response = BasicResponse.class)
 	@PostMapping("")
-	private ResponseEntity<BasicResponse> createShop(@RequestParam(value = "categoryName") String categoryName, MultipartFile imgFile, MultipartFile imgDescFile, @RequestBody ShopDto shopDto) {
+	private ResponseEntity<BasicResponse> createShop(@RequestParam(value = "categoryName") String categoryName, @RequestBody ShopDto shopDto) {
 		logger.debug("업체 등록");
 		final BasicResponse result = new BasicResponse();
 		if (shopService.create(shopDto, categoryName)) {
-			if (imgFile != null) {
-				try {
-					fileUploadService.fileUpload(shopDto.getId(), imgFile, 0);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			if (imgDescFile != null) {
-				try {
-					fileUploadService.fileUpload(shopDto.getId(), imgDescFile, 1);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
 			result.status = true;
 		} else {
 			result.status = false;
@@ -372,4 +358,21 @@ public class ShopContoller {
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "사용자 아이디로 업체 아이디 조회하기", response = BasicResponse.class)
+	@GetMapping("find/{id}")
+	private ResponseEntity<BasicResponse> getShopIdByUser(@PathVariable("id") int id) {
+		logger.debug("사용자 아이디로 업체 아이디 조회하기");
+		final BasicResponse result = new BasicResponse();
+		Integer data = shopService.getShopIdByUser(id);
+		if (data != null) {
+			result.status = true;
+			result.data = data;
+		} else {
+			result.status = false;
+			result.msg = "해당 업체가 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+
 }
