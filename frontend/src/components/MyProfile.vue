@@ -48,12 +48,13 @@
                     </div>
             </b-tab>
             <b-tab title="내가 쓴 레저 팁">
+                    <div class="my-tip">
                     <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                         <th style="width:20%;">제목</th>
-                        <th style="width:20%;">내용</th>
-                        <th style="width:15%;">날짜</th>
+                        <th style="width:20%;">날짜</th>
+                        <th style="width:15%;">조회수</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,11 +64,12 @@
                         @click="moveDetail(notice.id)"
                         >
                         <td>{{notice.title.slice(0, 8)}}</td>
-                        <td>{{notice.content.slice(0, 7)}}</td>
-                        <td>{{notice.date.slice(0,10)}}</td>
+                        <td>{{notice.date.slice(0, 10)}}</td>
+                        <td>{{notice.hits}}</td>
                         </tr>
                     </tbody>
                     </table>
+                    </div>
             </b-tab>
         </b-tabs>
     </div>
@@ -372,5 +374,9 @@ export default {
   .popover {
     font-family: 'Cafe24Oneprettynight';
     font-weight: bold;
+  }
+  .my-tip{
+    padding-left: 15%;
+    padding-right: 15%;
   }
 </style>
