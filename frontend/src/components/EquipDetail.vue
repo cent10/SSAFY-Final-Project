@@ -66,8 +66,8 @@
             <b-img :src="shop.imgDesc" class="desc" />
           </div>
           <div style="padding-top: 3%; padding-bottom: 5%">
-            <b-button v-if="!isShowDesc" @click="toggleShowDesc">자세한 설명 보기</b-button>
-            <b-button v-else @click="toggleShowDesc">자세한 설명 숨기기</b-button>
+            <b-button v-if="!isShowDesc" @click="toggleShowDesc" style="background-color: #495464;">자세한 설명 보기</b-button>
+            <b-button v-else @click="toggleShowDesc" style="background-color: #495464;">자세한 설명 숨기기</b-button>
           </div>
         </b-col>
       </b-row>
@@ -87,7 +87,7 @@
                       <b-button variant="none" @click="showDetail(i)" class="review-content">{{review.summaryCont}}</b-button>
                     </b-row>
                   </b-col>
-                  <b-col cols=2>
+                  <b-col cols=4>
                     {{review.date}}
                   </b-col>
                 </b-row>
@@ -95,10 +95,10 @@
                   <b-col cols=2 style="text-align: right;">
                     <b-icon icon="arrow-return-right"/>
                   </b-col >
-                  <b-col cols=6>
+                  <b-col cols=6 style="word-break:break-all;">
                     {{review.reply.content}}
                   </b-col>
-                  <b-col cols=2>
+                  <b-col cols=4>
                     {{review.reply.date.slice(0,10)}}
                   </b-col>
                 </b-row>
@@ -106,8 +106,11 @@
           </b-list-group>
         </b-col>
       </b-row>
-      <b-row v-else style="padding-top: 3%; padding-bottom: 5%">
-        등록된 후기가 없습니다.
+      <b-row v-else align-h="center" style="padding-top: 3%; padding-bottom: 5%">
+        <b-col>
+        <h5>후기리스트</h5>
+        <div style="padding:20px;">등록된 후기가 없습니다.</div>
+        </b-col>
       </b-row>
       <b-row v-if="products !== null && products.length > 0">
         <b-col>
@@ -122,7 +125,7 @@
                   <col width="20%">
                 </colgroup>
                 <tr>
-                  <td>
+                  <td style="text-align: left; padding-left: 5%;">
                     <b-form-checkbox :value="i" v-model="checkedProducts">
                       {{product.name}}
                     </b-form-checkbox>
@@ -133,8 +136,8 @@
                   <td>
                     <div class="product-count">
                       <b-form-input type="number" v-model="product.buyNum" disabled />개
-                      <b-btn variant="info btn-sm ml-1 mt-1 mb-1" @click="upBuyNum(i)">+</b-btn>
-                      <b-btn variant="warning btn-sm mr-1 mt-1 mb-1" @click="downBuyNum(i)">-</b-btn>
+                      <b-btn variant="info btn-sm ml-1 mt-1 mb-1" @click="upBuyNum(i)"><span class="fas fa-plus"/></b-btn>
+                      <b-btn variant="warning btn-sm mr-1 mt-1 mb-1" @click="downBuyNum(i)"><span class="fas fa-minus"/></b-btn>
                     </div>
                   </td>
                   <td>
@@ -146,13 +149,16 @@
           </b-list-group>
         </b-col>
       </b-row>
-      <b-row v-else>
-        등록된 상품이 없습니다.
+      <b-row v-else align-h="center">
+        <b-col>
+        <h5>상품리스트</h5>
+        <div style="padding:20px;">등록된 상품이 없습니다.</div>
+        </b-col>
       </b-row>
       <b-row>
         <b-col>
-          <b-button @click="purchase" style="margin-right: 0.5%;" v-if="this.$cookies.isKey('yol_token')">결제하기</b-button>
-          <b-button @click="moveSearchPage" style="margin-left: 0.5%;">목록으로</b-button>
+          <b-button @click="purchase" style="margin-right: 0.5%; background-color: #084481;" v-if="this.$cookies.isKey('yol_token')">결제하기</b-button>
+          <b-button @click="moveSearchPage" style="margin-left: 0.5%; background-color: #084481;">목록으로</b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -199,6 +205,7 @@ export default {
     StarRating,
   },
   created() {
+    window.scrollTo(0,0);
     axios({
       method: "GET",
       url: `${API_URL}/shops/` + this.$route.params.id,
@@ -339,9 +346,10 @@ li {
   display: flex;
 }
 .equip-detail {
-  padding-top: 110px;
-  width: 80%;
   margin: auto;
+  padding: 110px;
+  width: 80%;
+  background-color: #f4f4f2;
 }
 .logo {
   width: 100%;
@@ -374,18 +382,23 @@ li {
 }
 .review-item {
   height: 200px;
-  background-color: #f4f4f2;
+  padding: 0;
 }
 .review-item-user {
   overflow: auto;
+  width: 100%;
+  margin: 0;
   height: 80px;
+  padding: 10px;
   text-align: left;
 }
 .review-item-seller {
   overflow: auto;
+  width: 100%;
+  margin: 0;
   height: 120px;
+  padding: 10px;
   text-align: left;
-  border-radius: 10px;
   background-color: #e8e8e8;
 }
 .review-content {
@@ -393,6 +406,7 @@ li {
   transition: all 0.5s;
 }
 .review-content:hover {
-  filter: opacity(50%);
+  cursor: pointer;
+  text-decoration: underline;
 }
 </style>

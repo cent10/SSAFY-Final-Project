@@ -9,9 +9,9 @@
     <tr>
       <td></td>
       <td>
-        <button type="button" class="btn btn-primary" @click="modify">
+        <b-button type="button" @click="modify" style="background-color: #084481;">
           수정
-        </button>
+        </b-button>
       </td>
       <td></td>
     </tr>
@@ -31,21 +31,8 @@ export default {
     };
   },
   created() {
-    //   axios
-    //   .get(`${API_URL}/tip/all`)
-    //   .then(({ data }) => {
-    //     console.log(data)
-    //     this.notices = data.data;
-    //     //   console.log(this.data)
-    //     //   this.comments = notices.comments;
-    //     //   console.log(comments)
-    //   })
-    //   .catch((err) => {
-    //     alert("정보를 받아올때 에러가 발생했습니다.");
-    //     console.log(err);
-    //   });
+    window.scrollTo(0, 0);
   },
-  components: {},
   methods: {
     modify() {
       axios({
@@ -60,18 +47,17 @@ export default {
         //   'Authorization':`Token ${token}`
         // },
       })
-        .then(({ data }) => {
-          console.log(data);
-          if(data.status){
-            this.$router.push({ path: `/` });
-            alert(
-              "닉네임 변경에 성공했습니다."
-            );
-          }
-          else{
-            alert(
-              data.msg
-            )
+        .then((data) => {
+          if(data.data.status){
+              this.$cookies.set("yol_nickname", this.name);
+              this.$router.push({ path: `/` });
+              alert(
+                "닉네임 변경에 성공했습니다."
+              );
+          } else{
+              alert(
+                data.data.msg
+              );
           }
         })
         .catch((err) => {
@@ -87,13 +73,14 @@ export default {
 
 <style scoped>
 .update-user {
-  margin-top: 100px;
+  padding-top: 120px;
   margin-bottom: 17%;
 }
 .table {
   font-size: 30px;
 }
-td {
+table td {
   min-width: 150px;
+  border: none;
 }
 </style>

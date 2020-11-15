@@ -3,11 +3,12 @@
     <h1 class="mt-2 mb-3">공지사항 작성 페이지</h1>
     <div class="d-none d-md-block">
       <div class="form-group">
-          <div style="width: 45%;">
+        
+          <div style="width: 100%;">
             <input type="text" class="form-control" placeholder="* 제목" v-model="title" />
           </div>
-       
-        <textarea type="text" class="form-control my-2" placeholder="내용" v-model="content"></textarea>
+        
+        <b-textarea no-resize type="text" class="form-control my-2" placeholder="내용" v-model="content" style="height: 400px;"/>
       </div>
       <b-button block class="mybutton2 mb-3" @click="submit()">등록</b-button>
       <b-button block class="mb-4" @click="moveNotice()">취소</b-button>
@@ -34,6 +35,7 @@ export default {
     };
   },
   created() {
+    window.scrollTo(0,0);
 
     
   },

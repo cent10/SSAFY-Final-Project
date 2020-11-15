@@ -32,17 +32,16 @@
     <p />
     <p></p>
     <div align="right">
-    <b-button class="border-0" @click="movewrite()" v-if="this.$cookies.isKey('yol_token')">글쓰기</b-button>
+    <b-button class="border-0" @click="movewrite()" v-if="this.$cookies.isKey('yol_token')" style="background-color: #084481; margin-bottom: 20px;">글쓰기</b-button>
     </div>
-    <!-- <div class="d-inline-flex p-2"> -->
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-bordered">
       <thead>
-        <tr>
-          <th style="width:30%;">카테고리</th>
-          <th style="width:20%;">제목</th>
-          <th style="width:20%;">작성자</th>
-          <th style="width:20%;">날짜</th>
-          <th style="width:10%;" @click="orderNotice(1)">조회수</th>
+        <tr style="background-color: #bbbfca; border:1px solid white; font-weight: 700;">
+          <th style="width:20%; border:1px solid #f4f4f2;">카테고리</th>
+          <th style="width:40%; border:1px solid #f4f4f2;">제목</th>
+          <th style="width:15%; border:1px solid #f4f4f2;">작성자</th>
+          <th style="width:15%; border:1px solid #f4f4f2;">날짜</th>
+          <th style="width:10%; border:1px solid #f4f4f2;" @click="orderNotice(1)">조회수</th>
         </tr>
       </thead>
       <tbody>
@@ -50,14 +49,16 @@
           v-for="(notice,id) in notices"
           :key="id"
           v-show="keyWord(notice.title, notice.content, notice.category)" 
-          @click="moveDetail(notice.id)"
-          
+          style="background-color: #e8e8e8; border:1px solid white;"
         >
-          <td>{{notice.category.slice(0, 6)}}</td>
-          <td>{{notice.title.slice(0, 8)}}</td>
-          <td>{{notice.name}}</td>
-          <td>{{notice.date.slice(0,10)}}</td>
-          <td>{{notice.hits}}</td>
+          <td style="border:1px solid #f4f4f2;">{{notice.category.slice(0, 6)}}</td>
+          <td style="border:1px solid #f4f4f2;">
+            <span v-if="notice.title.length > 25" @click="moveDetail(notice.id)" class="notice-title">{{notice.title.slice(0, 20) + "....."}}</span>
+            <span v-else @click="moveDetail(notice.id)" class="notice-title">{{notice.title}}</span>
+          </td>
+          <td style="border:1px solid #f4f4f2;">{{notice.name}}</td>
+          <td style="border:1px solid #f4f4f2;">{{notice.date.slice(0,10)}}</td>
+          <td style="border:1px solid #f4f4f2;">{{notice.hits}}</td>
 
         </tr>
       </tbody>
@@ -117,14 +118,12 @@ export default {
     // ...mapGetters(['userinfo', 'isLogin']),
   },
   created() {
+    window.scrollTo(0, 0);
+    
     axios
       .get(`${API_URL}/category/all`)
       .then((res) => {
-        console.log(res)
-        console.log(res.data);
-        console.log(res.data.data);
         this.categorys = res.data.data;
-        console.log(this.categorys);
       })
       .catch((err) => {
         alert("정보를 받아올때 에러가 발생했습니다.");
@@ -139,11 +138,7 @@ export default {
       }
     })
       .then(({ data }) => {
-        console.log(data)
         this.notices = data.data;
-        //   console.log(this.data)
-        //   this.comments = notices.comments;
-        //   console.log(comments)
       })
       .catch((err) => {
         alert("정보를 받아올때 에러가 발생했습니다.");
@@ -257,16 +252,21 @@ export default {
 <style scoped>
   .tip-list {
     padding-top: 100px;
-    background-color: #F2F2F5;
+    background-color: #f4f4f2;
     padding-left: 15%;
     padding-right: 15%;
     padding-bottom: 5%;
     margin-bottom: -30px;
 
   }
-  .cate-gory{
+  .cate-gory {
     padding-right: 5%;
-
+  }
+  .notice-title {
+    cursor: pointer;
+  }
+  .notice-title:hover {
+    text-decoration: underline;
   }
 
 </style>

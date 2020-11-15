@@ -33,7 +33,7 @@
           </b-col>
         </b-row>
         <b-row class="search-button">
-          <b-button @click="search()">검색</b-button>
+          <b-button @click="search()" style="background-color: #084481;">검색</b-button>
         </b-row>
       </b-container>
     </b-card>
@@ -44,7 +44,7 @@
         </b-form-select>
       </div>
       <b-card-group deck v-if="equips !== null && equips.length > 0">
-        <b-card v-for="(equip, i) in equips" :key="equip.id" :index="i" @click="viewEquip(i)">
+        <b-card v-for="(equip, i) in equips" :key="i" :index="i" @click="viewEquip(i)">
           <div class="post-card">
             <span class="post-tag">{{equip.region}}</span>
             <div class="logo">
@@ -99,6 +99,10 @@ export default {
               url: `${API_URL}/shops/detailsearch/rentalshop/orderbyprice`,
               params: this.requestCondition,
             }).then((res) => {
+                if(res.data.data === null){
+                  this.equips = [];
+                  return;
+                }
                 this.equips = res.data.data;
                 this.equips.map((e) => {
                   if(e.img !== null)
@@ -116,6 +120,10 @@ export default {
               url: `${API_URL}/shops/detailsearch/rentalshop/orderbyrate`,
               params: this.requestCondition,
             }).then((res) => {
+                if(res.data.data === null){
+                  this.equips = [];
+                  return;
+                }
                 this.equips = res.data.data;
                 this.equips.map((e) => {
                   if(e.img !== null)
@@ -133,6 +141,10 @@ export default {
               url: `${API_URL}/shops/detailsearch/rentalshop`,
               params: this.requestCondition,
             }).then((res) => {
+                if(res.data.data === null){
+                  this.equips = [];
+                  return;
+                }
                 this.equips = res.data.data;
                 this.equips.map((e) => {
                   if(e.img !== null)
@@ -266,7 +278,7 @@ export default {
           }
         }, 1000)
       }).catch(err => {
-        console.error(err);
+        console.log(err);
       })
     }
   }
@@ -283,12 +295,14 @@ input::-webkit-inner-spin-button {
   filter: brightness(60%);
   position: fixed;
   width: 100%;
-  z-index: -1;
+  z-index: 1;
 }
 .equip-list {
+  position: relative;
   padding-top: 100px;
   padding-left: 15%;
   padding-right: 15%;
+  z-index: 99;
 }
 .no-search {
   position: relative;

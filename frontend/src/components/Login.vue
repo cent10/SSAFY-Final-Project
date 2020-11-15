@@ -10,7 +10,7 @@
         >
       <b-form-input id="nickname-input" v-model="nickname" :state="state" trim></b-form-input>
     </b-form-group>
-        <b-button @click="join" type="button">가입하기</b-button>
+        <b-button @click="join" type="button" style="background-color: #084481;">가입하기</b-button>
     </div>
 </template>
 <script>
@@ -31,6 +31,7 @@ export default {
         };
     },
     created() {
+    window.scrollTo(0,0);
         axios({
             method: "GET",
             url: `${API_URL}/login`,
@@ -104,6 +105,7 @@ export default {
 <style scoped>
     .login {
         padding-top: 100px;
+        padding-bottom: 100px;
         margin: auto;
         width: 300px;
     }

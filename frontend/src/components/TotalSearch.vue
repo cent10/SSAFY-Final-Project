@@ -2,7 +2,7 @@
   <div class="total-search">
     <b-carousel
       v-model="slide"
-      :interval="4000"
+      :interval="3000"
       background="#ababab"
       class="yol-carousel"
     >
@@ -23,7 +23,7 @@
         text-variant="white"
         bg-variant="transparent"
       >
-        <p>#번지점프#행글라이더 #스키장비</p>
+        <p>#번지점프 #행글라이더 #스키장비</p>
         <b-nav-form>
           <b-form-input
             size="lg"
@@ -82,6 +82,7 @@ export default {
     search: function () {
       if (this.word === "") alert("검색어를 입력해주세요!");
       else this.$router.push({ path: `totalresult/${this.word}` });
+      window.scrollTo(0,0);
     },
   },
 };

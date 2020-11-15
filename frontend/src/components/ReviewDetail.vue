@@ -1,17 +1,15 @@
 <template>
       <div class="review-detail" align="center">
-    <h3 class="mt-2 mb-3">내가 쓴 후기</h3>
+    <h3 class="mt-2 mb-3" style="font-weight: 700;">내가 쓴 후기</h3>
         <div class="review-content">
-        {{review.content}}
- 
-            <div class="review-rate">
-            
-            <b-form-rating v-model="review.rate" readonly color="#ff8800"></b-form-rating>
-            
+        <b-textarea disabled no-resize type="text" class="form-control my-3" v-model="review.content" style="height: 300px;"></b-textarea>
+            <h5 style="text-align: left;">평점</h5>
+            <div>
+              <b-form-rating v-model="review.rate" readonly color="#ff8800"></b-form-rating>
             </div>
             <div class="bu-tton">
-            <b-button class="mybutton2 ml-2" @click="moveUpdateReview()">수정하기</b-button>
-            <b-button v-b-modal.modal-prevent-closing class="mybutton4 ml-2" @click="moveprofile()">마이프로필로</b-button>
+            <b-button class="mybutton2 ml-2" @click="moveUpdateReview()" variant="danger">수정하기</b-button>
+            <b-button v-b-modal.modal-prevent-closing class="mybutton4 ml-2" @click="moveprofile()" style="background-color: #084481;">마이프로필로</b-button>
             </div>
         </div>
   </div>
@@ -21,7 +19,6 @@
     const API_URL = process.env.VUE_APP_SERVER_URL
     
     import axios from "axios";
-    // import { mapGetters } from "vuex";
 
     export default {
         name: "ReviewDetail",
@@ -35,16 +32,8 @@
 
             }
         },
-        components:{
-            
-        },
-        computed:{
-            // ...mapGetters(['isLogin']),
-        },
         created(){
-            // var animal= '';
-            // const token = this.$cookies.get('auth-token')
-            // console.log(token)
+            window.scrollTo(0,0);
             axios({
                     method: "GET"
                     ,url:`${API_URL}/reviews/`+this.$route.params.id,
@@ -53,8 +42,6 @@
 
                 ).then(res => {
                     this.review = res.data.data
-                    // this.id=res.data.id
-                    // console.log(res.data.id)
                     
                 })
                  .catch(err => {
@@ -77,19 +64,13 @@
     }
 </script>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
-
+<style scoped>
 .review-detail {
   padding-top: 100px;
-  padding-left: 15%;
-  padding-right: 15%;
-}
-.review-rate{
-  padding-top: 50px;
+  padding-left: 30%;
+  padding-right: 30%;
 }
 .review-content{
   padding-top: 50px;
-  font-family: 'Jua', sans-serif;
 }
 </style>
