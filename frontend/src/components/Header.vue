@@ -47,6 +47,7 @@ export default {
             if(this.$route.path !== '/') this.$router.push({name: 'Home'});
             else this.$forceUpdate();
             window.scrollTo(0,0);
+            alert("로그아웃되었습니다.")
     }
   },
   mounted() {

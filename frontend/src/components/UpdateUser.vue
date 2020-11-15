@@ -47,11 +47,18 @@ export default {
         //   'Authorization':`Token ${token}`
         // },
       })
-        .then(() => {
-          this.$router.push({ path: `/` });
-          alert(
-            "닉네임 변경에 성공했습니다."
-          );
+        .then((data) => {
+          if(data.data.status){
+              this.$cookies.set("yol_nickname", this.name);
+              this.$router.push({ path: `/` });
+              alert(
+                "닉네임 변경에 성공했습니다."
+              );
+          } else{
+              alert(
+                data.data.msg
+              );
+          }
         })
         .catch((err) => {
           alert(
