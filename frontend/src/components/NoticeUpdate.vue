@@ -1,15 +1,15 @@
 <template>
   <div class="notice-update">
     <h1 class="mt-2 mb-3">공지사항 수정 페이지</h1>
-    <div style="width:40%; margin:0px auto">	
-		<div class="form-group">
-        <input type="text" class="form-control" placeholder="* 제목" v-model="notice.title">
-		</div>
-		<div class="form-group">			 
-            <textarea class="form-control" rows="5" placeholder="내용" v-model="notice.content"></textarea>
-		</div>		 
-		<button type="button" class="btn btn-primary" style="width:100%; margin:10px auto;" @click="submit()">수정</button>
-		<button type="button" class="btn btn-primary" style="width:100%; margin:10px auto;" @click="moveNoticeDetail()">취소</button>		
+    <div class="d-none d-md-block">	
+      <div class="form-group">
+            <div style="width: 100%;">
+              <input type="text" class="form-control" placeholder="* 제목" v-model="notice.title">
+            </div>
+          <b-textarea no-resize type="text" class="form-control my-2" placeholder="내용" v-model="notice.content" style="height: 400px;"/>
+      </div>		 
+      <b-button block class="mybutton2 mb-3" @click="submit()">수정</b-button>
+      <b-button  block class="mybutton1 mb-4" @click="moveNoticeDetail()">취소</b-button>
     </div>
   </div>
   
@@ -36,13 +36,8 @@
         components:{
             
         },
-        computed:{
-            // ...mapGetters(['isLogin']),
-        },
         created(){
-            // var animal= '';
-            // const token = this.$cookies.get('auth-token')
-            // console.log(token)
+          window.scrollTo(0,0);
             axios({
                     method: "GET"
                     ,url:`${API_URL}/notices/`+this.$route.params.id,
@@ -54,8 +49,6 @@
 
                 ).then(res => {
                     this.notice = res.data.data
-                    // this.id=res.data.id
-                    // console.log(res.data.id)
                     
                 })
                  .catch(err => {
@@ -67,8 +60,6 @@
         },
         methods:{
             submit(){
-                // const token = this.$cookies.get('auth-token')
-                // console.log(token)
 
                 axios({
                     method: "PUT",
@@ -83,9 +74,7 @@
                     // },
                   }
 
-                ).then(({data}) => {
-                    console.log(data)  
-                    // console.log(data.id)                  
+                ).then(() => {
                     // if (data == 'success'){
                       this.$router.push({path: `/noticedetail/${this.notice.id}`}); 
                     // }
@@ -102,12 +91,21 @@
     }
 </script>
 
-<style>
+<style scoped>
 .notice-update {
   padding-top: 100px;
-  padding-bottom: 5%;
   background-color: #F2F2F5;
-  margin-bottom: -25px;
-
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-bottom: 5%;
+  margin-bottom: -30px;
+}
+.mybutton1 {
+  background-color: #084481;
+  border: none;
+}
+.mybutton2 {
+  background-color: #fa1e44;
+  border: none;
 }
 </style>

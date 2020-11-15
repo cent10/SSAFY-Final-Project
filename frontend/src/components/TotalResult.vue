@@ -58,7 +58,7 @@
       <router-link v-if="equips.length > 0" class="more" :to="{ name: 'EquipList' }">더 찾아보기...</router-link>
     </b-row>
     <b-row>
-      <h3> 정보 공유 </h3>
+      <h3> 레저 팁 </h3>
     </b-row>
     <b-row>
       <carousel-3d v-if="tips.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" :count="tips.length"  ref="tipSlides" :on-main-slide-click="viewTip">
@@ -129,6 +129,8 @@ export default {
     },
   },
   created () {
+    window.scrollTo(0, 0);
+    
     axios({
         method: "GET",
         url: `${API_URL}/shops/search/`+this.word,
@@ -172,7 +174,7 @@ export default {
 <style scoped>
   .total-result {
     padding-top: 100px;
-    background-color: #e8e8e8;
+    background-color: #f4f4f2;
     padding-bottom: 5%;
     margin-bottom: -30px;
   }
@@ -181,7 +183,7 @@ export default {
     border-style: none;
   }
   .post-card {
-    background-color: #f4f4f2;
+    background-color: #e8e8e8;
     max-width: 300px;
     height: 100%;
     border-radius: 5px;

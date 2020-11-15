@@ -94,6 +94,8 @@ export default {
     }
   },
   created() {
+    window.scrollTo(0, 0);
+    
     this.pl.map((p) => {
       this.totalPrice += p.price * p.buyNum;
     });

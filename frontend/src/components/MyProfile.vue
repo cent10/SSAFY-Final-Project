@@ -1,76 +1,73 @@
 <template>
-
-  <div class="my-profile">
-    <div>
-        <h1>{{user.name}}님 환영합니다!!</h1>
-    </div>
-    <h1>
-    <div>
-      <b-button class="mybutton2 ml-2" @click="moveUpdateUser()">정보 수정</b-button>
-    </div>
-    </h1>
-    <div>
-      <b-button v-if="authority === 2" class="mybutton2 ml-2" @click="sellerpost()">업체 등록</b-button>
-      <b-button v-else-if="authority === 3" class="mybutton2 ml-2" @click="sellerread()">업체 정보</b-button>
-    </div>
-    <div>
-      <b-button v-b-modal.modal-prevent-closing class="mybutton4 ml-2">탈퇴하기</b-button>
-    </div>
-    <div class="tab-content">
-        <b-tabs content-class="mt-3" fill>
-            <b-tab title="예약/대여 현황" active> 
-                    <carousel-3d v-if="leisures.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" >
-                        <slide v-for="(leisure, i) in leisures" :key="i" :index="i">
-                        <div class="post-card">
-                        <h5 class="shop-name">{{leisure.shopName}}</h5>
-                        
-                            <h6>{{leisure.date.slice(0,10)}}</h6>
-                            <div class="card-button">
-                            <b-button class="button5" v-if="leisure.reviewed===0" @click="writereview(leisure.id)">후기 작성</b-button>
-                            <b-button class="button6" v-if="leisure.reviewed===1" @click="updatereview(leisure.id)">후기 수정</b-button>
+  <div>
+    <b-container class="my-profile">
+      <b-row align-v="center" align-h="center">
+          <h1>{{user.name}}님 환영합니다!!</h1>
+      </b-row>
+      <b-row align-v="center" align-h="center" style="margin: 20px;">
+        <b-button class="ml-2" variant="danger" @click="moveUpdateUser()">정보 수정</b-button>
+        <b-button v-if="authority === 2" class="mybutton2 ml-2" @click="sellerpost()">업체 등록</b-button>
+        <b-button v-else-if="authority === 3" class="mybutton2 ml-2" @click="sellerread()">업체 정보</b-button>
+      </b-row>
+      <b-row align-v="center" align-h="center">
+      <div class="tab-content">
+          <b-tabs content-class="mt-3" fill>
+              <b-tab title="예약/대여 현황" active> 
+                <carousel-3d v-if="leisures.length > 0" :width="200" :height="400" controls-visible :perspective="0" :space="300" >
+                    <slide v-for="(leisure, i) in leisures" :key="i" :index="i">
+                    <div class="post-card">
+                      <h5 class="shop-name">{{leisure.shopName}}</h5>
+                      <h6 style="text-align: right; padding-right: 5px;">{{leisure.date.slice(0,10)}}</h6>
+                      <div style="text-align: center; margin-top: 5px; font-weight: 700;">구매한 상품</div>
+                      <div class="post-info">
+                          <div class="post-text">
+                            <div v-for="(service, k) in leisure.products" :key="k" :index="k" style="font-size: 1rem;">
+                              {{service.name}}
                             </div>
-                        <div class="post-info">
-                            <div class="post-text">
-                            <!-- <p class="post-desc">{{leisure.description}}</p> -->
-                            <div v-for="(service, k) in leisure.products" :key="k" :index="k">
-                              <h5 class="card-font">{{service.name}}</h5>
-                            </div>
-                        
-                            </div>
-                        </div>
-                        </div>
-                        </slide>
-                    </carousel-3d>
-                    <div v-else class="no-search">
-                        <h3>검색결과 없음</h3>
+                          </div>
+                      </div>
+                      <div class="card-button">
+                        <b-button class="button5" v-if="leisure.reviewed===0" @click="writereview(leisure.id)">후기 작성</b-button>
+                        <b-button class="button6" v-if="leisure.reviewed===1" @click="updatereview(leisure.id)">후기 수정</b-button>
+                      </div>
                     </div>
-            </b-tab>
-            <b-tab title="내가 쓴 레저 팁">
-                    <div class="my-tip">
-                    <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr>
-                        <th style="width:20%;">제목</th>
-                        <th style="width:20%;">날짜</th>
-                        <th style="width:15%;">조회수</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                        v-for="(notice,id) in notices"
-                        :key="id"
-                        @click="moveDetail(notice.id)"
-                        >
-                        <td>{{notice.title.slice(0, 8)}}</td>
-                        <td>{{notice.date.slice(0, 10)}}</td>
-                        <td>{{notice.hits}}</td>
-                        </tr>
-                    </tbody>
-                    </table>
-                    </div>
-            </b-tab>
-        </b-tabs>
-    </div>
+                    </slide>
+                </carousel-3d>
+                <div v-else class="no-search">
+                    <h3>검색결과 없음</h3>
+                </div>
+              </b-tab>
+              <b-tab title="내가 쓴 레저 팁">
+                <div class="my-tip">
+                <table class="table table-bordered">
+                <thead>
+                    <tr style="background-color: #bbbfca;">
+                      <th style="width:70%;">제목</th>
+                      <th style="width:15%;">날짜</th>
+                      <th style="width:15%;">조회수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                    style="background-color: #e8e8e8;"
+                    v-for="(notice,id) in notices"
+                    :key="id"
+                    >
+                    <td @click="moveDetail(notice.id)"><span class="tip-title">{{notice.title.slice(0, 8)}}</span></td>
+                    <td>{{notice.date.slice(0, 10)}}</td>
+                    <td>{{notice.hits}}</td>
+                    </tr>
+                </tbody>
+                </table>
+                </div>
+              </b-tab>
+          </b-tabs>
+      </div>
+      </b-row>
+      <b-row align-v="center" align-h="end" style="padding-right: 10%;">
+        <span v-b-modal.modal-prevent-closing>탈퇴하기</span>
+      </b-row>
+    </b-container>
     <b-modal id="modal-prevent-closing" modal-class="mymodal" hide-footer>
       <template v-slot:modal-title>
         탈퇴 확인창
@@ -104,48 +101,15 @@ export default {
           notices: [],
           reviews: [],
           user: {},
-          leisures: {},
+          leisures: [],
           authority: 0,
 
           outtext: "",
           empty,
-          // leisures: [
-          //   {
-          //   name: '업체명1',
-          //   description: '설명설명설명설명설명설명1',
-          //   // logo: ''
-          //   },
-          //   {
-          //   name: '업체명2',
-          //   description: '설명설명설명설명설명설명2',
-          //   // logo: ''
-          //   },
-          //   {
-          //   name: '업체명2',
-          //   description: '설명설명설명설명설명설명2',
-          //   // logo: ''
-          //   },
-          // ],
-          // equips: [
-          //   {
-          //   name: '업체1',
-          //   description: '설명설명설명설명설명설명1',
-          //   // logo: ''
-          //   },
-          //   {
-          //   name: '업체2',
-          //   description: '설명설명설명설명설명설명2',
-          //   // logo: ''
-          //   },
-          //   {
-          //   name: '업체3',
-          //   description: '설명설명설명설명설명설명2',
-          //   // logo: ''
-          //   },
-          // ]
       }
   },
   created(){
+    window.scrollTo(0,0);
       const uid = this.$cookies.get("yol_uid");
 
       axios({
@@ -153,7 +117,6 @@ export default {
         url:`${API_URL}/user/findById/${uid}`,
         })
         .then(({ data }) => {
-            console.log(data.data);
             this.user = data.data
           })
         .catch(err => {
@@ -169,7 +132,6 @@ export default {
           }
           })
           .then(({ data }) => {
-            console.log(data)
             this.leisures = data.data;
           })
           .catch((err) => {
@@ -188,9 +150,6 @@ export default {
       })
       .then(({ data }) => {
         this.authority = data.data;
-        //   console.log(this.data)
-        //   this.comments = notices.comments;
-        //   console.log(comments)
       })
       .catch((err) => {
         alert("정보를 받아올때 에러가 발생했습니다.");
@@ -249,36 +208,30 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Brush+Script&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cute+Font&family=Jua&family=Nanum+Brush+Script&display=swap');
-  .element.style {
-    height: 402px;
-  }
   .my-profile {
     padding-top: 100px;
-    background-color: #F2F2F5;
+    background-color: #f4f4f2;
     padding-bottom: 5%;
     margin-bottom: -30px;
+    margin: auto;
   }
   .tab-content{
     padding-top: 50px;
+    width: 80%;
   }
   .no-search{
       justify-content: center;
   }
-
   .total-result {
     padding-top: 100px;
-    background-color: #F2F2F5;
+    background-color: #f4f4f2;
   }
   .carousel-3d-slide {
-    background-color: #F2F2F5;
+    background-color: #f4f4f2;
     border-style: none;
   }
   .post-card {
     background-color: #E8E8E8;
-    padding-top: 5px;
     margin: 40px 0px;
     max-width: 300px;
     height: 320px;
@@ -288,34 +241,12 @@ export default {
     text-align: center;
     overflow: hidden;
   }
-  .post-tag {
-    position: absolute;
-    right: -6px;
-    top: 15px; 
-    background-color: #FFD95B;
-    font-size: 10px;
-    padding: 7px;
-    letter-spacing: .4px;
-    text-transform: uppercase;
-    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.21);
-    z-index: 99;
-  }
-  .circle {
-    height: 50%;
-    width: 100%;
-    background-color: darkgray;
-    display: inline-block;
-    position: relative;
-  } 
-  .circle img {
-    max-width: 100%;
-    max-height: 100%;
-  }
   .post-info{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 25px;
     margin-left: 5px;
+    height: 140px;
   }
   .post-tip{
     display: flex;
@@ -327,7 +258,6 @@ export default {
       text-align: left;
       margin-left: 15px;
       margin-right: 15px;
-      font-family: 'Cute Font', cursive;
   }
   .post-desc {
       margin: 4px 0;
@@ -353,23 +283,19 @@ export default {
   }
   .shop-name{
     background-color: #BBBFCA;
-    font-family: 'Jua', sans-serif;
+    padding: 10px;
+    font-weight: 700;
   }
   .card-button{
     width: 100px;
     margin-left: 25%;
-    
   }
   .button5{
     background-color: #0c353a;
   }
  .button6{
-    background-color: #4b0881;
+    background-color: #084481;
   }
-  .card-font{
-    font-size: 30px;
-  }
-
   .grow { 
   transition: all .2s ease-in-out; 
   }
@@ -377,24 +303,21 @@ export default {
   transform: scale(1.05); 
   }
   .mybutton2 {
-    width: 20%;
+    margin: 20px;
+    width: 100px;
     background-color: #084481;
     border: none;
   }
-  .mybutton4 {
-    width: 20%;
-    background-color: #FA1E44;
-    border: none;
+  .my-tip {
+    padding-left: 2%;
+    padding-right: 2%;
+    overflow: auto;
+    height: 422px;
   }
-  ::v-deep .mymodal {
-    font-family: 'Cafe24Oneprettynight';
+  .tip-title {
+    cursor: pointer;
   }
-  .popover {
-    font-family: 'Cafe24Oneprettynight';
-    font-weight: bold;
-  }
-  .my-tip{
-    padding-left: 15%;
-    padding-right: 15%;
+  .tip-title:hover {
+    text-decoration: underline;
   }
 </style>

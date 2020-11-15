@@ -1,9 +1,9 @@
 <template>
   <div class="review-write" align="center">
     <h3 class="mt-2 mb-3">후기 작성</h3>
-        <textarea type="text" class="form-control my-3" placeholder="내용을 작성해주세요!" v-model="content"></textarea>
- 
+        <b-textarea no-resize type="text" class="form-control my-3" placeholder="내용을 작성해주세요!" v-model="content" style="height: 300px;"></b-textarea>
             <div>
+            <h5 style="text-align: left;">평점</h5>
             <b-input-group>
             <b-input-group-prepend>
                 <b-button @click="value = null">Clear</b-button>
@@ -17,8 +17,8 @@
             </b-input-group>
             </div>
             <div class="bu-tton">
-            <b-button class="mybutton2 ml-2" @click="submit()">작성 완료</b-button>
-            <b-button v-b-modal.modal-prevent-closing class="mybutton4 ml-2" @click="moveprofile()">취소 하기</b-button>
+            <b-button class="mybutton2 ml-2" @click="submit()" variant="danger">작성 완료</b-button>
+            <b-button v-b-modal.modal-prevent-closing class="mybutton4 ml-2" @click="moveprofile()" style="background-color: #084481">취소 하기</b-button>
             </div>
   </div>
 </template>
@@ -41,10 +41,18 @@ export default {
     }
   },
   created(){
-       
+    window.scrollTo(0, 0);
   },
   methods:{
         submit(){
+          if(this.content === null || this.content.length === 0){
+            alert("내용을 입력해주세요!");
+            return;
+          }
+          else if(this.value === null){
+            alert("평점을 매겨주세요!");
+            return;
+          }
           axios({
             method: "POST",
             url: `${API_URL}/reviews`,
@@ -57,16 +65,12 @@ export default {
             },
             
             })
-            .then(({ data }) => {
-            console.log(data);
-            console.log(data.id);
-            // if (data == 'success'){
-            this.$router.push({ path: `/myprofile` }); //리스트 전체목록
-            // }
+            .then(() => {
+              this.$router.push({ path: `/myprofile` }); //리스트 전체목록
             })
             .catch((err) => {
-            console.log(err);
-            alert("입력오류가 발생했습니다. \n 다시한번 확인해주세요!");
+              console.log(err);
+              alert("입력오류가 발생했습니다. \n 다시한번 확인해주세요!");
             });
         },
         moveprofile() {
@@ -78,21 +82,16 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
-
 
 .review-write {
   padding-top: 100px;
-  padding-left: 15%;
-  padding-right: 15%;
-  font-family: 'Jua', sans-serif;
-
+  padding-left: 30%;
+  padding-right: 30%;
 }
 
 .bu-tton{
     padding-top: 50px;
 }
-
 
 
 </style>
