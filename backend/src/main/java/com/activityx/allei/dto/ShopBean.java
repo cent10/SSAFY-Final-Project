@@ -9,6 +9,7 @@ public class ShopBean {
 	private boolean classification;	// 구분 (0:레저, 1:장비)
 	private String number;	// 사업자등록번호
 	private String description;	// 설명
+	private String imgDesc;	// 상세 설명 이미지 설명
 	private String img;	// 이미지
 	private String region;	// 지역
 	
@@ -19,7 +20,7 @@ public class ShopBean {
 		super();
 	}
 	public ShopBean(int id, int admin, String name, String address, String phone, boolean classification, String number,
-			String description, String img, String region, float avgRate, int minPrice) {
+			String description, String imgDesc, String img, String region, Float avgRate, int minPrice) {
 		super();
 		this.id = id;
 		this.admin = admin;
@@ -29,8 +30,10 @@ public class ShopBean {
 		this.classification = classification;
 		this.number = number;
 		this.description = description;
+		this.imgDesc = imgDesc;
 		this.img = img;
 		this.region = region;
+		if(avgRate == null) avgRate = 0.0f;
 		this.avgRate = avgRate;
 		this.minPrice = minPrice;
 	}
@@ -83,6 +86,12 @@ public class ShopBean {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public String getImgDesc() {
+		return imgDesc;
+	}
+	public void setImgDesc(String imgDesc) {
+		this.imgDesc = imgDesc;
+	}
 	public String getImg() {
 		return img;
 	}
@@ -107,11 +116,13 @@ public class ShopBean {
 	public void setMinPrice(int minPrice) {
 		this.minPrice = minPrice;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "ShopBean [id=" + id + ", admin=" + admin + ", name=" + name + ", address=" + address + ", phone="
 				+ phone + ", classification=" + classification + ", number=" + number + ", description=" + description
-				+ ", img=" + img + ", region=" + region + ", avgRate=" + avgRate + ", minPrice=" + minPrice + "]";
+				+ ", imgDesc=" + imgDesc + ", img=" + img + ", region=" + region + ", avgRate=" + avgRate
+				+ ", minPrice=" + minPrice + "]";
 	}
+
 }

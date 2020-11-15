@@ -46,4 +46,13 @@ public interface ShopService {
 	
 	// 업체 삭제
 	boolean delete(int id);
+	
+	// 업체 이미지 저장
+	boolean updateImg(ShopDto shopDto);
+	
+	// 업체 설명 이미지 저장
+	boolean updateImgDesc(ShopDto shopDto);
+	
+	// 사용자 id로 업체 id 찾기
+	public Integer getShopIdByUser(int user); 
 }

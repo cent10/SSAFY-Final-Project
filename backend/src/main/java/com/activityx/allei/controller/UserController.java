@@ -52,12 +52,18 @@ public class UserController {
     public ResponseEntity<BasicResponse> modifyUser(@RequestBody User user) {
         logger.debug("User DB test : modifyUser - 호출");
         final BasicResponse result = new BasicResponse();
-        if (service.modifyUser(user)) {
-            result.status = true;
-        } else {
+        if (service.findByName(user.getName()) != null) {
             result.status = false;
-            result.msg = "유저 정보 수정에 실패하였습니다.";
+            result.msg = "이미 존재하는 이름입니다.";
+        } else {
+            if (service.modifyUser(user)) {
+                result.status = true;
+            } else {
+                result.status = false;
+                result.msg = "유저 정보 수정에 실패하였습니다.";
+            }
         }
+
         return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
     }
 
@@ -186,21 +192,21 @@ public class UserController {
         }
         return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
     }
-    
+
     @ApiOperation(value = "유저 권한 코드 조회 (1:ADMIN, 2:USER, 3:SELLER)", response = BasicResponse.class)
     @GetMapping("authority/{id}")
     public ResponseEntity<BasicResponse> readUserAuthority(@PathVariable int id) {
-    	logger.debug("User DB test : readUserAuthority - 호출");
-    	final BasicResponse result = new BasicResponse();
-    	int data = service.readUserAuthority(id);
-    	if (data > 0) {
-    		result.status = true;
-    		result.data = data;
-    	} else {
-    		result.status = false;
-    		result.msg = "유저 권한 조회를 할 수 없습니다.";
-    	}
-    	return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+        logger.debug("User DB test : readUserAuthority - 호출");
+        final BasicResponse result = new BasicResponse();
+        int data = service.readUserAuthority(id);
+        if (data > 0) {
+            result.status = true;
+            result.data = data;
+        } else {
+            result.status = false;
+            result.msg = "유저 권한 조회를 할 수 없습니다.";
+        }
+        return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
     }
 
 }

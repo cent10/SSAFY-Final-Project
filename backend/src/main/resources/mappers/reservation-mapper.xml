@@ -33,6 +33,8 @@
 		SELECT *
 		FROM reservation
 		WHERE user=#{id}
+		and state = TRUE
+		order by id desc
 	</select>
 	
 	<!-- 예약취소 -->
@@ -40,5 +42,32 @@
 		DELETE FROM reservation
 		WHERE id=#{id}
 	</delete>
+	
+	<!-- 최근 예약번호 확인 -->
+	<select id="getLastReservationId" resultType="Integer">
+		SELECT MAX(id)
+		FROM reservation
+	</select>
+	
+	<!-- 결제 시작시 tid 입력 -->
+	<update id="addTid">
+		update reservation
+		set tid = #{tid}
+		where id = #{id}
+	</update>
+	
+	<!-- tid로 예약정보 검색 -->
+	<select id="getReservationByTid" resultType="ReservationDto">
+		select *
+		from reservation
+		where tid = #{tid}
+	</select>
+	
+	<!-- 결제완료시 state 변경 -->
+	<update id="changeState">
+		update reservation
+		set state = TRUE
+		where tid = #{tid}
+	</update>
 
 </mapper>

@@ -6,6 +6,7 @@ public class TipDto {
 	
 	private int id;
 	private int user;
+	private String name;
 	private String title;
 	private String content;
 	private Date date;
@@ -23,6 +24,12 @@ public class TipDto {
 	}
 	public void setUser(int user) {
 		this.user = user;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getTitle() {
 		return title;

@@ -10,6 +10,8 @@ public class ReservationDto {
 	private int shop;	// 업체 아이디
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
 	private Date date;	// 예약한 날짜
+	private String tid;	// 페이 결제시 연결 id
+	private boolean state;	//결제 상태 (true : 완료, false : 실패)
 	
 	public ReservationDto() {
 		super();
@@ -46,9 +48,23 @@ public class ReservationDto {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+	public String getTid() {
+		return tid;
+	}
+	public void setTid(String tid) {
+		this.tid = tid;
+	}
+	public boolean isState() {
+		return state;
+	}
+	public void setState(boolean state) {
+		this.state = state;
+	}
+
 	@Override
 	public String toString() {
-		return "ReservationDto [id=" + id + ", user=" + user + ", shop=" + shop + ", date=" + date + "]";
+		return "ReservationDto [id=" + id + ", user=" + user + ", shop=" + shop + ", date=" + date + ", tid=" + tid
+				+ ", state=" + state + "]";
 	}
+
 }

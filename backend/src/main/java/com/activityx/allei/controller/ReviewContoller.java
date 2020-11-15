@@ -1,5 +1,7 @@
 package com.activityx.allei.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,18 +52,34 @@ public class ReviewContoller {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "후기 조회", response = BasicResponse.class)
-	@GetMapping("/{id}")
-	private ResponseEntity<BasicResponse> readReview(@PathVariable("id") int id) {
+	@ApiOperation(value = "후기 조회 (예약번호에 일치하는 후기 조회)", response = BasicResponse.class)
+	@GetMapping("/{reservation}")
+	private ResponseEntity<BasicResponse> readReview(@PathVariable("reservation") int reservation) {
 		logger.debug("후기 조회");
 		final BasicResponse result = new BasicResponse();
-		ReviewDto reviewDto = reviewService.read(id);
+		ReviewDto reviewDto = reviewService.read(reservation);
 		if (reviewDto != null) {
 			result.status = true;
 			result.data = reviewDto;
 		} else {
 			result.status = false;
 			result.msg = "해당 후기가 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "후기 리스트 조회 (업체 번호로 후기 리스트 조회)", response = BasicResponse.class)
+	@GetMapping("/list/{shop}")
+	private ResponseEntity<BasicResponse> readReviews(@PathVariable("shop") int shop) {
+		logger.debug("후기 리스트 조회 (업체 번호로 후기 리스트 조회)");
+		final BasicResponse result = new BasicResponse();
+		List<ReviewDto> reviewList = reviewService.readReviews(shop);
+		if (reviewList != null) {
+			result.status = true;
+			result.data = reviewList;
+		} else {
+			result.status = false;
+			result.msg = "업체 번호에 해당하는 후기 리스트가 없습니다.";
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}

@@ -1,6 +1,8 @@
 package com.activityx.allei.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,11 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.activityx.allei.dto.BasicResponse;
 import com.activityx.allei.dto.NoticeDto;
+import com.activityx.allei.service.KakaoAPI;
 import com.activityx.allei.service.NoticeService;
 
 import io.swagger.annotations.ApiOperation;
@@ -27,12 +31,14 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/notices")
 public class NoticeController {
-	
-private static final Logger logger = LoggerFactory.getLogger(SampleController.class);
-	
+
+	private static final Logger logger = LoggerFactory.getLogger(SampleController.class);
+
 	@Autowired
 	NoticeService noticeService;
-	
+
+	KakaoAPI kakao;
+
 	@ApiOperation(value = "공지사항 등록", response = BasicResponse.class)
 	@PostMapping("")
 	private ResponseEntity<BasicResponse> createNotice(@RequestBody NoticeDto noticeDto) {
@@ -46,7 +52,7 @@ private static final Logger logger = LoggerFactory.getLogger(SampleController.cl
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "공지사항 상세보기", response = BasicResponse.class)
 	@GetMapping("/{id}")
 	private ResponseEntity<BasicResponse> readNotice(@PathVariable("id") int id) {
@@ -62,7 +68,7 @@ private static final Logger logger = LoggerFactory.getLogger(SampleController.cl
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "공지사항 리스트 조회", response = BasicResponse.class)
 	@GetMapping("")
 	private ResponseEntity<BasicResponse> readAllNotices() {
@@ -78,7 +84,7 @@ private static final Logger logger = LoggerFactory.getLogger(SampleController.cl
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "공지사항 검색 (제목으로 검색)", response = BasicResponse.class)
 	@GetMapping("/search/{searchword}")
 	private ResponseEntity<BasicResponse> searchNotice(@PathVariable("searchword") String searchword) {
@@ -94,7 +100,7 @@ private static final Logger logger = LoggerFactory.getLogger(SampleController.cl
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "공지사항 수정", response = BasicResponse.class)
 	@PutMapping("/{id}")
 	private ResponseEntity<BasicResponse> updateNotice(@RequestBody NoticeDto noticeDto) {
@@ -108,7 +114,7 @@ private static final Logger logger = LoggerFactory.getLogger(SampleController.cl
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "공지사항 삭제", response = BasicResponse.class)
 	@DeleteMapping("/{id}")
 	private ResponseEntity<BasicResponse> deleteNotice(@PathVariable("id") int id) {

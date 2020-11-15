@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.activityx.allei.dto.BasicResponse;
 import com.activityx.allei.dto.ProductDto;
 import com.activityx.allei.dto.ShopBean;
 import com.activityx.allei.dto.ShopDto;
+import com.activityx.allei.service.FileUploadService;
 import com.activityx.allei.service.ProductService;
 import com.activityx.allei.service.ShopService;
 
@@ -41,9 +43,12 @@ public class ShopContoller {
 	@Autowired
 	ProductService productService;
 	
+	@Autowired
+	FileUploadService fileUploadService;
+	
 	@ApiOperation(value = "업체 등록", response = BasicResponse.class)
 	@PostMapping("")
-	private ResponseEntity<BasicResponse> createShop(@RequestParam(value = "categoryName (카테고리 이름)") String categoryName, @RequestBody ShopDto shopDto) {
+	private ResponseEntity<BasicResponse> createShop(@RequestParam(value = "categoryName") String categoryName, @RequestBody ShopDto shopDto) {
 		logger.debug("업체 등록");
 		final BasicResponse result = new BasicResponse();
 		if (shopService.create(shopDto, categoryName)) {
@@ -52,6 +57,7 @@ public class ShopContoller {
 			result.status = false;
 			result.msg = "업체 등록에 실패했습니다.";
 		}
+		
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
@@ -121,11 +127,11 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "레저 서비스 업체 상세 검색 ((num*12)번부터 12개)", response = BasicResponse.class)
 	@GetMapping("/detailsearch/leisureshop")
-	private ResponseEntity<BasicResponse> detailSearchLeisureShop(@RequestParam(value = "num (번호 (0부터 시작))") int num,
-															 @RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
-															 @RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
-															 @RequestParam(value = "region (지역))", defaultValue = "") String region, 
-															 @RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+	private ResponseEntity<BasicResponse> detailSearchLeisureShop(@RequestParam(value = "num") int num, //번호 0부터 시작
+																@RequestParam(value = "minPrice", defaultValue = "0") int minPrice, //최저금액
+																@RequestParam(value = "maxPrice", defaultValue = "99999999") int maxPrice, //최고금액 
+																@RequestParam(value = "region", defaultValue = "") String region, //지역
+																@RequestParam(value = "category", defaultValue = "") String category) { //카테고리
 		logger.debug("레저 서비스 업체 상세 검색");
 		final BasicResponse result = new BasicResponse();
 		List<ShopBean> shopList = shopService.detailSearchLeisureShop(num, minPrice, maxPrice, region, category);
@@ -141,11 +147,11 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "장비 대여 업체 상세 검색 ((num*12)번부터 12개)", response = BasicResponse.class)
 	@GetMapping("/detailsearch/rentalshop")
-	private ResponseEntity<BasicResponse> detailSearchRentalShop(@RequestParam(value = "num (번호 (0부터 시작))") int num,
-			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
-			@RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
-			@RequestParam(value = "region (지역))", defaultValue = "") String region, 
-			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+	private ResponseEntity<BasicResponse> detailSearchRentalShop(@RequestParam(value = "num") int num,	//번호 0부터 시작
+																@RequestParam(value = "minPrice", defaultValue = "0") int minPrice, //최저금액 
+																@RequestParam(value = "maxPrice", defaultValue = "99999999") int maxPrice, //최고금액
+																@RequestParam(value = "region", defaultValue = "") String region, //지역
+																@RequestParam(value = "category", defaultValue = "") String category) { // 카테고리
 		logger.debug("장비 대여 업체 상세 검색");
 		final BasicResponse result = new BasicResponse();
 		List<ShopBean> shopList = shopService.detailSearchRentalShop(num, minPrice, maxPrice, region, category);
@@ -161,11 +167,11 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "레저 서비스 업체 상세 검색 (가격 낮은 순) ((num*12)번부터 12개)", response = BasicResponse.class)
 	@GetMapping("/detailsearch/leisureshop/orderbyprice")
-	private ResponseEntity<BasicResponse> detailSearchLeisureShopOrderByPrice(@RequestParam(value = "num (번호 (0부터 시작))") int num,
-			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
-			@RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
-			@RequestParam(value = "region (지역))", defaultValue = "") String region, 
-			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+	private ResponseEntity<BasicResponse> detailSearchLeisureShopOrderByPrice(@RequestParam(value = "num") int num, //번호 0부터 시작
+																			@RequestParam(value = "minPrice", defaultValue = "0") int minPrice, //최저금액
+																			@RequestParam(value = "maxPrice", defaultValue = "99999999") int maxPrice, //최고금액
+																			@RequestParam(value = "region", defaultValue = "") String region, //지역
+																			@RequestParam(value = "category", defaultValue = "") String category) { //카테고리
 		logger.debug("레저 서비스 업체 상세 검색 (가격 낮은 순)");
 		final BasicResponse result = new BasicResponse();
 		List<ShopBean> shopList = shopService.detailSearchLeisureShopOrderByPrice(num, minPrice, maxPrice, region, category);
@@ -181,11 +187,11 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "장비 대여 업체 상세 검색 (가격 낮은 순) ((num*12)번부터 12개)", response = BasicResponse.class)
 	@GetMapping("/detailsearch/rentalshop/orderbyprice")
-	private ResponseEntity<BasicResponse> detailSearchRentalShopOrderByPrice(@RequestParam(value = "num (번호 (0부터 시작))") int num,
-			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
-			@RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
-			@RequestParam(value = "region (지역))", defaultValue = "") String region, 
-			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+	private ResponseEntity<BasicResponse> detailSearchRentalShopOrderByPrice(@RequestParam(value = "num") int num, //번호 0부터 시작
+																			@RequestParam(value = "minPrice", defaultValue = "0") int minPrice, //최저금액
+																			@RequestParam(value = "maxPrice", defaultValue = "99999999") int maxPrice, //최고금액
+																			@RequestParam(value = "region", defaultValue = "") String region, //지역
+																			@RequestParam(value = "category", defaultValue = "") String category) { //카테고리
 		logger.debug("장비 대여 업체 상세 검색 (가격 낮은 순)");
 		final BasicResponse result = new BasicResponse();
 		List<ShopBean> shopList = shopService.detailSearchRentalShopOrderByPrice(num, minPrice, maxPrice, region, category);
@@ -201,11 +207,11 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "레저 서비스 업체 상세 검색 (평점 높은 순) ((num*12)번부터 12개)", response = BasicResponse.class)
 	@GetMapping("/detailsearch/leisureshop/orderbyrate")
-	private ResponseEntity<BasicResponse> detailSearchLeisureShopOrderByRate(@RequestParam(value = "num (번호 (0부터 시작))") int num,
-			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
-			@RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
-			@RequestParam(value = "region (지역))", defaultValue = "") String region, 
-			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+	private ResponseEntity<BasicResponse> detailSearchLeisureShopOrderByRate(@RequestParam(value = "num") int num, //번호 0부터 시작
+																			@RequestParam(value = "minPrice", defaultValue = "0") int minPrice, //최저금액
+																			@RequestParam(value = "maxPrice", defaultValue = "99999999") int maxPrice, //최고금액
+																			@RequestParam(value = "region", defaultValue = "") String region, //지역
+																			@RequestParam(value = "category", defaultValue = "") String category) { //카테고리
 		logger.debug("레저 서비스 업체 상세 검색 (평점 높은 순)");
 		final BasicResponse result = new BasicResponse();
 		List<ShopBean> shopList = shopService.detailSearchLeisureShopOrderByRate(num, minPrice, maxPrice, region, category);
@@ -221,11 +227,11 @@ public class ShopContoller {
 	
 	@ApiOperation(value = "장비 대여 업체 상세 검색 (평점 높은 순) ((num*12)번부터 12개)", response = BasicResponse.class)
 	@GetMapping("/detailsearch/rentalshop/orderbyrate")
-	private ResponseEntity<BasicResponse> detailSearchRentalShopOrderByRate(@RequestParam(value = "num (번호 (0부터 시작))") int num,
-			@RequestParam(value = "minPrice (최저금액))", defaultValue = "0") int minPrice, 
-			@RequestParam(value = "maxPrice (최고금액))", defaultValue = "99999999") int maxPrice, 
-			@RequestParam(value = "region (지역))", defaultValue = "") String region, 
-			@RequestParam(value = "category (카테고리))", defaultValue = "") String category) {
+	private ResponseEntity<BasicResponse> detailSearchRentalShopOrderByRate(@RequestParam(value = "num") int num, //번호 0부터 시작
+																			@RequestParam(value = "minPrice", defaultValue = "0") int minPrice, //최저금액
+																			@RequestParam(value = "maxPrice", defaultValue = "99999999") int maxPrice, //최고금액
+																			@RequestParam(value = "region", defaultValue = "") String region, //지역
+																			@RequestParam(value = "category", defaultValue = "") String category) { //카테고리
 		logger.debug("장비 대여 업체 상세 검색 (평점 높은 순)");
 		final BasicResponse result = new BasicResponse();
 		List<ShopBean> shopList = shopService.detailSearchRentalShopOrderByRate(num, minPrice, maxPrice, region, category);
@@ -324,4 +330,49 @@ public class ShopContoller {
 		}
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "업체 img 파일 업로드", response = String.class)
+	@PutMapping("/{id}/fileupload/img")
+	private ResponseEntity<BasicResponse> uploadImg(@PathVariable("id") int id, MultipartFile file) throws Exception {
+		logger.debug("업체 img 파일 업로드");
+		final BasicResponse result = new BasicResponse();
+		if (fileUploadService.fileUpload(id, file, 0) > 0) {
+			result.status = true;
+		} else {
+			result.status = false;
+			result.msg = "업체 img 파일 업로드에 실패했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "업체 imgDesc 파일 업로드", response = String.class)
+	@PutMapping("/{id}/fileupload/imgdesc")
+	private ResponseEntity<BasicResponse> uploadImgDesc(@PathVariable("id") int id, MultipartFile file) throws Exception {
+		logger.debug("업체 imgDesc 파일 업로드");
+		final BasicResponse result = new BasicResponse();
+		if (fileUploadService.fileUpload(id, file, 1) > 0) {
+			result.status = true;
+		} else {
+			result.status = false;
+			result.msg = "업체 imgDesc 파일 업로드에 실패했습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "사용자 아이디로 업체 아이디 조회하기", response = BasicResponse.class)
+	@GetMapping("find/{id}")
+	private ResponseEntity<BasicResponse> getShopIdByUser(@PathVariable("id") int id) {
+		logger.debug("사용자 아이디로 업체 아이디 조회하기");
+		final BasicResponse result = new BasicResponse();
+		Integer data = shopService.getShopIdByUser(id);
+		if (data != null) {
+			result.status = true;
+			result.data = data;
+		} else {
+			result.status = false;
+			result.msg = "해당 업체가 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+
 }

@@ -100,11 +100,27 @@ public class TipController {
 	
 	@ApiOperation(value = "모든 게시글을 가져 옵니다.", response = BasicResponse.class)
 	@GetMapping("all")
-	public ResponseEntity<BasicResponse> allTips(@RequestParam(required = false) String keyword) {
+	public ResponseEntity<BasicResponse> allTips(@RequestParam int page, @RequestParam(required = false) String keyword) {
 		logger.debug("Tip Board test : allTips - 호츌");
 		final BasicResponse result = new BasicResponse();
-		ArrayList<TipDto> data = service.allTips(keyword);
-		if(data != null){
+		ArrayList<TipDto> data = service.allTips(page, keyword);
+		if(data != null && !data.isEmpty()){
+			result.status = true;
+			result.data = data;
+		}else{
+			result.status = false;
+			result.msg = "게시글이 없습니다.";
+		}
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "모든 게시글을 가져 옵니다.", response = BasicResponse.class)
+	@GetMapping("user/{id}")
+	public ResponseEntity<BasicResponse> getTipsByUser(@PathVariable int id) {
+		logger.debug("Tip Board test : allTips - 호츌");
+		final BasicResponse result = new BasicResponse();
+		ArrayList<TipDto> data = service.getTipsByUser(id);
+		if(data != null && !data.isEmpty()){
 			result.status = true;
 			result.data = data;
 		}else{

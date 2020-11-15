@@ -19,9 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.activityx.allei.dto.BasicResponse;
 import com.activityx.allei.dto.KakaoPayApprovalDto;
+import com.activityx.allei.dto.KakaoPayBean;
 import com.activityx.allei.dto.KakaoPayReadyDto;
 import com.activityx.allei.dto.SampleDto;
-import com.activityx.allei.service.KakaoServiceImpl;
+import com.activityx.allei.service.KakaoPayServiceImpl;
 import com.activityx.allei.service.SampleService;
 
 import io.swagger.annotations.ApiOperation;
@@ -35,14 +36,14 @@ public class KakaoPayController {
 	private static final Logger logger = LoggerFactory.getLogger(KakaoPayController.class);
 	
 	@Autowired
-	KakaoServiceImpl service;
+	KakaoPayServiceImpl service;
 	
 	@ApiOperation(value = "카카오 페이로 결제", response = BasicResponse.class)
-	@GetMapping("kakao")
-	public ResponseEntity<BasicResponse> kakaoPay() {
+	@PostMapping("kakao")
+	public ResponseEntity<BasicResponse> kakaoPay(@RequestBody KakaoPayBean bean) {
 		logger.debug("KakaoPay test : kakaoPayReady - 호츌");
 		final BasicResponse result = new BasicResponse();
-		KakaoPayReadyDto data = service.kakaoPayReady();
+		KakaoPayReadyDto data = service.kakaoPayReady(bean);
 		if(data != null) {
 			result.status = true;
 			result.data = data;
@@ -54,12 +55,12 @@ public class KakaoPayController {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "카카오 페이 결제 성공", response = BasicResponse.class)
-	@GetMapping("kakao/success")
-	public ResponseEntity<BasicResponse> kakaoPaySuccess(@RequestParam String pg_token) {
+	@ApiOperation(value = "카카오 페이 결제 성공요청", response = BasicResponse.class)
+	@PostMapping("kakao/approval")
+	public ResponseEntity<BasicResponse> kakaoPaySuccess(@RequestParam String pg_token, @RequestParam String tid) {
 		logger.debug("KakaoPay test : kakaoPayApproval - 호츌");
 		final BasicResponse result = new BasicResponse();
-		KakaoPayApprovalDto data = service.kakaoPayApproval(pg_token);
+		KakaoPayApprovalDto data = service.kakaoPayApproval(pg_token, tid);
 		if(data != null) {
 			result.status = true;
 			result.data = data;
