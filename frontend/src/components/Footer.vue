@@ -5,33 +5,29 @@
       <mdb-row class="text-center text-md-left mt-3 pb-3">
         <mdb-col md="3" lg="3" xl="3" class="mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Company name</h6>
-          <p>SSAFY</p>
-          <p>엑티비티 X</p>
+          <p>SSAFY - 엑티비티 X</p>
         </mdb-col>
         <hr class="w-100 clearfix d-md-none" />
-        <mdb-col md="2" lg="2" xl="2" class="mx-auto mt-4">
+        <mdb-col md="2" lg="2" xl="2" class="mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">DEVELOPER</h6>
-          <p>팀장</p>
-          <p>테크리더</p>
-          <p>FrontEnd</p>
-          <p>BackEnd</p>
+          <p>Leader</p>
+          <p>TechLeader</p>
+          <p>Frontend</p>
+          <p>Backend</p>
         </mdb-col>
-        <hr class="w-100 clearfix d-md-none" />
-        <mdb-col md="3" lg="2" xl="2" class="mx-auto mt-5">
-          <h6 class="text-uppercase mb-3 font-weight-bold"></h6>
+        <mdb-col md="2" lg="2" xl="2" class="mx-auto mt-3">
+          <div style="height: 43.2px;"></div>
           <p>노지웅</p>
           <p>김태훈</p>
           <p>권혁규</p>
           <p>박진 박준수</p>
         </mdb-col>
-        <p>
-        </p>
         <hr class="w-100 clearfix d-md-none" />
-        <mdb-col md="4" lg="3" xl="3" class="mx-auto mt-3">
+        <mdb-col md="3" lg="3" xl="3" class="mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
-          <p><i class="fas fa-home mr-3"></i> Multicampus, SSAFY</p>
-          <p><i class="fas fa-envelope mr-3"></i> shwldnd06@naver.com</p>
-          <p><i class="fas fa-phone mr-3"></i> 010 - 2613 - 7214</p>
+          <p><span class="fas fa-home mr-3"></span> Multicampus, SSAFY</p>
+          <p><span class="fas fa-envelope mr-3"></span> shwldnd06@naver.com</p>
+          <p><span class="fas fa-phone mr-3"></span> 010 - 2613 - 7214</p>
           <!-- <p><i class="fas fa-print mr-3"></i> + 01 234 5</p> -->
         </mdb-col>
       </mdb-row>

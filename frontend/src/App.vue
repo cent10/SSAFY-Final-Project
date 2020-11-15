@@ -10,7 +10,7 @@
       header-border-variant="white"
       content-class
       hide-footer>
-      <a :href="loginLink">
+      <a :href="loginLink" style="padding: 80px;">
         <b-img id="kakao" center :src="kakao"/>
       </a>
     </b-modal>
@@ -44,14 +44,11 @@ export default {
 
 <style scoped>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Noto Sans KR', sans-serif, FontAwesome;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-.modal-content {
-  height: 200px
 }
 #kakao {
   cursor: pointer;
