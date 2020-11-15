@@ -135,8 +135,16 @@ export default {
       })
         .then((res) => {
           this.equips = res.data.data.rentalShops;
+          this.equips.map((e) => {
+            if(e.img !== null)
+              e.img = "http://k3a210.p.ssafy.io/img/activityx_shop_img/" + e.img;
+          });
           this.leisures = res.data.data.leisureShops;
-          console.log(res)
+          this.leisures.map((l) => {
+            if(l.img !== null)
+              l.img = "http://k3a210.p.ssafy.io/img/activityx_shop_img/" + l.img;
+          });
+          
         })
         .catch((err) => {
           console.log(err);
@@ -207,8 +215,9 @@ export default {
     position: relative;
   } 
   .logo img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
   }
   .post-info{
     display: flex;

@@ -87,7 +87,7 @@
       <b-row style="padding-top: 30px;">
         <b-col>
           <h5>후기 관리</h5>
-          <b-list-group style="max-height: 1000px; overflow: auto;">
+          <b-list-group style="max-height: 500px; overflow: auto;">
             <b-list-group-item class="review-item" v-for="(review, i) in reviews" :key="i">
                 <b-row align-h="start" class="review-item-user">
                   <b-col cols=2>
@@ -188,7 +188,9 @@ export default {
       url: `${API_URL}/shops/find/${this.$cookies.get('yol_uid')}`,
     })
     .then(({data}) => {
-      this.shopId  = data.data;
+      // this.shopId  = data.data;
+      data.data;
+      this.shopId  = 1;
 
       // 업체 정보 불러오기
       axios({
@@ -495,9 +497,6 @@ export default {
 </script>
 
 <style scoped>
-::-webkit-scrollbar {
-    width: 0;
-}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -513,16 +512,16 @@ input::-webkit-inner-spin-button {
   height: 100px;
 }
 .review-item {
-  height: 180px;
+  height: 200px;
 }
 .review-item-user {
   overflow: auto;
-  height: 50%;
+  height: 80px;
   text-align: left;
 }
 .review-item-seller {
   overflow: auto;
-  height: 50%;
+  height: 120px;
   text-align: left;
   background-color: #f4f4f2;
 }
@@ -541,10 +540,9 @@ input::-webkit-inner-spin-button {
 }
 .review-content {
   padding: 0;
-  transition: all 1s;
+  transition: all 0.5s;
 }
 .review-content:hover {
-  background-color: #bbbfca;
-  color: white;
+  filter: opacity(50%);
 }
 </style>

@@ -71,6 +71,44 @@
           </div>
         </b-col>
       </b-row>
+      <b-row v-if="reviews !== null && reviews.length > 0" style="padding-top: 3%; padding-bottom: 5%">
+        <b-col>
+         <h5>후기리스트</h5>
+         <b-list-group style="max-height: 500px; overflow: auto;">
+            <b-list-group-item class="review-item" v-for="(review, i) in reviews" :key="i">
+                <b-row align-h="start" class="review-item-user">
+                  <b-col cols=2>
+                  </b-col>
+                  <b-col cols=6>
+                    <b-row style="margin-left: 0; width:100%;">
+                        <StarRating v-model="review.rate" :max-stars="5"/>
+                    </b-row>
+                    <b-row style="margin-left: 0; width:100%;">
+                      <b-button variant="none" @click="showDetail(i)" class="review-content">{{review.summaryCont}}</b-button>
+                    </b-row>
+                  </b-col>
+                  <b-col cols=2>
+                    {{review.date}}
+                  </b-col>
+                </b-row>
+                <b-row v-if="review.reply !== undefined" class="review-item-seller">
+                  <b-col cols=2 style="text-align: right;">
+                    <b-icon icon="arrow-return-right"/>
+                  </b-col >
+                  <b-col cols=6>
+                    {{review.reply.content}}
+                  </b-col>
+                  <b-col cols=2>
+                    {{review.reply.date.slice(0,10)}}
+                  </b-col>
+                </b-row>
+            </b-list-group-item>
+          </b-list-group>
+        </b-col>
+      </b-row>
+      <b-row v-else style="padding-top: 3%; padding-bottom: 5%">
+        등록된 후기가 없습니다.
+      </b-row>
       <b-row v-if="products !== null && products.length > 0">
         <b-col>
           <h5>상품리스트</h5>
@@ -146,11 +184,14 @@ export default {
         category: "",
         rate: 0,
       },
+      reviews: [],
       products: [],
       isShowDesc: false,
       checkedProducts: [],
       isPurchasing: false,
       purchasingList: [],
+      modalRate: 0,
+      modalContent: "",
     }
   },
   components: {
@@ -188,6 +229,44 @@ export default {
         console.log(err);
         alert("상품 정보를 받아올때 에러가 발생했습니다.");
     });
+
+    
+    axios({
+        method: "GET",
+        url: `${API_URL}/reviews/list/` + this.$route.params.id,
+      }).then(({data})=>{
+        this.reviews = data.data;
+
+        this.reviews.map((r) => {
+          r.date = r.date.slice(0,10);
+
+          if(r.content.length > 18){
+            r.summaryCont = r.content.slice(0, 15) + ".....";
+          } else {
+            r.summaryCont = r.content;
+          }
+
+          axios({
+            method: "GET",
+            url: `${API_URL}/reviews/${r.id}/replies/0`,
+          })
+          .then(({data}) => {
+            if(data.status)
+              r.reply = data.data;
+            this.$forceUpdate();
+          })
+          .catch((err) => {
+            console.log(err);
+            alert("후기 답글 정보 받아올때 에러가 발생했습니다.");
+          });
+
+        });
+
+      }).catch((err) => {
+          console.log(err);
+          alert("후기 정보를 받아올때 에러가 발생했습니다.");
+      });
+
   },
   methods: {
     moveSearchPage(){
@@ -208,6 +287,11 @@ export default {
     toggleShowDesc(){
       this.isShowDesc = !this.isShowDesc;
       window.scrollTo(0, 0);
+    },
+    showDetail(i) {
+      this.modalRate = this.reviews[i].rate;
+      this.modalContent = this.reviews[i].content;
+      this.$bvModal.show('review-detail');
     },
     purchase(){
       const list = [];
@@ -271,10 +355,12 @@ li {
 }
 .equip-desc {
   max-height: 400px;
+  border: 2px solid black;
   background-color: gray;
   overflow: hidden;
 }
 .equip-desc-show {
+  border: 2px solid black;
   background-color: gray;
 }
 .desc {
@@ -285,5 +371,28 @@ li {
 }
 .yol-list-group{
   margin-bottom: 3%;
+}
+.review-item {
+  height: 200px;
+  background-color: #f4f4f2;
+}
+.review-item-user {
+  overflow: auto;
+  height: 80px;
+  text-align: left;
+}
+.review-item-seller {
+  overflow: auto;
+  height: 120px;
+  text-align: left;
+  border-radius: 10px;
+  background-color: #e8e8e8;
+}
+.review-content {
+  padding: 0;
+  transition: all 0.5s;
+}
+.review-content:hover {
+  filter: opacity(50%);
 }
 </style>
