@@ -33,7 +33,7 @@
           </b-col>
         </b-row>
         <b-row class="search-button">
-          <b-button @click="search()">검색</b-button>
+          <b-button @click="search()" style="background-color: #084481;">검색</b-button>
         </b-row>
       </b-container>
     </b-card>
@@ -44,7 +44,7 @@
         </b-form-select>
       </div>
       <b-card-group deck v-if="leisures !== null && leisures.length > 0">
-        <b-card v-for="(leisure, i) in leisures" :key="leisure.id" :index="i" @click="viewLeisure(i)">
+        <b-card v-for="(leisure, i) in leisures" :key="i" :index="i" @click="viewLeisure(i)">
           <div class="post-card">
             <span class="post-tag">{{leisure.region}}</span>
             <div class="logo">
@@ -99,6 +99,10 @@ export default {
               url: `${API_URL}/shops/detailsearch/leisureshop/orderbyprice`,
               params: this.requestCondition,
             }).then((res) => {
+                if(res.data.data === null){
+                  this.leisures = [];
+                  return;
+                }
                 this.leisures = res.data.data;
                 this.leisures.map((l) => {
                   if(l.img !== null)
@@ -116,6 +120,10 @@ export default {
               url: `${API_URL}/shops/detailsearch/leisureshop/orderbyrate`,
               params: this.requestCondition,
             }).then((res) => {
+                if(res.data.data === null){
+                  this.leisures = [];
+                  return;
+                }
                 this.leisures = res.data.data;
                 this.leisures.map((l) => {
                   if(l.img !== null)
@@ -133,6 +141,10 @@ export default {
               url: `${API_URL}/shops/detailsearch/leisureshop`,
               params: this.requestCondition,
             }).then((res) => {
+                if(res.data.data === null){
+                  this.leisures = [];
+                  return;
+                }
                 this.leisures = res.data.data;
                 this.leisures.map((l) => {
                   if(l.img !== null)
@@ -283,12 +295,14 @@ input::-webkit-inner-spin-button {
   filter: brightness(60%);
   position: fixed;
   width: 100%;
-  z-index: -1;
+  z-index: 1;
 }
 .leisure-list {
+  position: relative;
   padding-top: 100px;
   padding-left: 15%;
   padding-right: 15%;
+  z-index: 99;
 }
 .no-search {
   position: relative;
@@ -303,7 +317,7 @@ input::-webkit-inner-spin-button {
   margin-bottom: 7%;
 }
 .condition-card {
-  background-color: #f4f4f2;
+  background-color: #f9f7f7;
   border-radius: 10px;
 }
 .price {
@@ -339,7 +353,7 @@ input::-webkit-inner-spin-button {
   width: calc(25% - 30px);
   height: 400px;
   cursor: pointer;
-  background-color: #f4f4f2;
+  background-color: #f9f7f7;
   transition: all 0.5s;
   opacity: 0.85;
 }
@@ -348,7 +362,7 @@ input::-webkit-inner-spin-button {
   opacity: 1;
 }
 .post-card {
-    background-color: #f4f4f2;
+    background-color: #f9f7f7;
     width: 100%;
     height: 100%;
     border-radius: 5px;

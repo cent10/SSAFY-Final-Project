@@ -1,6 +1,6 @@
 <template>
   <div class="seller-post">
-    <h1 class="mt-2 mb-3">업체 등록</h1>
+    <h1 class="mt-2 mb-3" style="padding-bottom: 30px; font-weight: 700;">업체 등록</h1>
     <b-container>
       <b-row>
         <b-col class="shop-info-1">
@@ -31,7 +31,7 @@
           <b-button block class="mybutton2 mb-3" @click="submit()" style="width: 50%; margin: auto;">등록</b-button>
         </b-col>
         <b-col>
-          <b-button block class="mb-4" @click="moveNotice()" style="width: 50%; margin: auto;">취소</b-button>
+          <b-button block class="mb-4" @click="moveNotice()" style="width: 50%; margin: auto; background-color: #084481;">취소</b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -84,6 +84,7 @@ export default {
   },
   
   created() {
+    window.scrollTo(0,0);
     axios
       .get(`${API_URL}/category/all`)
       .then((res) => {
@@ -93,15 +94,6 @@ export default {
         alert("카테고리 정보를 받아올때 에러가 발생했습니다.");
         console.log(err);
       });
-
-
-  },
-
-  components: {
-
-  },
-  computed: {
-    
   },
   methods: {
     submit() {
@@ -159,8 +151,8 @@ export default {
   border: none;
 }
 .seller-post {
-    margin: 100px auto 20px auto;
-    padding: 20px;
+    margin: auto;
+    padding: 100px;
     width: 60%;
     background-color: #F2F2F5;
 }

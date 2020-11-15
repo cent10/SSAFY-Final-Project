@@ -14,15 +14,14 @@
     <p />
     <p></p>
     <div align=right>
-    <b-button class="border-0" @click="movewrite()" v-if="this.$cookies.isKey('yol_token')">글쓰기</b-button>
+    <b-button class="border-0" @click="movewrite()" v-if="this.auth==1" style="margin: 20px; background-color: #084481;">글쓰기</b-button>
     </div>
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-bordered">
       <thead>
-        <tr>
-          <th style="width:25%;">제목</th>
-          <th style="width:35%;">내용</th>
-          <th style="width:25%;">날짜</th>
-          <th style="width:15%;" @click="orderNotice(1)">조회수</th>
+        <tr style="background-color: #bbbfca; border:1px solid white; font-weight: 700;">
+          <th style="width:70%;">제목</th>
+          <th style="width:20%;">날짜</th>
+          <th style="width:10%;" @click="orderNotice(1)">조회수</th>
         </tr>
       </thead>
       <tbody>
@@ -30,10 +29,12 @@
           v-for="(notice,id) in notices"
           :key="id"
           v-show="keyWord(notice.title, notice.content)"
-          @click="moveDetail(notice.id)"
+          style="background-color: #e8e8e8; border:1px solid white;"
         >
-          <td>{{notice.title.slice(0, 8)}}</td>
-          <td>{{notice.content.slice(0, 7)}}</td>
+          <td>
+            <span v-if="notice.title.length > 25" @click="moveDetail(notice.id)" class="notice-title">{{notice.title.slice(0, 20) + "....."}}</span>
+            <span v-else @click="moveDetail(notice.id)" class="notice-title">{{notice.title}}</span>
+          </td>
           <td>{{notice.date.slice(0,10)}}</td>
           <td>{{notice.hits}}</td>
         </tr>
@@ -76,7 +77,7 @@ export default {
       content: "",
       orderCount: 0,
 
-      
+      auth: null,
       
     };
   },
@@ -86,10 +87,22 @@ export default {
   },
   created() {
     
+    window.scrollTo(0,0);
+    axios({
+      method: "GET",
+      url: `${API_URL}/user/authority/`+this.$cookies.get("yol_uid"),
+
+    })
+    .then(({data}) =>{
+      this.auth=data.data;
+    }).catch((err) => {
+        console.log(err);
+        alert("정보를 받아올때 에러가 발생했습니다.");
+    });
+
     axios
       .get(`${API_URL}/notices`)
       .then(({ data }) => {
-        console.log(data)
         this.notices = data.data;
         
       })
@@ -166,7 +179,12 @@ export default {
     padding-right: 15%;
     padding-bottom: 5%;
     margin-bottom: -30px;
-
+  }
+  .notice-title{
+    cursor: pointer;
+  }
+  .notice-title:hover{
+    text-decoration: underline;
   }
   
 </style>

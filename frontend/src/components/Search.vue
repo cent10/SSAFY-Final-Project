@@ -1,12 +1,13 @@
 <template>
   <div class="search">
     <h1>Search</h1>
-    <p>Leisure/Activity, Equipment, Tip을 찾아보세요!</p>
+    <p style="padding: 20px;">레저/액티비티, 장비 대여 업체, 레저 팁을 검색해보세요!</p>
     <b-card-group columns class="yol-card-group">
       <b-card
         overlay
         :img-src="leisure"
         text-variant="white"
+        title-tag="h3"
         title="레저/액티비티 업체 검색"
         class="yol-card"
         :style="cardStyle[0]"
@@ -19,6 +20,7 @@
         overlay
         :img-src="equip"
         text-variant="white"
+        title-tag="h3"
         title="장비 대여 업체 검색"
         class="yol-card"
         :style="cardStyle[1]"
@@ -31,7 +33,8 @@
         overlay
         :img-src="tip"
         text-variant="white"
-        title="팁 검색"
+        title-tag="h3"
+        title="레저 팁 검색"
         class="yol-card"
         :style="cardStyle[2]"
         @mouseover="changeStyle(2)"
@@ -97,9 +100,8 @@ export default {
 
 <style scoped>
 .search {
-  background-color: #e8e8e8;
-  padding: 100px;
-  margin-bottom: -30px;
+  background-color: #f4f4f2;
+  padding: 120px;
 }
 .yol-card-group {
   padding-top: 50px;
@@ -110,11 +112,11 @@ export default {
   cursor: pointer;
   border: none;
   transition: all 0.5s;
-  background-color: #e8e8e8;
+  background-color: #f4f4f2;
 }
 .card-img {
   border-radius: 30px;
-  filter: brightness(60%);
+  filter: brightness(50%);
 }
 .card-title {
   margin-top: calc(50% - 1em);

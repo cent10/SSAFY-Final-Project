@@ -1,6 +1,6 @@
 <template>
   <div class="seller-read">
-    <h1 class="mt-2 mb-3">업체 정보</h1>
+    <h1 class="mt-2 mb-3" style="padding-bottom: 30px; font-weight: 700;">업체 정보</h1>
     <b-container v-if="shop !== null">
       <b-row style="text-align: left;">
         <b-col>
@@ -42,17 +42,22 @@
           </b-row>
         </b-col>
       </b-row>
+      <b-row align-h="center" style="padding: 3%;">
+        <div class="zullll"/>
+      </b-row>
+      <b-row style="padding-left: 5%; font-size: 30px; font-weight: 700;">
+        상품관리
+      </b-row>
       <b-row style="padding-top: 30px;">
         <b-col>
-          <h5>상품리스트</h5>
           <b-list-group>
             <b-list-group-item class="product-item" v-for="(product, i) in products" :key="i">
               <table>
                 <colgroup>
-                  <col width="50%">
+                  <col width="40%">
                   <col width="20%">
-                  <col width="15%">
-                  <col width="15%">
+                  <col width="20%">
+                  <col width="20%">
                 </colgroup>
                 <tr>
                   <td v-if="product.stored">
@@ -84,37 +89,42 @@
           </b-list-group>
         </b-col>
       </b-row>
+      <b-row align-h="center" style="padding: 3%;">
+        <div class="zullll"/>
+      </b-row>
+      <b-row style="padding-left: 5%; font-size: 30px; font-weight: 700;">
+        후기관리
+      </b-row>
       <b-row style="padding-top: 30px;">
         <b-col>
-          <h5>후기 관리</h5>
           <b-list-group style="max-height: 500px; overflow: auto;">
             <b-list-group-item class="review-item" v-for="(review, i) in reviews" :key="i">
                 <b-row align-h="start" class="review-item-user">
-                  <b-col cols=2>
+                  <b-col cols=1>
                   </b-col>
-                  <b-col cols=6>
+                  <b-col cols=5>
                     <b-row style="margin-left: 0; width:100%;">
                         <StarRating v-model="review.rate" :max-stars="5"/>
                     </b-row>
                     <b-row style="margin-left: 0; width:100%;">
-                      <b-button variant="none" @click="showDetail(i)" class="review-content">{{review.summaryCont}}</b-button>
+                      <span @click="showDetail(i)" class="review-content">{{review.summaryCont}}</span>
                     </b-row>
                   </b-col>
-                  <b-col cols=2>
+                  <b-col cols=3>
                     {{review.date}}
                   </b-col>
-                  <b-col cols=2 v-if="review.reply === undefined">
+                  <b-col cols=3 v-if="review.reply === undefined">
                     <b-button @click="openReply(i)">답글 달기</b-button>
                   </b-col>
                 </b-row>
                 <b-row v-if="review.reply !== undefined" class="review-item-seller">
-                  <b-col cols=2 style="text-align: right;">
+                  <b-col cols=1 style="text-align: right;">
                     <b-icon icon="arrow-return-right"/>
                   </b-col >
-                  <b-col cols=6>
+                  <b-col cols=5 style="padding-right: 20px; word-break:break-all;">
                     {{review.reply.content}}
                   </b-col>
-                  <b-col cols=2>
+                  <b-col cols=3>
                     {{review.reply.date.slice(0,10)}}
                   </b-col>
                 </b-row>
@@ -124,9 +134,9 @@
       </b-row>
     </b-container>
     <div style="padding: 30px">
-      <b-button v-if="!isUpdating" class="mx-2" @click="changeUpdateStatus()">수정하기</b-button>
-      <b-button v-else class="mx-2" @click="changeShop()">수정완료</b-button>
-      <b-button class="mx-2" @click="moveMyprofile()">내정보로</b-button>
+      <b-button v-if="!isUpdating" class="mx-2" @click="changeUpdateStatus()" style="background-color: #084481;">수정하기</b-button>
+      <b-button v-else class="mx-2" @click="changeShop()" variant="danger">수정완료</b-button>
+      <b-button class="mx-2" @click="moveMyprofile()" style="background-color: #084481;">내정보로</b-button>
     </div>
 
     <b-modal id="review-detail" title="업체 상세 리뷰" hide-footer>
@@ -147,7 +157,7 @@
       </div>
       <div style="padding: 5px;">
         <b-textarea autofocus v-model="writingReplyContent" style="resize: none; height: 100px; margin-bottom: 10px"/>
-        <b-button style="margin-left: 85%;" @click="writeReply">작성</b-button>
+        <b-button style="margin-left: 85%; background-color: #084481;" @click="writeReply">작성</b-button>
       </div>
     </b-modal>
   </div>
@@ -183,14 +193,14 @@ export default {
     StarRating,
   },
   created() {
+    window.scrollTo(0,0);
+
     axios({
       method: "GET",
       url: `${API_URL}/shops/find/${this.$cookies.get('yol_uid')}`,
     })
     .then(({data}) => {
-      // this.shopId  = data.data;
-      data.data;
-      this.shopId  = 1;
+      this.shopId  = data.data;
 
       // 업체 정보 불러오기
       axios({
@@ -198,7 +208,6 @@ export default {
         url: `${API_URL}/shops/${this.shopId}`,
       })
       .then(({ data }) => {
-        console.log(data.data);
         this.shop = data.data;
         if(data.data.img !== null){
           this.shopImgUrl = "http://k3a210.p.ssafy.io/img/activityx_shop_img/" + data.data.shop.img;
@@ -503,31 +512,38 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 .seller-read {
-    margin: 100px auto 20px auto;
-    padding: 20px;
-    width: 60%;
-    background-color: #F2F2F5;
+    margin: auto;
+    padding: 100px;
+    width: 80%;
+    background-color: #f4f4f2;
 }
 .product-item {
   height: 100px;
 }
 .review-item {
   height: 200px;
+  padding: 0;
 }
 .review-item-user {
   overflow: auto;
+  width: 100%;
+  margin: 0;
   height: 80px;
+  padding: 10px;
   text-align: left;
 }
 .review-item-seller {
   overflow: auto;
+  width: 100%;
+  margin: 0;
   height: 120px;
+  padding: 10px;
   text-align: left;
-  background-color: #f4f4f2;
+  background-color: #e8e8e8;
 }
 .zullll {
   background-color: #bbbfca;
-  width: 90%;
+  width: 100%;
   height: 1px;
 }
 .add-list {
@@ -543,6 +559,7 @@ input::-webkit-inner-spin-button {
   transition: all 0.5s;
 }
 .review-content:hover {
-  filter: opacity(50%);
+  cursor: pointer;
+  text-decoration: underline;
 }
 </style>
