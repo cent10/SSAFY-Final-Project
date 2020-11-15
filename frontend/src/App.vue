@@ -44,11 +44,12 @@ export default {
 
 <style scoped>
 #app {
-  font-family: 'Noto Sans KR', sans-serif, FontAwesome;
+  font-family: 'Noto Sans KR', 'Roboto', sans-serif, FontAwesome;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: #f4f4f2;
 }
 #kakao {
   cursor: pointer;

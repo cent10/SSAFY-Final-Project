@@ -69,8 +69,9 @@
 
 <style scoped>
   .footer {
+    position: relative;
     background-color: #e8e8e8;
-    margin-top: 0 auto;
+    z-index: 99;
   }
   
 </style>

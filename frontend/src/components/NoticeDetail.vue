@@ -1,39 +1,29 @@
 <template>
   <div class="notice-detail">
-    <table class="table table-striped table-bordered table-hover mt-3">
-      <thead>
-        <tr>
-          <th>제목</th>
-          <th>{{notice.title}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>작성자</td>
-          <td style="white-space:pre;">{{notice.user}}</td>
-        </tr>
-        <tr>
-          <td>날짜</td>
-          <td style="white-space:pre;">{{notice.date.slice(0,10)}}</td>
-        </tr>
-        <tr>
-          <td>내용</td>
-          <td style="white-space:pre;">{{notice.content}}</td>
-        </tr>
-        <tr>
-          <td>조회수</td>
-          <td style="white-space:pre;">{{notice.hits}}</td>
-        </tr>
-      </tbody>
-    </table>
-    
-    <!-- <b-button v-if="notice.user == user" class="mybutton1" @click="moveNoticeModify()">수정</b-button> -->
-    <b-button class="mybutton1" @click="moveNoticeModify()" v-if="this.auth==1">수정</b-button>
+    <h3 style="text-align: left; padding-left: 10%;">공지사항</h3>
+      <table class="table table-bordered mt-3" style="width: 80%; margin: auto; font-size: 15px;">
+        <thead>
+          <tr style="background-color: #bbbfca;">
+            <th style="width: 70%; vertical-align: middle;">{{notice.title}}</th>
+            <th style="width: 20%;">
+              <span v-if="notice === {}">{{notice.date.slice(0,10)}}</span>
+            </th>
+            <th style="width: 10%;">조회 {{notice.hits}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="4" style="padding: 0;">
+              <b-textarea disabled no-resize :value="notice.content" style="height: 400px; background-color: #e8e8e8;"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <b-button class="mybutton1" @click="moveNoticeModify()" v-if="this.auth==1" style="margin: 20px;">수정</b-button>
 
-    <!-- <b-button  v-if="notice.user == user" class="mybutton2 mx-3" @click="moveNoticeDelete()">삭제</b-button> -->
-    <b-button class="mybutton2 mx-3" @click="moveNoticeDelete()" v-if="this.auth==1">삭제</b-button>
+    <b-button class="mybutton2 mx-3" @click="moveNoticeDelete()" v-if="this.auth==1" style="margin: 20px;">삭제</b-button>
 
-    <b-button class="border-0" @click="moveNotice()">목록으로</b-button>
+    <b-button class="border-0" @click="moveNotice()" style="margin: 20px;">목록으로</b-button>
 
     
   </div>
@@ -81,10 +71,8 @@ export default {
     // ...mapGetters(['userinfo', 'isLogin']),
   },
   created() {
-    // const token = this.$cookies.get("auth-token");
-    // console.log(token);
-    // const uid = this.$cookies.get("yol_uid");
 
+    window.scrollTo(0,0);
     axios({
       method: "GET",
       url: `${API_URL}/user/authority/`+this.$cookies.get("yol_uid"),
@@ -106,7 +94,6 @@ export default {
     //   },
     })
       .then(({ data }) => {
-        console.log(data);
         this.notice = data.data;
         
       })
@@ -128,23 +115,22 @@ export default {
       });
     },
     moveNoticeDelete() {
-    //   const token = this.$cookies.get("auth-token");
-    //   console.log(token);
-    //   console.log();
-      axios({
-        method: "DELETE",
-        url: `${API_URL}/notices/` + this.$route.params.id,
-        // headers: {
-        //   Authorization: `Token ${token}`,
-        // },
-      })
-        .then(() => {
-          this.moveNotice();
+      if(confirm("정말 이 글을 삭제하시겠습니까?")){
+        axios({
+          method: "DELETE",
+          url: `${API_URL}/notices/` + this.$route.params.id,
+          // headers: {
+          //   Authorization: `Token ${token}`,
+          // },
         })
-        .catch((err) => {
-          console.log(err);
-          alert("삭제 에러가 발생했습니다.");
-        });
+          .then(() => {
+            this.moveNotice();
+          })
+          .catch((err) => {
+            console.log(err);
+            alert("삭제 에러가 발생했습니다.");
+          });
+      }
     },
     
   },

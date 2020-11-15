@@ -1,24 +1,21 @@
 <template>
     <div class="review-update" align="center">
-    <h3 class="mt-2 mb-3">후기 수정</h3>
-        <textarea type="text" class="form-control my-3" placeholder="내용을 작성해주세요!" v-model="review.content"></textarea>
- 
+    <h3 class="mt-2 mb-3" style="font-weight: 700; margin-bottom: 50px;">후기 수정</h3>
+        <b-textarea no-resize type="text" class="form-control my-3" placeholder="내용을 작성해주세요!" v-model="review.content" style="height: 300px;"></b-textarea>
             <div>
+            <h5 style="text-align: left;">평점</h5>
             <b-input-group>
-            <b-input-group-prepend>
-                <b-button @click="value = null">Clear</b-button>
-            </b-input-group-prepend>
             <b-form-rating v-model="review.rate" color="#ff8800"></b-form-rating>
             <b-input-group-append>
                 <b-input-group-text class="justify-content-center" style="min-width: 3em;">
-                {{ value }}
+                {{ review.rate }}
                 </b-input-group-text>
             </b-input-group-append>
             </b-input-group>
             </div>
             <div class="bu-tton">
-            <b-button class="mybutton2 ml-2" @click="submit()">수정 완료</b-button>
-            <b-button v-b-modal.modal-prevent-closing class="mybutton4 ml-2" @click="moveReviewDetail()">취소 하기</b-button>
+            <b-button class="mybutton2 ml-2" @click="submit()" variant="danger">수정 완료</b-button>
+            <b-button v-b-modal.modal-prevent-closing class="mybutton4 ml-2" @click="moveReviewDetail()" style="background-color: #084481">취소 하기</b-button>
             </div>
   </div>
 </template>
@@ -48,9 +45,8 @@
             // ...mapGetters(['isLogin']),
         },
         created(){
-            // var animal= '';
-            // const token = this.$cookies.get('auth-token')
-            // console.log(token)
+            window.scrollTo(0, 0);
+
             axios({
                     method: "GET"
                     ,url:`${API_URL}/reviews/`+this.$route.params.id,
@@ -59,9 +55,6 @@
 
                 ).then(res => {
                     this.review = res.data.data
-                    // this.id=res.data.id
-                    // console.log(res.data.id)
-                    
                 })
                  .catch(err => {
                      console.log(err)
@@ -72,9 +65,6 @@
         },
         methods:{
             submit(){
-                // const token = this.$cookies.get('auth-token')
-                // console.log(token)
-
                 axios({
                     method: "PUT",
                     url:`${API_URL}/reviews/`+this.review.id,
@@ -87,14 +77,9 @@
                     
                   }
 
-                ).then(({data}) => {
-                    console.log(data)  
-                    // console.log(data.id)                  
-                    // if (data == 'success'){
-                      this.$router.push({path: `/reviewdetail/${this.review.reservation}` }); 
-                    // }
+                ).then(() => {
+                    this.$router.push({path: `/reviewdetail/${this.review.reservation}` }); 
                 }).catch((err) => {
-                    console.log(this.review.id);
                     alert('수정할때 에러가 발생했습니다. \n 입력값을 다시 한번 확인해주세요!')
                     console.log(err)
                 });
@@ -108,15 +93,11 @@
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
-
 
 .review-update {
   padding-top: 100px;
-  padding-left: 15%;
-  padding-right: 15%;
-  font-family: 'Jua', sans-serif;
-
+  padding-left: 30%;
+  padding-right: 30%;
 }
 
 </style>

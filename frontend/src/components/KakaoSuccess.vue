@@ -14,7 +14,7 @@
         </b-row>
       </b-container>
     </b-row>
-    <b-button @click="toMain" style="margin-top: 20px">메인으로</b-button>
+    <b-button @click="toMain" style="margin-top: 20px; background-color: #084481;">메인으로</b-button>
   </b-container>
   </div>
 </template>
@@ -35,6 +35,7 @@ export default {
     };
   },
   created() {
+    window.scrollTo(0,0);
     this.tid = this.$cookies.get("yol_tid");
     this.$cookies.remove("yol_tid");
     this.token = this.$route.query.pg_token;

@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div style="text-align: center; padding: 100px">
     헐... 결제 실패...
-    <b-button @click="toMain">메인으로</b-button>
+    <div> 
+      <b-button @click="toMain" style="margin: 20px; background-color: #084481;">메인으로</b-button>
+    </div> 
   </div>
 </template>
 
@@ -17,6 +19,7 @@ export default {
     };
   },
   created() {
+    window.scrollTo(0,0);
     this.$cookies.remove("yol_purchasingList");
   },
   methods: {
@@ -26,6 +29,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-</style>
