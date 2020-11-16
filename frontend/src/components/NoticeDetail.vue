@@ -5,10 +5,10 @@
         <thead>
           <tr style="background-color: #bbbfca;">
             <th style="width: 70%; vertical-align: middle;">{{notice.title}}</th>
-            <th style="width: 20%;">
-              <span v-if="notice === {}">{{notice.date.slice(0,10)}}</span>
+            <th style="width: 20%; vertical-align: middle;">
+              <span v-if="notice !== {}">{{(notice.date+"").slice(0,10)}}</span>
             </th>
-            <th style="width: 10%;">조회 {{notice.hits}}</th>
+            <th style="width: 10%; vertical-align: middle;">조회 {{notice.hits}}</th>
           </tr>
         </thead>
         <tbody>
