@@ -268,7 +268,16 @@ export default {
       }).then(res => {
         setTimeout(() => {
           if(res.data.status && res.data.data.length) {
-            this.equips = this.equips.concat(res.data.data)
+            const tmp = res.data.data;
+
+            tmp.map((t) => {
+              if(t.img !== null)
+                t.img = "http://k3a210.p.ssafy.io/img/activityx_shop_img/" + t.img;
+            });
+
+            this.equips = this.equips.concat(tmp);
+
+
             $state.loaded()
             if(res.data.data.length / 12 < 1) {
               $state.complete()
