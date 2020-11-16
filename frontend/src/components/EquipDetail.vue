@@ -141,7 +141,7 @@
                     </div>
                   </td>
                   <td>
-                    일일판매수량: {{product.num}}
+                    일회구매제한: {{product.num}}
                   </td>
                 </tr>
               </table>
