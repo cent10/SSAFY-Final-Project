@@ -141,7 +141,7 @@
                     </div>
                   </td>
                   <td>
-                    일일판매수량: {{product.num}}
+                    일회구매제한: {{product.num}}
                   </td>
                 </tr>
               </table>
@@ -151,8 +151,8 @@
       </b-row>
       <b-row v-else align-h="center">
         <b-col>
-        <h5>후기리스트</h5>
-        <div style="padding:20px;">등록된 후기가 없습니다.</div>
+        <h5>상품리스트</h5>
+        <div style="padding:20px;">등록된 상품이 없습니다.</div>
         </b-col>
       </b-row>
       <b-row>
