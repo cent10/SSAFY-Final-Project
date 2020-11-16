@@ -5,13 +5,13 @@
       <thead>
         <tr style="background-color: #bbbfca;">
           <th rowspan="2" style="width: 70%; vertical-align: middle;">{{notice.title}}</th>
-          <th style="width: 20%;">
-            <span v-if="notice === {}">{{notice.date.slice(0,10)}}</span>
+          <th style="width: 20%; vertical-align: middle;">
+            <span v-if="notice !== {}">{{(notice.date+"").slice(0,10)}}</span>
           </th>
-          <th style="width: 10%;">조회 {{notice.hits}}</th>
+          <th style="width: 10%; vertical-align: middle;">조회 {{notice.hits}}</th>
         </tr>
         <tr style="background-color: #bbbfca;">
-          <th colspan="2">{{notice.name}}</th>
+          <th colspan="2" style="vertical-align: middle;">{{notice.name}}</th>
         </tr>
       </thead>
       <tbody>
