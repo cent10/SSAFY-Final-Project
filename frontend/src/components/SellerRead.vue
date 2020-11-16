@@ -71,7 +71,7 @@
                       원
                   </td>
                   <td>
-                    일일판매수량 <b-input type="number" v-model="product.num" :readonly="product.stored" style="margin: auto; text-align: right; width:80%;"/>
+                    일회구매제한 <b-input type="number" v-model="product.num" :readonly="product.stored" style="margin: auto; text-align: right; width:80%;"/>
                   </td>
                   <td v-if="product.stored">
                     <b-button v-if="isUpdating" @click="deleteProduct(i)">삭제</b-button>
